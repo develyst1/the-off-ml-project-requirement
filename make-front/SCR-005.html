@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>SCR-005 — Automation Settings | UI Mockup</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/app-skin.css">
+</head>
+<body data-page-id="SCR-005">
+<header class="mockup-top">
+  <a class="back" href="../requirement.html#SCR-005">← Back to Requirement Hub</a>
+  <div class="title">🖥 SCR-005 · Automation Settings</div>
+  <div class="chain">
+    <a class="chip wf" href="../requirement.html#WF-004">WF-004</a><span class="arrow-sm">→</span>
+    <a class="chip uc" href="../requirement.html#UC-014">UC-014</a><span class="arrow-sm">→</span>
+    <span class="chip scr active">SCR-005</span><span class="arrow-sm">→</span>
+    <a class="chip api" href="../requirement.html#API-015">API-015</a><span class="arrow-sm">→</span>
+    <span class="chip none">no TC yet</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1 class="screen-title">ตั้งค่าอัตโนมัติ (Automation Settings)</h1>
+  <p class="screen-sub"><span class="as-built">Planned — ต้องคุยกับทีมก่อนเปิดใช้จริง</span> เตรียมหน้าจอไว้สำหรับตัดสินใจเปิดใช้ API / automate / auto-answer LINE ในอนาคต</p>
+
+  <div class="device-frame">
+    <div class="device-bar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="url">app.offmai.internal/settings/automation</span>
+    </div>
+    <div class="device-canvas app">
+      <div class="app-shell">
+        <aside class="app-sidebar">
+          <div class="app-brand">
+            <span class="logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+            <div><div class="name">Off Mai Assistant</div><div class="sub">AI Tech Support Copilot</div></div>
+          </div>
+          <nav class="app-nav">
+            <a href="#"><span class="ico">📥</span>กล่องข้อความเคส</a>
+            <a href="#"><span class="ico">✅</span>ยืนยันคำแนะนำ AI</a>
+            <a href="#"><span class="ico">📊</span>ภาพรวม/สถิติ</a>
+            <a class="active" href="#"><span class="ico">⚙️</span>ตั้งค่าอัตโนมัติ</a>
+          </nav>
+          <div class="app-side-foot">v1.0 · Off Mai Tech Support</div>
+        </aside>
+        <div class="app-main">
+          <header class="app-header">
+            <div class="left"><span class="icon-btn">☰</span><h1>ตั้งค่าอัตโนมัติ</h1></div>
+            <div class="right"><span class="who">admin</span><span class="app-avatar">AD</span></div>
+          </header>
+          <div class="app-content">
+            <div class="stack">
+              <div class="m-alert orange"><span class="ai">🚧</span>
+                หน้านี้ยังเป็น <b>Planned</b> — ทีมยังไม่ได้ตัดสินใจเปิดใช้งานจริง ตาม requirement ต้นฉบับ (DOC-001):
+                "เป็นสิ่งที่ต้องคุยกับทีมต่อว่าจะให้ต่อ API / automate / auto answer line ในอนาคต"
+              </div>
+
+              <div class="m-card">
+                <div class="m-title" style="margin-bottom:12px;">เกณฑ์ความมั่นใจสำหรับแต่ละระดับ</div>
+                <div class="m-grid2">
+                  <div class="m-field"><span class="m-label">เกณฑ์ถามยืนยันทีม (UC-011)</span><div class="m-input filled">90% – 100%</div></div>
+                  <div class="m-field"><span class="m-label">เกณฑ์พิจารณา auto-answer (UC-014)</span><div class="m-input filled">= 100% ต่อเนื่อง</div></div>
+                </div>
+                <div class="row" style="margin-top:16px;">
+                  <div class="m-switch off"></div>
+                  <div><b>เปิดใช้ auto-answer อัตโนมัติ</b><div class="m-xs m-muted">ปิดอยู่ — รอมติทีม Tech Support ก่อน</div></div>
+                </div>
+              </div>
+
+              <div class="m-card">
+                <div class="m-title" style="margin-bottom:10px;">เคสที่ความมั่นใจถึง 100% แล้ว รอมติทีม</div>
+                <table class="mk-table">
+                  <tr><th>หมวดหมู่เคส</th><th>จำนวนที่ยืนยันซ้ำแล้ว</th><th>วิธีแก้</th><th>สถานะ</th></tr>
+                  <tr><td>How-to · Export รายงาน Excel</td><td>12/12 ครั้ง</td><td>"ไปที่เมนู Report &gt; Export &gt; Excel"</td><td><span class="badge-pill green">พร้อมเสนอทีม</span></td></tr>
+                  <tr><td>Data Mismatch · Cache รายงาน</td><td>9/9 ครั้ง</td><td>"กด Sync Data แล้วรอ 1-2 นาที"</td><td><span class="badge-pill green">พร้อมเสนอทีม</span></td></tr>
+                </table>
+                <div class="m-actions">
+                  <button class="m-btn-light gray" disabled>รอมติทีม — ยังไม่เปิดใช้งาน</button>
+                </div>
+              </div>
+
+              <div class="note-box danger">
+                <b>กติกาหน้าจอนี้ (UC-014):</b> ห้ามเปิด auto-answer ให้ระบบตอบลูกค้าเองโดยอัตโนมัติจนกว่าทีมจะยืนยัน —
+                หน้านี้ใช้เก็บรายการที่ "พร้อม" เพื่อนำไปคุยกับทีมเท่านั้น ไม่ใช่สวิตช์เปิดใช้งานจริงในเฟสนี้
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="comments-panel">
+    <h2>💬 Feedback / Comments <span id="commentCount" class="count-badge"></span></h2>
+    <p class="hint">คอมเมนต์บันทึกในเบราว์เซอร์นี้ (localStorage) เฉพาะไฟล์นี้ — กด "Copy All" เพื่อคัดลอกไปวางในแชทกับ AI หรือ "Export .md" เพื่อดาวน์โหลดไว้ให้ AI อ่านตอนแก้ UI</p>
+    <textarea id="commentInput" placeholder="เช่น: อยากให้ย้ายปุ่มนี้... (Ctrl+Enter เพื่อส่ง)"></textarea>
+    <div class="c-toolbar">
+      <button id="addCommentBtn" class="btn primary">+ Add Comment</button>
+      <button id="copyBtn" class="btn">📋 Copy All</button>
+      <button id="exportBtn" class="btn">⬇ Export .md</button>
+    </div>
+    <div id="commentList"></div>
+  </section>
+</main>
+<script src="assets/comments.js"></script>
+</body>
+</html>

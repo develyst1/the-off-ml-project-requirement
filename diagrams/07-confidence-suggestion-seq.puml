@@ -1,0 +1,39 @@
+@startuml 07-confidence-suggestion-seq
+title DIA-007 · Sequence — WF-004 Confidence-based Suggestion (Planned)
+skinparam shadowing false
+
+actor Customer
+boundary "LINE OA" as LINE
+control "Backend\n(Hono)" as Backend
+control "API AI CENTER" as AI
+database "Database\n(historical cases)" as DB
+boundary "MS Teams" as Teams
+actor "Tech Support\nAgent" as Tech
+
+Customer -> LINE : แจ้งปัญหาใหม่
+LINE -> Backend : webhook (API-001)
+Backend -> AI : วิเคราะห์ข้อความ (API-002)
+Backend -> DB : **API-012** POST /ai/match-confidence\n(เทียบกับเคส/วิธีแก้ในอดีต)
+DB --> Backend : confidence_pct + matched_solution_id
+
+alt confidence_pct >= 90%
+  Backend -> Teams : **API-013** POST /integrations/teams/confirm-suggestion\n"ลูกค้า X แจ้งว่า ... ผลวิเคราะห์ ... \nคาดว่าเคสนี้ตรงกับ solution นี้ใช่หรือไม่?"
+  Teams -> Tech : เห็นคำถามยืนยัน
+  Tech -> Teams : ตอบ "ใช่" / "ไม่ใช่"
+  Teams -> Backend : webhook คำตอบยืนยัน
+  alt Tech ตอบ "ใช่"
+    Backend -> DB : เพิ่ม confidence_score ให้ solution นี้
+    note right of DB
+      ถ้าสะสมจน confidence = 100%
+      ทีมจะพิจารณา UC-014:
+      เปิดใช้ API / automate / auto-answer LINE
+      (ต้องคุยกับทีมก่อนเปิดใช้งานจริง)
+    end note
+  else Tech ตอบ "ไม่ใช่"
+    Backend -> Teams : กลับเข้า flow ปกติ (WF-002)\nให้ทีมวิเคราะห์ตอบเองตามปกติ
+  end
+else confidence_pct < 90%
+  Backend -> Teams : แจ้งเคสปกติ (WF-002) ไม่ถามยืนยัน
+end
+
+@enduml

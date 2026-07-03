@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>SCR-003 — Confidence Suggestion Review | UI Mockup</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/app-skin.css">
+</head>
+<body data-page-id="SCR-003">
+<header class="mockup-top">
+  <a class="back" href="../requirement.html#SCR-003">← Back to Requirement Hub</a>
+  <div class="title">🖥 SCR-003 · Confidence Suggestion Review</div>
+  <div class="chain">
+    <a class="chip wf" href="../requirement.html#WF-004">WF-004</a><span class="arrow-sm">→</span>
+    <a class="chip uc" href="../requirement.html#UC-011">UC-011</a><span class="arrow-sm">→</span>
+    <span class="chip scr active">SCR-003</span><span class="arrow-sm">→</span>
+    <a class="chip api" href="../requirement.html#API-013">API-013</a><span class="arrow-sm">→</span>
+    <a class="chip tc" href="../requirement.html#TC-006">TC-006</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1 class="screen-title">ยืนยันคำแนะนำของ AI (Confidence Suggestion Review)</h1>
+  <p class="screen-sub"><span class="as-built">Planned — future phase (WF-004)</span> ใช้เมื่อข้อมูลเคสสะสมมากพอ ระบบจับคู่เคสใหม่กับวิธีแก้เดิม แล้วให้ทีมยืนยัน</p>
+
+  <div class="device-frame">
+    <div class="device-bar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="url">app.offmai.internal/confidence-review</span>
+    </div>
+    <div class="device-canvas app">
+      <div class="app-shell">
+        <aside class="app-sidebar">
+          <div class="app-brand">
+            <span class="logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+            <div><div class="name">Off Mai Assistant</div><div class="sub">AI Tech Support Copilot</div></div>
+          </div>
+          <nav class="app-nav">
+            <a href="#"><span class="ico">📥</span>กล่องข้อความเคส</a>
+            <a class="active" href="#"><span class="ico">✅</span>ยืนยันคำแนะนำ AI</a>
+            <a href="#"><span class="ico">📊</span>ภาพรวม/สถิติ</a>
+            <a href="#"><span class="ico">⚙️</span>ตั้งค่าอัตโนมัติ</a>
+          </nav>
+          <div class="app-side-foot">v1.0 · Off Mai Tech Support</div>
+        </aside>
+        <div class="app-main">
+          <header class="app-header">
+            <div class="left"><span class="icon-btn">☰</span><h1>ยืนยันคำแนะนำ AI</h1></div>
+            <div class="right"><span class="who">tech-support</span><span class="app-avatar">TS</span></div>
+          </header>
+          <div class="app-content">
+            <div class="stack">
+              <div class="m-alert orange"><span class="ai">🤖</span>
+                ระบบพบว่าเคสนี้มีความคล้ายกับเคสเก่าที่เคยแก้แล้ว <b>สูงถึง 96%</b> จึงขอให้ทีมช่วยยืนยันก่อนนำไปใช้จริง
+                (เกณฑ์: ถามยืนยันเมื่อความมั่นใจ ≥ 90%)
+              </div>
+
+              <div class="m-card">
+                <div class="between">
+                  <span class="m-title">CASE-2051 · คุณวรรณา พลอยงาม</span>
+                  <div class="ring" style="width:64px;height:64px;">
+                    <svg width="64" height="64" viewBox="0 0 64 64">
+                      <circle cx="32" cy="32" r="27" fill="none" stroke="#e2e8f0" stroke-width="7"/>
+                      <circle cx="32" cy="32" r="27" fill="none" stroke="#2f9e44" stroke-width="7" stroke-dasharray="169.6" stroke-dashoffset="6.8" stroke-linecap="round" transform="rotate(-90 32 32)"/>
+                    </svg>
+                    <div class="rc"><div class="big">96%</div><div class="sm">มั่นใจ</div></div>
+                  </div>
+                </div>
+                <div class="m-grid2" style="margin-top:12px;">
+                  <div>
+                    <span class="m-label">ข้อความลูกค้าแจ้งมา</span>
+                    <div class="m-input filled" style="height:auto;">"ยอดเงินในรายงานไม่ตรงกับหน้าแดชบอร์ดค่ะ"</div>
+                  </div>
+                  <div>
+                    <span class="m-label">solution เดิมที่คาดว่าตรงกัน (CASE-1832)</span>
+                    <div class="m-input filled" style="height:auto;">"เกิดจาก cache รายงานยังไม่ refresh ให้กด Sync Data มุมขวาบนแล้วรอ 1-2 นาที"</div>
+                  </div>
+                </div>
+                <div class="m-card" style="background:var(--d100);border:none;margin-top:14px;">
+                  <b>คำถามยืนยันที่ระบบจะส่งในห้อง MS Teams:</b>
+                  <div class="m-xs" style="margin-top:6px;">
+                    "ลูกค้า วรรณา พลอยงาม แจ้งว่า: ยอดเงินในรายงานไม่ตรงกับหน้าแดชบอร์ด ระบบวิเคราะห์แล้วคาดว่า
+                    <b>เคสนี้ใช่เคสที่ต้องแก้โดย solution นี้ หรือไม่?</b> (อ้างอิงจาก CASE-1832)"
+                  </div>
+                </div>
+                <div class="m-actions" style="margin-top:16px;">
+                  <button class="m-btn-light red">✕ ไม่ใช่ ให้วิเคราะห์ใหม่</button>
+                  <button class="m-btn">✓ ใช่ ยืนยัน solution นี้</button>
+                </div>
+              </div>
+
+              <div class="note-box info">
+                <b>กติกาหน้าจอนี้ (UC-010/UC-011/UC-012):</b> ถ้าทีมกด "ใช่" ระบบจะ<b>เพิ่มความมั่นใจ</b>ให้ solution นี้
+                สำหรับเคสแนวเดียวกันในอนาคต หากสะสมจนความมั่นใจถึง <b>100%</b> จะถูกบันทึกเป็นรายการที่ต้องคุยกับทีมต่อว่า
+                จะเปิดใช้ API / automate / auto-answer LINE หรือไม่ (UC-014, ดู SCR-005)
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="comments-panel">
+    <h2>💬 Feedback / Comments <span id="commentCount" class="count-badge"></span></h2>
+    <p class="hint">คอมเมนต์บันทึกในเบราว์เซอร์นี้ (localStorage) เฉพาะไฟล์นี้ — กด "Copy All" เพื่อคัดลอกไปวางในแชทกับ AI หรือ "Export .md" เพื่อดาวน์โหลดไว้ให้ AI อ่านตอนแก้ UI</p>
+    <textarea id="commentInput" placeholder="เช่น: อยากให้ย้ายปุ่มนี้... (Ctrl+Enter เพื่อส่ง)"></textarea>
+    <div class="c-toolbar">
+      <button id="addCommentBtn" class="btn primary">+ Add Comment</button>
+      <button id="copyBtn" class="btn">📋 Copy All</button>
+      <button id="exportBtn" class="btn">⬇ Export .md</button>
+    </div>
+    <div id="commentList"></div>
+  </section>
+</main>
+<script src="assets/comments.js"></script>
+</body>
+</html>

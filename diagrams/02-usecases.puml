@@ -1,0 +1,55 @@
+@startuml 02-usecases
+title DIA-002 · Use Case Diagram — UC-001..UC-014
+skinparam shadowing false
+left to right direction
+
+actor "Customer\n(ลูกค้า)" as Customer
+actor "Tech Support\nAgent" as Tech
+actor "Admin" as Admin
+actor "AI CENTER\n(system)" as AI
+
+rectangle "Off Mai Tech Support Assistant" {
+  usecase "UC-001\nส่งปัญหาทาง LINE" as UC1
+  usecase "UC-002\nวิเคราะห์ข้อความลูกค้า" as UC2
+  usecase "UC-003\nบันทึกเคสลง DB" as UC3
+  usecase "UC-004\nแจ้งเคสใน MS Teams" as UC4
+  usecase "UC-005\nตอบกลับใน MS Teams" as UC5
+  usecase "UC-006\nวิเคราะห์วิธีแก้จากคำตอบทีม" as UC6
+  usecase "UC-007\nบันทึกวิธีแก้/สถานะเคส" as UC7
+  usecase "UC-008\nปรับข้อความให้เข้าใจง่าย" as UC8
+  usecase "UC-009\nส่งคำตอบกลับลูกค้า LINE" as UC9
+  usecase "UC-010\nจับคู่ความมั่นใจกับเคสเดิม\n(Planned)" as UC10
+  usecase "UC-011\nถามยืนยัน solution ที่แนะนำ\n(Planned)" as UC11
+  usecase "UC-012\nยืนยัน/ปฏิเสธ + ปรับความมั่นใจ\n(Planned)" as UC12
+  usecase "UC-013\nดูภาพรวมสถิติเคส" as UC13
+  usecase "UC-014\nตัดสินใจเปิด auto-answer\n(Planned)" as UC14
+}
+
+Customer --> UC1
+UC1 ..> UC2 : <<include>>
+UC2 ..> UC3 : <<include>>
+UC3 ..> UC4 : <<include>>
+Tech --> UC5
+UC4 --> Tech
+UC5 ..> UC6 : <<include>>
+UC6 ..> UC7 : <<include>>
+UC7 ..> UC8 : <<include>>
+UC8 ..> UC9 : <<include>>
+UC9 --> Customer
+
+AI --> UC2
+AI --> UC6
+AI --> UC8
+AI --> UC10
+
+UC3 ..> UC10 : <<extend>>\n(เมื่อมีข้อมูลสะสมพอ)
+UC10 ..> UC11 : <<include>>
+Tech --> UC12
+UC11 --> Tech
+UC12 ..> UC10 : <<extend>>\nเพิ่ม/ลดความมั่นใจ
+
+Admin --> UC13
+Admin --> UC14
+UC13 ..> UC10 : <<extend>>
+
+@enduml

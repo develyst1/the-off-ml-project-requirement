@@ -1,0 +1,27 @@
+@startuml 05-intake-analysis-seq
+title DIA-005 · Sequence — WF-001 LINE Intake &amp; AI Analysis
+skinparam shadowing false
+
+actor Customer
+boundary "LINE OA" as LINE
+control "Backend\n(Hono)" as Backend
+control "API AI CENTER\n(bruno /chat)" as AI
+database "Database" as DB
+control "MS Teams\nWebhook" as Teams
+
+Customer -> LINE : ส่งข้อความ/แจ้งปัญหา
+LINE -> Backend : webhook event\n**API-001** POST /webhooks/line
+Backend -> AI : **API-002** POST /ai/analyze-message\n(ข้อความต้นฉบับ)
+AI --> Backend : ผลวิเคราะห์ (หมวดหมู่, สรุป, ความมั่นใจ)
+Backend -> DB : **API-003** POST /cases\n(customer, original_text, analyzed_text)
+DB --> Backend : case_id
+Backend -> Teams : **API-004** POST /integrations/teams/notify\n(ลูกค้าคนไหน + ข้อความเดิม + ผลวิเคราะห์)
+Teams --> Backend : 200 OK (ส่งเข้าห้อง Tech Support แล้ว)
+Backend --> LINE : (ไม่ตอบกลับทันที รอทีม Tech Support)
+
+note over Teams
+  เคสสถานะ = AwaitingTechSupport
+  ดูต่อได้ที่ DIA-006
+end note
+
+@enduml

@@ -1,0 +1,69 @@
+@startuml 01-system-context
+title DIA-001 · System Context — Off Mai Tech Support Assistant (WF-001..WF-004)
+skinparam shadowing false
+skinparam componentStyle rectangle
+
+actor "Customer\n(ลูกค้า)" as Customer
+actor "Tech Support\nAgent" as Tech
+actor "Admin" as Admin
+
+cloud "LINE Official Account" as LINE
+cloud "MS Teams\n(Tech Support Channel)" as Teams
+
+package "the-off-ml-project-back\n(Bun + TypeScript + Hono)" {
+  [Webhook Handlers\nAPI-001 / API-005] as Webhooks
+  [Case Service\nAPI-003 / API-007 / API-010 / API-011] as CaseSvc
+  [Analytics Service\nAPI-014] as Analytics
+  [Automation Settings\nAPI-015 (Planned)] as Automation
+  database "Database\n(Cases / Messages / Analyses / Solutions)" as DB
+}
+
+package "the-off-ml-project-front\n(Next.js + TypeScript + Mantine)" {
+  [Case Inbox\nSCR-001] as ScrInbox
+  [Case Detail\nSCR-002] as ScrDetail
+  [Confidence Review\nSCR-003] as ScrConfidence
+  [Analytics Dashboard\nSCR-004] as ScrAnalytics
+  [Automation Settings\nSCR-005 (Planned)] as ScrSettings
+}
+
+package "develyst-ai (bruno)\nAPI AI CENTER" {
+  [POST /chat\nmulti-provider fallback] as AiChat
+  [POST /chat/multi] as AiMulti
+  note right of AiChat
+    provider fallback:
+    deepseek -> xai -> gemini -> openai
+  end note
+}
+
+Customer --> LINE : ส่งข้อความ/แจ้งปัญหา
+LINE --> Webhooks : webhook (API-001)
+Webhooks --> AiChat : วิเคราะห์ข้อความลูกค้า (API-002)
+Webhooks --> CaseSvc : สร้างเคส (API-003)
+CaseSvc --> DB
+CaseSvc --> Teams : แจ้งเคสให้ทีม (API-004)
+Teams --> Tech : เห็นข้อความลูกค้า+ผลวิเคราะห์
+Tech --> Teams : ตอบกลับวิธีแก้
+Teams --> Webhooks : webhook ข้อความตอบกลับ (API-005)
+Webhooks --> AiChat : วิเคราะห์วิธีแก้ + ปรับข้อความลูกค้า (API-006/API-008)
+Webhooks --> CaseSvc : บันทึกวิธีแก้ (API-007)
+CaseSvc --> LINE : ส่งคำตอบกลับลูกค้า (API-009)
+LINE --> Customer : ได้รับคำตอบ
+
+CaseSvc --> AiChat : จับคู่ความมั่นใจกับเคสเดิม (API-012, Planned)
+CaseSvc --> Teams : ถามยืนยัน solution ที่แนะนำ (API-013, Planned)
+
+Admin --> ScrAnalytics
+Admin --> ScrSettings
+Tech --> ScrInbox
+Tech --> ScrDetail
+Tech --> ScrConfidence
+
+ScrInbox --> CaseSvc
+ScrDetail --> CaseSvc
+ScrConfidence --> CaseSvc
+ScrAnalytics --> Analytics
+ScrSettings --> Automation
+Analytics --> DB
+Automation --> DB
+
+@enduml

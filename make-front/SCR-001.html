@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>SCR-001 — Case Inbox | UI Mockup</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/app-skin.css">
+</head>
+<body data-page-id="SCR-001">
+<header class="mockup-top">
+  <a class="back" href="../requirement.html#SCR-001">← Back to Requirement Hub</a>
+  <div class="title">🖥 SCR-001 · Case Inbox</div>
+  <div class="chain">
+    <a class="chip wf" href="../requirement.html#WF-001">WF-001</a><span class="arrow-sm">→</span>
+    <a class="chip uc" href="../requirement.html#UC-003">UC-003</a><span class="arrow-sm">→</span>
+    <span class="chip scr active">SCR-001</span><span class="arrow-sm">→</span>
+    <a class="chip api" href="../requirement.html#API-010">API-010</a><span class="arrow-sm">→</span>
+    <a class="chip tc" href="../requirement.html#TC-001">TC-001</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1 class="screen-title">กล่องข้อความเคส (Case Inbox)</h1>
+  <p class="screen-sub"><span class="as-built">Planned — greenfield mockup</span> รายการเคสทั้งหมดที่ลูกค้าแจ้งเข้ามาทาง LINE พร้อมสถานะปัจจุบัน</p>
+
+  <div class="device-frame">
+    <div class="device-bar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="url">app.offmai.internal/cases</span>
+    </div>
+    <div class="device-canvas app">
+      <div class="app-shell">
+        <aside class="app-sidebar">
+          <div class="app-brand">
+            <span class="logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+            <div><div class="name">Off Mai Assistant</div><div class="sub">AI Tech Support Copilot</div></div>
+          </div>
+          <nav class="app-nav">
+            <a class="active" href="#"><span class="ico">📥</span>กล่องข้อความเคส</a>
+            <a href="#"><span class="ico">✅</span>ยืนยันคำแนะนำ AI</a>
+            <a href="#"><span class="ico">📊</span>ภาพรวม/สถิติ</a>
+            <a href="#"><span class="ico">⚙️</span>ตั้งค่าอัตโนมัติ</a>
+          </nav>
+          <div class="app-side-foot">v1.0 · Off Mai Tech Support</div>
+        </aside>
+        <div class="app-main">
+          <header class="app-header">
+            <div class="left"><span class="icon-btn">☰</span><h1>กล่องข้อความเคส</h1></div>
+            <div class="right"><span class="who">tech-support</span><span class="app-avatar">TS</span><span class="logout">ออกจากระบบ</span></div>
+          </header>
+          <div class="app-content">
+            <div class="stack">
+              <div class="kpi-grid">
+                <div class="kpi"><div class="tile blue">🆕</div><div><div class="num">7</div><div class="lbl">รอทีมตอบ</div></div></div>
+                <div class="kpi"><div class="tile orange">⏳</div><div><div class="num">3</div><div class="lbl">รอยืนยัน AI แนะนำ</div></div></div>
+                <div class="kpi"><div class="tile green">✔</div><div><div class="num">128</div><div class="lbl">ปิดเคสแล้ว (เดือนนี้)</div></div></div>
+                <div class="kpi"><div class="tile red">⚠</div><div><div class="num">1</div><div class="lbl">เกิน SLA</div></div></div>
+              </div>
+
+              <div class="m-card">
+                <div class="between" style="margin-bottom:14px;">
+                  <span class="m-title">เคสล่าสุดจากลูกค้า (LINE)</span>
+                  <div class="row">
+                    <span class="m-seg"><span class="on">ทั้งหมด</span><span>รอตอบ</span><span>รอยืนยัน AI</span><span>ปิดแล้ว</span></span>
+                  </div>
+                </div>
+                <table class="mk-table">
+                  <tr><th>ลูกค้า</th><th>ข้อความต้นฉบับ</th><th>หมวดหมู่ (AI วิเคราะห์)</th><th>ความมั่นใจ</th><th>สถานะ</th><th></th></tr>
+                  <tr>
+                    <td>คุณสมชาย ใจดี</td>
+                    <td>"เข้าระบบไม่ได้ ขึ้น error 500 ตลอดครับ"</td>
+                    <td><span class="badge-pill blue">Login/Access</span></td>
+                    <td><span class="m-badge orange">62%</span></td>
+                    <td><span class="badge-pill amber">รอทีมตอบใน Teams</span></td>
+                    <td><a href="SCR-002.html" class="m-btn-light" style="text-decoration:none;padding:6px 12px;border-radius:6px;font-size:.8em;font-weight:700;">เปิดเคส →</a></td>
+                  </tr>
+                  <tr>
+                    <td>คุณวรรณา พลอยงาม</td>
+                    <td>"ยอดเงินในรายงานไม่ตรงกับหน้าแดชบอร์ดค่ะ"</td>
+                    <td><span class="badge-pill gray">Data Mismatch</span></td>
+                    <td><span class="m-badge green">96%</span></td>
+                    <td><span class="badge-pill blue">รอยืนยัน AI แนะนำ</span></td>
+                    <td><a href="SCR-003.html" class="m-btn-light green" style="text-decoration:none;padding:6px 12px;border-radius:6px;font-size:.8em;font-weight:700;">ตรวจสอบ →</a></td>
+                  </tr>
+                  <tr>
+                    <td>คุณธนกร ศรีสุข</td>
+                    <td>"ขอวิธี export รายงานเป็น Excel หน่อยครับ"</td>
+                    <td><span class="badge-pill green">How-to</span></td>
+                    <td><span class="m-badge green">100%</span></td>
+                    <td><span class="badge-pill green">ปิดเคสแล้ว</span></td>
+                    <td><a href="SCR-002.html" class="m-btn-light gray" style="text-decoration:none;padding:6px 12px;border-radius:6px;font-size:.8em;font-weight:700;">ดูรายละเอียด →</a></td>
+                  </tr>
+                  <tr>
+                    <td>คุณอรุณ แสงทอง</td>
+                    <td>"ระบบพิมพ์ใบเสร็จช้ามาก 5 นาทีก็ยังไม่ออก"</td>
+                    <td><span class="badge-pill amber">Performance</span></td>
+                    <td><span class="m-badge red">28%</span></td>
+                    <td><span class="badge-pill red">เกิน SLA (4 ชม.)</span></td>
+                    <td><a href="SCR-002.html" class="m-btn-light red" style="text-decoration:none;padding:6px 12px;border-radius:6px;font-size:.8em;font-weight:700;">ดูด่วน →</a></td>
+                  </tr>
+                </table>
+              </div>
+
+              <div class="note-box info">
+                <b>กติกาหน้าจอนี้ (UC-003/UC-004):</b> ทุกเคสใหม่จาก LINE ต้องถูก AI CENTER วิเคราะห์และบันทึก
+                <b>ข้อความต้นฉบับ + ผลวิเคราะห์ + ตัวตนลูกค้า</b> ลง database ก่อนเสมอ ก่อนถูกส่งแจ้งทีม Tech Support ใน MS Teams —
+                แถวที่มีความมั่นใจ ≥ 90% จะถูกจัดกลุ่มไปที่คิว "รอยืนยัน AI แนะนำ" แทนคิวปกติ (ดู SCR-003)
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="comments-panel">
+    <h2>💬 Feedback / Comments <span id="commentCount" class="count-badge"></span></h2>
+    <p class="hint">คอมเมนต์บันทึกในเบราว์เซอร์นี้ (localStorage) เฉพาะไฟล์นี้ — กด "Copy All" เพื่อคัดลอกไปวางในแชทกับ AI หรือ "Export .md" เพื่อดาวน์โหลดไว้ให้ AI อ่านตอนแก้ UI</p>
+    <textarea id="commentInput" placeholder="เช่น: อยากให้ย้ายปุ่มนี้... (Ctrl+Enter เพื่อส่ง)"></textarea>
+    <div class="c-toolbar">
+      <button id="addCommentBtn" class="btn primary">+ Add Comment</button>
+      <button id="copyBtn" class="btn">📋 Copy All</button>
+      <button id="exportBtn" class="btn">⬇ Export .md</button>
+    </div>
+    <div id="commentList"></div>
+  </section>
+</main>
+<script src="assets/comments.js"></script>
+</body>
+</html>

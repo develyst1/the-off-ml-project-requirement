@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>SCR-002 — Case Detail | UI Mockup</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/app-skin.css">
+</head>
+<body data-page-id="SCR-002">
+<header class="mockup-top">
+  <a class="back" href="../requirement.html#SCR-002">← Back to Requirement Hub</a>
+  <div class="title">🖥 SCR-002 · Case Detail</div>
+  <div class="chain">
+    <a class="chip wf" href="../requirement.html#WF-002">WF-002</a><span class="arrow-sm">→</span>
+    <a class="chip uc" href="../requirement.html#UC-006">UC-006</a><span class="arrow-sm">→</span>
+    <span class="chip scr active">SCR-002</span><span class="arrow-sm">→</span>
+    <a class="chip api" href="../requirement.html#API-011">API-011</a><span class="arrow-sm">→</span>
+    <a class="chip tc" href="../requirement.html#TC-004">TC-004</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1 class="screen-title">รายละเอียดเคส (Case Detail)</h1>
+  <p class="screen-sub"><span class="as-built">Planned — greenfield mockup</span> ข้อความต้นฉบับ + ผลวิเคราะห์ + เธรด MS Teams + วิธีแก้ + ข้อความที่ส่งให้ลูกค้า อยู่ในหน้าเดียว</p>
+
+  <div class="device-frame">
+    <div class="device-bar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="url">app.offmai.internal/cases/CASE-2049</span>
+    </div>
+    <div class="device-canvas app">
+      <div class="app-shell">
+        <aside class="app-sidebar">
+          <div class="app-brand">
+            <span class="logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+            <div><div class="name">Off Mai Assistant</div><div class="sub">AI Tech Support Copilot</div></div>
+          </div>
+          <nav class="app-nav">
+            <a class="active" href="#"><span class="ico">📥</span>กล่องข้อความเคส</a>
+            <a href="#"><span class="ico">✅</span>ยืนยันคำแนะนำ AI</a>
+            <a href="#"><span class="ico">📊</span>ภาพรวม/สถิติ</a>
+            <a href="#"><span class="ico">⚙️</span>ตั้งค่าอัตโนมัติ</a>
+          </nav>
+          <div class="app-side-foot">v1.0 · Off Mai Tech Support</div>
+        </aside>
+        <div class="app-main">
+          <header class="app-header">
+            <div class="left"><span class="icon-btn">☰</span><h1>CASE-2049 · คุณสมชาย ใจดี</h1></div>
+            <div class="right"><span class="m-badge amber">รอทีมตอบใน Teams</span><span class="app-avatar">TS</span></div>
+          </header>
+          <div class="app-content">
+            <div class="stack">
+              <div class="m-card">
+                <div class="m-title" style="margin-bottom:8px;">1) ข้อความต้นฉบับจากลูกค้า (LINE)</div>
+                <div class="m-input filled" style="height:auto;white-space:pre-wrap;">"เข้าระบบไม่ได้ ขึ้น error 500 ตลอดครับ ลองมา 3 รอบแล้ว"</div>
+                <div class="m-xs m-muted" style="margin-top:6px;">line_user_id: U8a21f… · ส่งเมื่อ 03/07/2026 09:14</div>
+              </div>
+
+              <div class="m-card">
+                <div class="m-title" style="margin-bottom:8px;">2) ผลวิเคราะห์โดย API AI CENTER</div>
+                <div class="m-grid2">
+                  <div><span class="m-label">หมวดหมู่</span><span class="badge-pill blue">Login/Access · HTTP 500</span></div>
+                  <div><span class="m-label">ความมั่นใจ</span><span class="m-badge orange">62%</span></div>
+                </div>
+                <div class="m-input filled" style="height:auto;white-space:pre-wrap;margin-top:10px;">
+                  สรุป: ผู้ใช้ไม่สามารถเข้าสู่ระบบได้ พบ HTTP 500 ซ้ำหลายครั้ง อาจเกี่ยวกับ session/token
+                  หมดอายุ หรือ backend error ฝั่ง auth service — ยังไม่พบเคสเดิมที่ตรงกันแบบมั่นใจสูง
+                </div>
+              </div>
+
+              <div class="m-card">
+                <div class="m-title" style="margin-bottom:8px;">3) เธรดที่ส่งให้ทีม Tech Support ใน MS Teams</div>
+                <div class="flow-row">
+                  <div class="flow-box hl">แจ้งลูกค้า+ข้อความ+ผลวิเคราะห์</div>
+                  <span class="flow-arrow">→</span>
+                  <div class="flow-box">รอทีมตอบกลับ</div>
+                  <span class="flow-arrow">→</span>
+                  <div class="flow-box">AI วิเคราะห์คำตอบทีม</div>
+                  <span class="flow-arrow">→</span>
+                  <div class="flow-box">ปรับข้อความ + ส่งลูกค้า</div>
+                </div>
+                <div class="m-input" style="height:auto;color:#94a3b8;">ยังไม่มีการตอบกลับจากทีม Tech Support ในเธรดนี้…</div>
+              </div>
+
+              <div class="note-box danger">
+                <b>กติกาหน้าจอนี้ (UC-006/UC-007):</b> เมื่อทีม Tech Support ตอบกลับใน MS Teams ระบบต้อง
+                <b>วิเคราะห์ข้อความตอบกลับก่อนเก็บลง database</b> เพื่อสกัด "วิธีการแก้ปัญหา" ของเคสนี้ แล้วจึงค่อยปรับ
+                ข้อความให้เข้าใจง่าย (UC-008) ก่อนส่งกลับลูกค้าทาง LINE (UC-009) — ห้ามส่งข้อความดิบของทีมตรง ๆ
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="comments-panel">
+    <h2>💬 Feedback / Comments <span id="commentCount" class="count-badge"></span></h2>
+    <p class="hint">คอมเมนต์บันทึกในเบราว์เซอร์นี้ (localStorage) เฉพาะไฟล์นี้ — กด "Copy All" เพื่อคัดลอกไปวางในแชทกับ AI หรือ "Export .md" เพื่อดาวน์โหลดไว้ให้ AI อ่านตอนแก้ UI</p>
+    <textarea id="commentInput" placeholder="เช่น: อยากให้ย้ายปุ่มนี้... (Ctrl+Enter เพื่อส่ง)"></textarea>
+    <div class="c-toolbar">
+      <button id="addCommentBtn" class="btn primary">+ Add Comment</button>
+      <button id="copyBtn" class="btn">📋 Copy All</button>
+      <button id="exportBtn" class="btn">⬇ Export .md</button>
+    </div>
+    <div id="commentList"></div>
+  </section>
+</main>
+<script src="assets/comments.js"></script>
+</body>
+</html>

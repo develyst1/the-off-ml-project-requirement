@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Requirement Hub — Off Mai Tech Support Assistant</title>
+<style>
+:root {
+  --wf:  #d97706;
+  --uc:  #2563eb;
+  --scr: #059669;
+  --api: #7c3aed;
+  --tc:  #e11d48;
+  --dia: #0ea5e9;
+  --doc: #64748b;
+  --ink: #1e293b;
+  --bg:  #eef1f5;
+}
+* { box-sizing: border-box; }
+body { margin:0; font-family:"Segoe UI","Tahoma",sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; }
+a { color: inherit; }
+
+/* ===== layout ===== */
+.hub { display:grid; grid-template-columns: 280px 1fr; min-height:100vh; align-items:start; }
+aside.sidebar { position:sticky; top:0; height:100vh; overflow-y:auto; background:#0f172a; color:#e2e8f0; padding:22px 18px; }
+aside.sidebar h1 { font-size:1.05em; margin:0 0 2px; color:#fff; }
+aside.sidebar .tag { font-size:.74em; color:#94a3b8; margin-bottom:18px; }
+
+.mini-flow { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px; }
+.mini-flow .step { padding:4px 9px; border-radius:6px; font-size:.68em; font-weight:800; color:#fff; }
+.mini-flow .arrow { color:#64748b; font-weight:900; align-self:center; }
+
+.legend { background:#182338; border-radius:10px; padding:12px 14px; margin-bottom:18px; font-size:.78em; }
+.legend .row { display:flex; align-items:center; gap:8px; margin:5px 0; }
+.legend .dot { width:11px; height:11px; border-radius:3px; flex:none; }
+
+.howto { background:#182338; border-radius:10px; padding:12px 14px; margin-bottom:18px; font-size:.74em; color:#cbd5e1; }
+.howto b { color:#fff; }
+
+nav.side-nav { display:flex; flex-direction:column; gap:2px; margin-bottom: 10px;}
+nav.side-nav a { color:#cbd5e1; text-decoration:none; font-size:.85em; font-weight:600; padding:7px 10px; border-radius:7px; }
+nav.side-nav a:hover { background:#1e293b; color:#fff; }
+
+main { padding: 28px 34px 90px; max-width: 1200px; }
+section { margin-bottom: 46px; scroll-margin-top: 16px; }
+section > h2 { font-size:1.3em; border-bottom:3px solid #cbd5e1; padding-bottom:8px; margin-bottom:18px; display:flex; align-items:center; gap:10px; }
+section > p.section-sub { color:var(--doc); font-size:.9em; margin-top:-10px; margin-bottom:20px; max-width: 860px; }
+
+/* ===== cards / badges / chips ===== */
+article { background:#fff; border-radius:12px; border:1px solid #e2e6ec; box-shadow:0 2px 8px rgba(15,23,42,.05); padding:18px 22px; margin-bottom:16px; scroll-margin-top:16px; }
+article:target { animation: flash 1.8s ease; }
+@keyframes flash { 0% { box-shadow:0 0 0 6px rgba(255,196,0,.85);} 100% { box-shadow:0 0 0 3px rgba(37,99,235,.35);} }
+
+article.wf-card { border-left:6px solid var(--wf); }
+article.uc-card { border-left:6px solid var(--uc); }
+article.scr-card { border-left:6px solid var(--scr); }
+article.api-card { border-left:6px solid var(--api); }
+article.tc-card { border-left:6px solid var(--tc); }
+article.dia-card { border-left:6px solid var(--dia); }
+article.doc-card { border-left:6px solid var(--doc); }
+
+article h3 { margin:0 0 10px; font-size:1.05em; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+
+.id-badge { display:inline-flex; align-items:center; padding:3px 10px; border-radius:6px; font-size:.72em; font-weight:900; color:#fff; letter-spacing:.02em; }
+.id-badge.wf { background:var(--wf); } .id-badge.uc { background:var(--uc); } .id-badge.scr { background:var(--scr); }
+.id-badge.api { background:var(--api); } .id-badge.tc { background:var(--tc); } .id-badge.dia { background:var(--dia); } .id-badge.doc { background:var(--doc); }
+
+.chip { display:inline-flex; align-items:center; padding:3px 10px; border-radius:20px; font-size:.74em; font-weight:800; color:#fff; text-decoration:none; white-space:nowrap; }
+.chip.wf { background:var(--wf); } .chip.uc { background:var(--uc); } .chip.scr { background:var(--scr); }
+.chip.api { background:var(--api); } .chip.tc { background:var(--tc); } .chip.dia { background:var(--dia); }
+.chip.active { outline:2px solid #0f172a; outline-offset:1px; }
+.chip.none { background:#e2e8f0; color:#64748b; }
+.chip.hl, .id-badge.hl { transform: scale(1.12); box-shadow:0 0 0 3px rgba(15,23,42,.28); }
+
+.chain { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin: 6px 0 12px; }
+.arrow { color:#94a3b8; font-weight:900; }
+
+.status-pill { display:inline-block; padding:2px 9px; border-radius:10px; font-size:.68em; font-weight:800; }
+.status-pill.implemented { background:#d1f5e0; color:#0a6b3d; }
+.status-pill.partial { background:#fff3cd; color:#856404; }
+.status-pill.planned { background:#e2e8f0; color:#475569; }
+
+table.field-table, table.matrix-table { width:100%; border-collapse:collapse; font-size:.86em; margin-top:8px; }
+table.field-table th, table.matrix-table th { background:#f1f3f5; text-align:left; padding:8px 10px; border-bottom:2px solid #e2e6ec; }
+table.field-table td, table.matrix-table td { padding:8px 10px; border-bottom:1px solid #eef1f5; vertical-align: top; }
+pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius:8px; font-size:.78em; overflow-x:auto; }
+
+/* ===== UI toggle (mockup iframe) ===== */
+.ui-toggle-row { display:flex; gap:10px; margin: 10px 0 4px; flex-wrap:wrap; }
+.ui-btn { padding:7px 14px; border-radius:7px; border:1px solid #d7dce3; background:#f8fafc; font-weight:700; font-size:.8em; cursor:pointer; text-decoration:none; color:var(--ink); }
+.ui-btn.open { background: var(--scr); color:#fff; border-color:var(--scr); }
+.ui-frame-wrap { margin-top:12px; border:1px solid #e2e6ec; border-radius:10px; overflow:hidden; }
+.ui-frame-wrap iframe { width:100%; height:640px; border:0; display:block; }
+
+/* ===== diagrams ===== */
+.dia-tools { display:flex; gap:10px; margin:8px 0 12px; flex-wrap:wrap; }
+.dia-view { background:#fff; border:1px dashed #cbd5e1; border-radius:10px; min-height:120px; display:flex; align-items:center; justify-content:center; padding:10px; overflow:auto; }
+.dia-view img { max-width:100%; }
+.dia-src { display:none; background:#0f172a; color:#a5f3fc; padding:12px 14px; border-radius:8px; font-size:.74em; overflow-x:auto; white-space:pre; margin-top:10px; }
+.dia-src.open { display:block; }
+.dia-loading { color:var(--doc); font-size:.85em; }
+
+/* ===== matrix ===== */
+#matrix .matrix-note { font-size:.82em; color:var(--doc); margin-top:10px; }
+</style>
+</head>
+<body>
+<div class="hub">
+<aside class="sidebar">
+  <h1>🛠 Off Mai</h1>
+  <div class="tag">Requirement Hub · AI Tech Support Assistant</div>
+
+  <div class="mini-flow">
+    <span class="step" style="background:var(--wf)">WF</span><span class="arrow">→</span>
+    <span class="step" style="background:var(--uc)">UC</span><span class="arrow">→</span>
+    <span class="step" style="background:var(--scr)">SCR</span><span class="arrow">→</span>
+    <span class="step" style="background:var(--api)">API</span><span class="arrow">→</span>
+    <span class="step" style="background:var(--tc)">TC</span>
+  </div>
+
+  <div class="legend">
+    <div class="row"><span class="dot" style="background:var(--wf)"></span>Workflow (WF)</div>
+    <div class="row"><span class="dot" style="background:var(--uc)"></span>Use Case (UC)</div>
+    <div class="row"><span class="dot" style="background:var(--scr)"></span>Screen (SCR)</div>
+    <div class="row"><span class="dot" style="background:var(--api)"></span>API (API)</div>
+    <div class="row"><span class="dot" style="background:var(--tc)"></span>Test Case (TC)</div>
+    <div class="row"><span class="dot" style="background:var(--dia)"></span>Diagram (DIA)</div>
+    <div class="row"><span class="dot" style="background:var(--doc)"></span>Source Doc (DOC)</div>
+  </div>
+
+  <div class="howto">
+    <b>วิธีอ่านหน้านี้:</b> เอาเมาส์วางบน badge/chip ใด ๆ — ทุกจุดที่อ้างถึง ID เดียวกันจะไฮไลต์พร้อมกันทั้งหน้า
+    คลิก chip เพื่อกระโดดไปการ์ดนั้น (การ์ดจะกะพริบสีเหลืองชั่วครู่)
+  </div>
+
+  <nav class="side-nav">
+    <a href="#overview">① Overview / DOC</a>
+    <a href="#workflows">② Workflows</a>
+    <a href="#usecases">③ Use Cases</a>
+    <a href="#screens">④ Screens</a>
+    <a href="#apis">⑤ APIs</a>
+    <a href="#testcases">⑥ Test Cases</a>
+    <a href="#matrix">⑦ Traceability Matrix</a>
+    <a href="#diagrams">⑧ Diagrams (PlantUML)</a>
+  </nav>
+</aside>
+
+<main>
+
+<!-- ============================================================ -->
+<section id="overview">
+<h2>① Overview</h2>
+<p class="section-sub">
+  โปรเจค <b>"Off Mai"</b> (ออฟใหม่) — ระบบผู้ช่วยแทนทีม Tech Support ในบริษัท รับแจ้งปัญหา/คำถามจากลูกค้าทาง LINE
+  วิเคราะห์ด้วย API AI CENTER จัดเก็บลง database ส่งต่อให้ทีม Tech Support ทาง MS Teams และวนกลับมาวิเคราะห์คำตอบของทีม
+  ก่อนส่งกลับลูกค้า — ในระยะยาวจะสะสมข้อมูลเพื่อแนะนำวิธีแก้แบบมีความมั่นใจ (confidence) และพิจารณา auto-answer ในอนาคต
+  โหมดของ requirement นี้คือ <b>Greenfield</b> (front/back ยังเป็นแค่ README ยังไม่ได้พัฒนาจริง) จึงออกแบบ mockup จากสเปกที่เขียนไว้
+  ทุกหน้าจอถูกแท็ก <b>Planned</b>
+</p>
+
+<article id="DOC-001" class="doc-card">
+  <h3><span class="id-badge doc">DOC-001</span> prompt.md — ต้นฉบับ Requirement (Flow เต็ม)</h3>
+  <p>ไฟล์ข้อความต้นฉบับที่เจ้าของโปรเจคเขียนอธิบาย flow ทั้งหมดของระบบ ตั้งแต่การรับแจ้งปัญหาทาง LINE จนถึงแผนการเติบโตของข้อมูล
+  ในอนาคต (confidence-based suggestion และ auto-answer) — เป็นแหล่งอ้างอิงหลักของ WF-001 ถึง WF-004 ทั้งหมด</p>
+  <p style="font-size:.82em;color:var(--doc);">path: <code>the-off-ml-project-requirement/prompt.md</code></p>
+</article>
+
+<article id="DOC-002" class="doc-card">
+  <h3><span class="id-badge doc">DOC-002</span> prompt.pdf — สำเนาส่งออกของ DOC-001</h3>
+  <p>ไฟล์ PDF ที่มีเนื้อหาเดียวกันกับ <a href="#DOC-001">DOC-001</a> ทุกประการ (export จากเอกสารต้นฉบับ) — เก็บไว้เป็นสำเนาอ้างอิงคู่กัน</p>
+  <p style="font-size:.82em;color:var(--doc);">path: <code>the-off-ml-project-requirement/prompt.pdf</code></p>
+</article>
+
+<article class="doc-card">
+  <h3><span class="id-badge doc">REPOS</span> Repo ที่เกี่ยวข้องในโปรเจคนี้</h3>
+  <table class="field-table">
+    <tr><th>Repo</th><th>บทบาท</th><th>สถานะตอนนี้</th></tr>
+    <tr><td><code>the-off-ml-project-front</code></td><td>Frontend — Next.js + TypeScript + Mantine</td><td><span class="status-pill planned">Planned</span> (README เท่านั้น)</td></tr>
+    <tr><td><code>the-off-ml-project-back</code></td><td>Backend — Bun + TypeScript + Hono</td><td><span class="status-pill planned">Planned</span> (README เท่านั้น)</td></tr>
+    <tr><td><code>the-off-ml-project-requirement</code></td><td>Requirement Hub (repo นี้)</td><td>กำลังจัดทำ</td></tr>
+    <tr><td><code>develyst-ai/bruno</code></td><td>API AI CENTER — bruno collection (multi-provider: OpenAI, Gemini, xAI Grok, DeepSeek, fallback chain)</td><td>มีอยู่แล้ว (ใช้เป็น backend เรียก AI)</td></tr>
+  </table>
+</article>
+</section>
+
+<!-- ============================================================ -->
+<section id="workflows">
+<h2>② Workflows</h2>
+<p class="section-sub">4 workflow หลัก ตั้งแต่รับแจ้งปัญหาจนถึงการเรียนรู้และ automation ในอนาคต</p>
+
+<article id="WF-001" class="wf-card">
+  <h3><span class="id-badge wf">WF-001</span> รับแจ้งปัญหาทาง LINE &amp; วิเคราะห์โดย AI CENTER</h3>
+  <div class="chain">
+    <span class="chip wf active">WF-001</span><span class="arrow">→</span>
+    <a class="chip uc" href="#UC-001">UC-001</a>
+    <a class="chip uc" href="#UC-002">UC-002</a>
+    <a class="chip uc" href="#UC-003">UC-003</a>
+  </div>
+  <p>ลูกค้าส่งข้อความ/แจ้งปัญหาผ่าน LINE → ระบบเรียก API AI CENTER วิเคราะห์ข้อความ → บันทึกเคส (ลูกค้าคนไหน + ข้อความต้นฉบับ +
+  ข้อความที่วิเคราะห์แล้ว) ลง database ทั้งหมด ก่อนส่งต่อไปยัง WF-002</p>
+</article>
+
+<article id="WF-002" class="wf-card">
+  <h3><span class="id-badge wf">WF-002</span> ส่งต่อทีม Tech Support ทาง MS Teams &amp; วิเคราะห์คำตอบ</h3>
+  <div class="chain">
+    <span class="chip wf active">WF-002</span><span class="arrow">→</span>
+    <a class="chip uc" href="#UC-004">UC-004</a>
+    <a class="chip uc" href="#UC-005">UC-005</a>
+    <a class="chip uc" href="#UC-006">UC-006</a>
+    <a class="chip uc" href="#UC-007">UC-007</a>
+  </div>
+  <p>ระบบส่งข้อความลูกค้า + ข้อความต้นฉบับ + ผลวิเคราะห์ ให้ทีม Tech Support ใน MS Teams เมื่อทีมแก้ไข/ตอบกลับแล้ว ระบบต้อง
+  วิเคราะห์ข้อความตอบกลับก่อน เพื่อสกัด "วิธีการแก้ปัญหา" ของเคสนั้น ๆ แล้วจึงเก็บลง database</p>
+</article>
+
+<article id="WF-003" class="wf-card">
+  <h3><span class="id-badge wf">WF-003</span> ส่งคำตอบกลับลูกค้าทาง LINE</h3>
+  <div class="chain">
+    <span class="chip wf active">WF-003</span><span class="arrow">→</span>
+    <a class="chip uc" href="#UC-008">UC-008</a>
+    <a class="chip uc" href="#UC-009">UC-009</a>
+  </div>
+  <p>นำข้อความของทีม Tech Support ไปส่งลูกค้าที่ LINE โดยระบบอาจช่วยปรับ/แก้ข้อความของทีมให้เข้าใจง่ายขึ้นก่อนส่งถึงลูกค้า</p>
+</article>
+
+<article id="WF-004" class="wf-card">
+  <h3><span class="id-badge wf">WF-004</span> การเรียนรู้เคส &amp; แนะนำวิธีแก้ตามความมั่นใจ <span class="status-pill planned">Planned — future phase</span></h3>
+  <div class="chain">
+    <span class="chip wf active">WF-004</span><span class="arrow">→</span>
+    <a class="chip uc" href="#UC-010">UC-010</a>
+    <a class="chip uc" href="#UC-011">UC-011</a>
+    <a class="chip uc" href="#UC-012">UC-012</a>
+    <a class="chip uc" href="#UC-013">UC-013</a>
+    <a class="chip uc" href="#UC-014">UC-014</a>
+  </div>
+  <p>เมื่อข้อมูลเคสเติบโตมากพอ (เคสที่เกิดบ่อย ประเภท หมวดหมู่ ความมั่นใจ วิธีแก้ของแต่ละเคส) ระบบจะวิเคราะห์เคสใหม่เทียบกับ
+  ประวัติก่อนแจ้งเข้ามา หากมั่นใจ 90-100% จะถามทีม Tech Support ให้ยืนยันก่อน หากยืนยันซ้ำจนมั่นใจ 100% จะเก็บไว้เป็นรายการ
+  ที่ต้องคุยกับทีมต่อว่าจะเปิดใช้ API / automate / auto-answer LINE หรือไม่</p>
+</article>
+</section>
+
+<!-- ============================================================ -->
+<section id="usecases">
+<h2>③ Use Cases</h2>
+<p class="section-sub">ทุกการ์ดแสดง chain เต็ม WF → UC → SCR → API → TC</p>
+
+<article id="UC-001" class="uc-card">
+  <h3><span class="id-badge uc">UC-001</span> ลูกค้าส่งปัญหาเข้ามาทาง LINE</h3>
+  <div class="chain">
+    <a class="chip wf" href="#WF-001">WF-001</a><span class="arrow">→</span>
+    <span class="chip uc active">UC-001</span><span class="arrow">→</span>
+    <span class="chip none">ไม่มี SCR (ฝั่งลูกค้าใช้ LINE app)</span><span class="arrow">→</span>
+    <a class="chip api" href="#API-001">API-001</a><span class="arrow">→</span>
+    <a class="chip tc" href="#TC-001">TC-001</a>
+  </div>
+  <p><b>Actor:</b> Customer · ลูกค้าพิมพ์คำถามหรือแจ้งปัญหาผ่านช่องทาง LINE Official Account ของบริษัท</p>
+</article>
+
+<article id="UC-002" class="uc-card">
+  <h3><span class="id-badge uc">UC-002</span> ระบบวิเคราะห์ข้อความลูกค้าโดย API AI CENTER</h3>
+  <div class="chain">
+    <a class="chip wf" href="#WF-001">WF-001</a><span class="arrow">→</span>
+    <span class="chip uc active">UC-002</span><span class="arrow">→</span>
+    <a class="chip scr" href="#SCR-001">SCR-001</a><span class="arrow">→</span>
+    <a class="chip api" href="#API-002">API-002</a><span class="arrow">→</span>
+    <a class="chip tc" href="#TC-002">TC-002</a>
+  </div>
+  <p><b>Actor:</b> System (AI) · ส่งข้อความต้นฉบับไปที่ API AI CENTER (bruno /chat, fallback deepseek→xai→gemini→openai) เพื่อสรุปหมวดหมู่และเนื้อหา</p>
+</article>
+
+<article id="UC-003" class="uc-card">
+  <h3><span class="id-badge uc">UC-003</span> ระบบบันทึกเคสลง database</h3>
+  <div class="chain">
+    <a class="chip wf" href="#WF-001">WF-001</a><span class="arrow">→</span>
+    <span class="chip uc active">UC-003</span><span class="arrow">→</span>
+    <a class="chip scr" href="#SCR-001">SCR-001</a><span class="arrow">→</span>
+    <a class="chip api" href="#API-003">API-003</a><span class="arrow">→</span>
+    <a class="chip tc" href="#TC-001">TC-001</a>
+  </div>
+  <p><b>Actor:</b> System · บันทึก <b>ลูกค้าคนไหน + ข้อความต้นฉบับ + ข้อความที่วิเคราะห์แล้ว</b> ลง database ครบทั้ง 3 ส่วนก่อนส่งต่อ WF-002</p>
+</article>
+
+<article id="UC-004" class="uc-card">
+  <h3><span class="id-badge uc">UC-004</span> ระบบส่งเคสแจ้งทีม Tech Support ใน MS Teams</h3>
+  <div class="chain">
+    <a class="chip wf" href="#WF-002">WF-002</a><span class="arrow">→</span>
+    <span class="chip uc active">UC-004</span><span class="arrow">→</span>
+    <a class="chip scr" href="#SCR-002">SCR-002</a><span class="arrow">→</span>
+    <a class="chip api" href="#API-004">API-004</a><span class="arrow">→</span>
+    <a class="chip tc" href="#TC-003">TC-003</a>
+  </div>
+  <p><b>Actor:</b> System · ส่งข้อความลูกค้าคนนั้น + ข้อความต้นฉบับ + ข้อความที่วิเคราะห์แล้ว เข้าห้อง MS Teams ของทีม Tech Support</p>
+</article>
+
+<article id="UC-005" class="uc-card">
+  <h3><span class="id-badge uc">UC-005</span> ทีม Tech Support ตอบกลับใน MS Teams</h3>
+  <div class="chain">
+    <a class="chip wf" href="#WF-002">WF-002</a><span class="arrow">→</span>
+    <span class="chip uc active">UC-005</span><span class="arrow">→</span>
+    <a class="chip scr" href="#SCR-002">SCR-002</a><span class="arrow">→</span>
+    <a class="chip api" href="#API-005">API-005</a><span class="arrow">→</span>
+    <a class="chip tc" href="#TC-003">TC-003</a>
+  </div>
+  <p><b>Actor:</b> Tech Support Agent · เมื่อแก้ไข/ได้รับการช่วยเหลือแก้ไขแล้ว ทีมตอบกลับในเธรดเดิมของ MS Teams</p>
+</article>
+
+<article id="UC-006" class="uc-card">
+  <h3><span class="id-badge uc">UC-006</span> ระบบวิเคราะห์ข้อความตอบกลับของ Tech Support เพื่อสกัดวิธีแก้ปัญหา</h3>
+  <div class="chain">
+    <a class="chip wf" href="#WF-002">WF-002</a><span class="arrow">→</span>
+    <span class="chip uc active">UC-006</span><span class="arrow">→</span>
+    <a class="chip scr" href="#SCR-002">SCR-002</a><span class="arrow">→</span>
+    <a class="chip api" href="#API-006">API-006</a><span class="arrow">→</span>
+    <a class="chip tc" href="#TC-004">TC-004</a>
+  </div>
+  <p><b>Actor:</b> System (AI) · วิเคราะห์ข้อความตอบกลับ<b>ก่อนเก็บลง database</b> เพื่อให้ได้วิธีการแก้ปัญหาของเคสนั้น ๆ</p>
+</article>
+
+<article id="UC-007" class="uc-card">
+  <h3><span class="id-badge uc">UC-007</span> ระบบบันทึกวิธีแก้ปัญหา/สถานะเคสลง database</h3>
+  <div class="chain">
+    <a class="chip wf" href="#WF-002">WF-002</a><span class="arrow">→</span>
+    <span class="chip uc active">UC-007</span><span class="arrow">→</span>
+    <a class="chip scr" href="#SCR-002">SCR-002</a><span class="arrow">→</span>
+    <a class="chip api" href="#API-007">API-007</a><span class="arrow">→</span>
+    <a class="chip tc" href="#TC-004">TC-004</a>
+  </div>
+  <p><b>Actor:</b> System · บันทึกวิธีแก้ปัญหาที่วิเคราะห์ได้ + อัปเดตสถานะเคสเป็น Resolved</p>
+</article>
+
+<article id="UC-008" class="uc-card">
+  <h3><span class="id-badge uc">UC-008</span> ระบบปรับข้อความ Tech Support ให้เข้าใจง่ายสำหรับลูกค้า</h3>
+  <div class="chain">
+    <a class="chip wf" href="#WF-003">WF-003</a><span class="arrow">→</span>
+    <span class="chip uc active">UC-008</span><span class="arrow">→</span>
+    <a class="chip scr" href="#SCR-002">SCR-002</a><span class="arrow">→</span>
+    <a class="chip api" href="#API-008">API-008</a><span class="arrow">→</span>
+    <a class="chip tc" href="#TC-005">TC-005</a>
+  </div>
+  <p><b>Actor:</b> System (AI) · ช่วยแก้ข้อความของทีม Tech Support ให้ลูกค้าเข้าใจง่ายขึ้น ก่อนส่งจริง (ไม่ส่งข้อความดิบของทีมตรง ๆ)</p>
+</article>
+
+<article id="UC-009" class="uc-card">
+  <h3><span class="id-badge uc">UC-009</span> ระบบส่งข้อความคำตอบสุดท้ายให้ลูกค้าทาง LINE</h3>
+  <div class="chain">
+    <a class="chip wf" href="#WF-003">WF-003</a><span class="arrow">→</span>
+    <span class="chip uc active">UC-009</span><span class="arrow">→</span>
+    <a class="chip scr" href="#SCR-002">SCR-002</a><span class="arrow">→</span>
+    <a class="chip api" href="#API-009">API-009</a><span class="arrow">→</span>
+    <a class="chip tc" href="#TC-005">TC-005</a>
+  </div>
+  <p><b>Actor:</b> System · ส่งข้อความสุดท้าย (ที่ปรับแล้ว) กลับไปหาลูกค้าคนเดิมที่แจ้งเคสเข้ามาทาง LINE</p>
+</article>
+
+<article id="UC-010" class="uc-card">
+  <h3><span class="id-badge uc">UC-010</span> ระบบจับคู่เคสใหม่กับวิธีแก้ในอดีต พร้อมคำนวณความมั่นใจ <span class="status-pill planned">Planned</span></h3>
+  <div class="chain">
+    <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">→</span>
+    <span class="chip uc active">UC-010</span><span class="arrow">→</span>
+    <a class="chip scr" href="#SCR-003">SCR-003</a><span class="arrow">→</span>
+    <a class="chip api" href="#API-012">API-012</a><span class="arrow">→</span>
+    <a class="chip tc" href="#TC-006">TC-006</a>
+  </div>
+  <p><b>Actor:</b> System (AI) · เมื่อมีข้อมูลสะสมมากพอ ระบบวิเคราะห์ก่อนว่าเคสใหม่ที่แจ้งเข้ามามีข้อมูลการแก้ปัญหาแนวเดียวกันมากน้อยแค่ไหน (%)</p>
+</article>
+
+<article id="UC-011" class="uc-card">
+  <h3><span class="id-badge uc">UC-011</span> ระบบถามยืนยันทีม Tech Support เมื่อความมั่นใจ 90-100% <span class="status-pill planned">Planned</span></h3>
+  <div class="chain">
+    <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">→</span>
+    <span class="chip uc active">UC-011</span><span class="arrow">→</span>
+    <a class="chip scr" href="#SCR-003">SCR-003</a><span class="arrow">→</span>
+    <a class="chip api" href="#API-013">API-013</a><span class="arrow">→</span>
+    <a class="chip tc" href="#TC-006">TC-006</a>
+  </div>
+  <p><b>Actor:</b> System → Tech Support · แจ้งว่าลูกค้าคนไหนแจ้งอะไรมา + ผลวิเคราะห์ แล้วถามต่อว่า "เคสนี้ใช่เคสที่ต้องแก้โดย solution นี้ หรือไม่"</p>
+</article>
+
+<article id="UC-012" class="uc-card">
+  <h3><span class="id-badge uc">UC-012</span> Tech Support ยืนยัน/ปฏิเสธคำแนะนำ ระบบปรับความมั่นใจ <span class="status-pill planned">Planned</span></h3>
+  <div class="chain">
+    <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">→</span>
+    <span class="chip uc active">UC-012</span><span class="arrow">→</span>
+    <a class="chip scr" href="#SCR-003">SCR-003</a><span class="arrow">→</span>
+    <a class="chip api" href="#API-013">API-013</a><span class="arrow">→</span>
+    <a class="chip tc" href="#TC-007">TC-007</a>
+  </div>
+  <p><b>Actor:</b> Tech Support Agent · ถ้าตอบ "ใช่" ระบบเพิ่มความมั่นใจให้ solution นั้นสำหรับเคสแนวเดียวกันในอนาคต</p>
+</article>
+
+<article id="UC-013" class="uc-card">
+  <h3><span class="id-badge uc">UC-013</span> Admin ดูภาพรวมเคส (ความถี่/ประเภท/หมวดหมู่/ความมั่นใจ)</h3>
+  <div class="chain">
+    <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">→</span>
+    <span class="chip uc active">UC-013</span><span class="arrow">→</span>
+    <a class="chip scr" href="#SCR-004">SCR-004</a><span class="arrow">→</span>
+    <a class="chip api" href="#API-014">API-014</a><span class="arrow">→</span>
+    <a class="chip tc" href="#TC-008">TC-008</a>
+  </div>
+  <p><b>Actor:</b> Admin · ดูสถิติเคสที่เกิดขึ้นบ่อย ประเภท หมวดหมู่ของเคส ความมั่นใจในข้อมูล และการแก้ปัญหาของแต่ละเคส</p>
+</article>
+
+<article id="UC-014" class="uc-card">
+  <h3><span class="id-badge uc">UC-014</span> ทีมตัดสินใจเปิดใช้ auto-answer/automation <span class="status-pill planned">Planned</span></h3>
+  <div class="chain">
+    <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">→</span>
+    <span class="chip uc active">UC-014</span><span class="arrow">→</span>
+    <a class="chip scr" href="#SCR-005">SCR-005</a><span class="arrow">→</span>
+    <a class="chip api" href="#API-015">API-015</a><span class="arrow">→</span>
+    <span class="chip none">no TC yet</span>
+  </div>
+  <p><b>Actor:</b> Admin / Tech Support Team · เมื่อความมั่นใจของ solution ใดถึง 100% ต่อเนื่อง เก็บไว้เป็นรายการที่ต้องคุยกับทีมต่อว่าจะเปิดใช้ API / automate / auto-answer LINE หรือไม่</p>
+</article>
+</section>
+
+<!-- ============================================================ -->
+<section id="screens">
+<h2>④ Screens</h2>
+<p class="section-sub">Frontend: Next.js + TypeScript + Mantine (the-off-ml-project-front) — ทุกหน้าจอ <span class="status-pill planned">Planned</span> (greenfield mockup) เพราะยังไม่ได้พัฒนาจริง</p>
+
+<article id="SCR-001" class="scr-card">
+  <h3><span class="id-badge scr">SCR-001</span> Case Inbox <span class="status-pill planned">Planned</span></h3>
+  <div class="chain">
+    <a class="chip wf" href="#WF-001">WF-001</a><span class="arrow">→</span>
+    <a class="chip uc" href="#UC-003">UC-003</a><span class="arrow">→</span>
+    <span class="chip scr active">SCR-001</span><span class="arrow">→</span>
+    <a class="chip api" href="#API-010">API-010</a><span class="arrow">→</span>
+    <a class="chip tc" href="#TC-001">TC-001</a>
+  </div>
+  <p>รายการเคสทั้งหมดจาก LINE พร้อมหมวดหมู่ที่ AI วิเคราะห์ ความมั่นใจ และสถานะ (รอทีมตอบ / รอยืนยัน AI แนะนำ / ปิดแล้ว / เกิน SLA)</p>
+  <div class="ui-toggle-row">
+    <button class="ui-btn view-ui-btn" data-target="frame-SCR-001">🖼 View UI Mockup ▾</button>
+    <a class="ui-btn" href="make-front/SCR-001.html" target="_blank">↗ Open Full Page</a>
+  </div>
+  <div class="ui-frame-wrap" id="frame-SCR-001" hidden><iframe data-src="make-front/SCR-001.html" loading="lazy"></iframe></div>
+</article>
+
+<article id="SCR-002" class="scr-card">
+  <h3><span class="id-badge scr">SCR-002</span> Case Detail <span class="status-pill planned">Planned</span></h3>
+  <div class="chain">
+    <a class="chip wf" href="#WF-002">WF-002</a><span class="arrow">→</span>
+    <a class="chip uc" href="#UC-006">UC-006</a><span class="arrow">→</span>
+    <span class="chip scr active">SCR-002</span><span class="arrow">→</span>
+    <a class="chip api" href="#API-011">API-011</a><span class="arrow">→</span>
+    <a class="chip tc" href="#TC-004">TC-004</a>
+  </div>
+  <p>ข้อความต้นฉบับ + ผลวิเคราะห์ + เธรด MS Teams + วิธีแก้ + ข้อความที่ส่งให้ลูกค้า อยู่ในหน้าเดียว</p>
+  <div class="ui-toggle-row">
+    <button class="ui-btn view-ui-btn" data-target="frame-SCR-002">🖼 View UI Mockup ▾</button>
+    <a class="ui-btn" href="make-front/SCR-002.html" target="_blank">↗ Open Full Page</a>
+  </div>
+  <div class="ui-frame-wrap" id="frame-SCR-002" hidden><iframe data-src="make-front/SCR-002.html" loading="lazy"></iframe></div>
+</article>
+
+<article id="SCR-003" class="scr-card">
+  <h3><span class="id-badge scr">SCR-003</span> Confidence Suggestion Review <span class="status-pill planned">Planned — WF-004</span></h3>
+  <div class="chain">
+    <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">→</span>
+    <a class="chip uc" href="#UC-011">UC-011</a><span class="arrow">→</span>
+    <span class="chip scr active">SCR-003</span><span class="arrow">→</span>
+    <a class="chip api" href="#API-013">API-013</a><span class="arrow">→</span>
+    <a class="chip tc" href="#TC-006">TC-006</a>
+  </div>
+  <p>ให้ทีม Tech Support ยืนยันคำแนะนำของ AI เมื่อความมั่นใจ ≥ 90% ก่อนนำ solution เดิมไปใช้กับเคสใหม่</p>
+  <div class="ui-toggle-row">
+    <button class="ui-btn view-ui-btn" data-target="frame-SCR-003">🖼 View UI Mockup ▾</button>
+    <a class="ui-btn" href="make-front/SCR-003.html" target="_blank">↗ Open Full Page</a>
+  </div>
+  <div class="ui-frame-wrap" id="frame-SCR-003" hidden><iframe data-src="make-front/SCR-003.html" loading="lazy"></iframe></div>
+</article>
+
+<article id="SCR-004" class="scr-card">
+  <h3><span class="id-badge scr">SCR-004</span> Analytics Dashboard <span class="status-pill planned">Planned — WF-004</span></h3>
+  <div class="chain">
+    <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">→</span>
+    <a class="chip uc" href="#UC-013">UC-013</a><span class="arrow">→</span>
+    <span class="chip scr active">SCR-004</span><span class="arrow">→</span>
+    <a class="chip api" href="#API-014">API-014</a><span class="arrow">→</span>
+    <a class="chip tc" href="#TC-008">TC-008</a>
+  </div>
+  <p>ความถี่ของเคส ประเภท/หมวดหมู่ การกระจายความมั่นใจ และ KPI ภาพรวมสำหรับ Admin</p>
+  <div class="ui-toggle-row">
+    <button class="ui-btn view-ui-btn" data-target="frame-SCR-004">🖼 View UI Mockup ▾</button>
+    <a class="ui-btn" href="make-front/SCR-004.html" target="_blank">↗ Open Full Page</a>
+  </div>
+  <div class="ui-frame-wrap" id="frame-SCR-004" hidden><iframe data-src="make-front/SCR-004.html" loading="lazy"></iframe></div>
+</article>
+
+<article id="SCR-005" class="scr-card">
+  <h3><span class="id-badge scr">SCR-005</span> Automation Settings <span class="status-pill planned">Planned — WF-004, ต้องคุยกับทีมก่อน</span></h3>
+  <div class="chain">
+    <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">→</span>
+    <a class="chip uc" href="#UC-014">UC-014</a><span class="arrow">→</span>
+    <span class="chip scr active">SCR-005</span><span class="arrow">→</span>
+    <a class="chip api" href="#API-015">API-015</a><span class="arrow">→</span>
+    <span class="chip none">no TC yet</span>
+  </div>
+  <p>เกณฑ์ความมั่นใจต่าง ๆ และรายการ solution ที่พร้อมเสนอทีมพิจารณาเปิด auto-answer — <b>ไม่ใช่สวิตช์เปิดใช้งานจริงในเฟสนี้</b></p>
+  <div class="ui-toggle-row">
+    <button class="ui-btn view-ui-btn" data-target="frame-SCR-005">🖼 View UI Mockup ▾</button>
+    <a class="ui-btn" href="make-front/SCR-005.html" target="_blank">↗ Open Full Page</a>
+  </div>
+  <div class="ui-frame-wrap" id="frame-SCR-005" hidden><iframe data-src="make-front/SCR-005.html" loading="lazy"></iframe></div>
+</article>
+</section>
+
+<!-- ============================================================ -->
+<section id="apis">
+<h2>⑤ APIs</h2>
+<p class="section-sub">Backend: Bun + TypeScript + Hono (the-off-ml-project-back). AI CENTER endpoints อ้างอิงจาก bruno collection (develyst-ai/bruno)</p>
+
+<article id="API-001" class="api-card">
+  <h3><span class="id-badge api">API-001</span> POST /webhooks/line</h3>
+  <div class="chain"><a class="chip uc" href="#UC-001">UC-001</a><span class="arrow">→</span><span class="chip api active">API-001</span></div>
+  <p>รับ webhook event จาก LINE Official Account เมื่อลูกค้าส่งข้อความเข้ามา</p>
+</article>
+
+<article id="API-002" class="api-card">
+  <h3><span class="id-badge api">API-002</span> POST /ai/analyze-message</h3>
+  <div class="chain"><a class="chip uc" href="#UC-002">UC-002</a><span class="arrow">→</span><span class="chip api active">API-002</span></div>
+  <p>เรียก API AI CENTER (bruno <code>POST /chat</code>, fallback deepseek→xai→gemini→openai) เพื่อวิเคราะห์ข้อความลูกค้า</p>
+  <pre class="sample">{
+  "messages": [{ "role": "user", "content": "&lt;ข้อความลูกค้าต้นฉบับ&gt;" }]
+}
+→ { "success": true, "data": { "provider": "deepseek", "content": "&lt;สรุป+หมวดหมู่&gt;", "usage": {...} } }</pre>
+</article>
+
+<article id="API-003" class="api-card">
+  <h3><span class="id-badge api">API-003</span> POST /cases</h3>
+  <div class="chain"><a class="chip uc" href="#UC-003">UC-003</a><span class="arrow">→</span><span class="chip api active">API-003</span></div>
+  <p>สร้างเคสใหม่ในฐานข้อมูล เก็บ customer_id, original_text, analyzed_text ครบทั้ง 3 ส่วน</p>
+</article>
+
+<article id="API-004" class="api-card">
+  <h3><span class="id-badge api">API-004</span> POST /integrations/teams/notify</h3>
+  <div class="chain"><a class="chip uc" href="#UC-004">UC-004</a><span class="arrow">→</span><span class="chip api active">API-004</span></div>
+  <p>ส่งข้อความแจ้งเคสเข้าห้อง MS Teams ของทีม Tech Support (ลูกค้าคนไหน + ข้อความเดิม + ผลวิเคราะห์)</p>
+</article>
+
+<article id="API-005" class="api-card">
+  <h3><span class="id-badge api">API-005</span> POST /webhooks/teams</h3>
+  <div class="chain"><a class="chip uc" href="#UC-005">UC-005</a><span class="arrow">→</span><span class="chip api active">API-005</span></div>
+  <p>รับ webhook ข้อความตอบกลับจากทีม Tech Support ในเธรด MS Teams</p>
+</article>
+
+<article id="API-006" class="api-card">
+  <h3><span class="id-badge api">API-006</span> POST /ai/analyze-solution</h3>
+  <div class="chain"><a class="chip uc" href="#UC-006">UC-006</a><span class="arrow">→</span><span class="chip api active">API-006</span></div>
+  <p>วิเคราะห์ข้อความตอบกลับของทีมผ่าน API AI CENTER เพื่อสกัดวิธีแก้ปัญหา ก่อนบันทึกลง database</p>
+</article>
+
+<article id="API-007" class="api-card">
+  <h3><span class="id-badge api">API-007</span> PATCH /cases/:id/solution</h3>
+  <div class="chain"><a class="chip uc" href="#UC-007">UC-007</a><span class="arrow">→</span><span class="chip api active">API-007</span></div>
+  <p>บันทึกวิธีแก้ปัญหาที่วิเคราะห์ได้ และอัปเดตสถานะเคสเป็น Resolved</p>
+</article>
+
+<article id="API-008" class="api-card">
+  <h3><span class="id-badge api">API-008</span> POST /ai/rewrite-customer-reply</h3>
+  <div class="chain"><a class="chip uc" href="#UC-008">UC-008</a><span class="arrow">→</span><span class="chip api active">API-008</span></div>
+  <p>ให้ AI ช่วยปรับข้อความของทีม Tech Support ให้เข้าใจง่ายสำหรับลูกค้า ก่อนส่งจริง</p>
+</article>
+
+<article id="API-009" class="api-card">
+  <h3><span class="id-badge api">API-009</span> POST /line/reply</h3>
+  <div class="chain"><a class="chip uc" href="#UC-009">UC-009</a><span class="arrow">→</span><span class="chip api active">API-009</span></div>
+  <p>ส่งข้อความคำตอบสุดท้ายกลับไปหาลูกค้าคนเดิมทาง LINE</p>
+</article>
+
+<article id="API-010" class="api-card">
+  <h3><span class="id-badge api">API-010</span> GET /cases</h3>
+  <div class="chain"><a class="chip scr" href="#SCR-001">SCR-001</a><span class="arrow">→</span><span class="chip api active">API-010</span></div>
+  <p>List/query เคสทั้งหมด พร้อม filter ตามสถานะ สำหรับหน้า Case Inbox</p>
+</article>
+
+<article id="API-011" class="api-card">
+  <h3><span class="id-badge api">API-011</span> GET /cases/:id</h3>
+  <div class="chain"><a class="chip scr" href="#SCR-002">SCR-002</a><span class="arrow">→</span><span class="chip api active">API-011</span></div>
+  <p>ดึงรายละเอียดเคสเดียว (ข้อความ + ผลวิเคราะห์ + เธรด Teams + solution) สำหรับหน้า Case Detail</p>
+</article>
+
+<article id="API-012" class="api-card">
+  <h3><span class="id-badge api">API-012</span> POST /ai/match-confidence <span class="status-pill planned">Planned</span></h3>
+  <div class="chain"><a class="chip uc" href="#UC-010">UC-010</a><span class="arrow">→</span><span class="chip api active">API-012</span></div>
+  <p>จับคู่เคสใหม่กับวิธีแก้ในอดีต คืนค่า % ความมั่นใจ และ solution ที่คาดว่าตรงกัน</p>
+</article>
+
+<article id="API-013" class="api-card">
+  <h3><span class="id-badge api">API-013</span> POST /integrations/teams/confirm-suggestion <span class="status-pill planned">Planned</span></h3>
+  <div class="chain"><a class="chip uc" href="#UC-011">UC-011</a> <a class="chip uc" href="#UC-012">UC-012</a><span class="arrow">→</span><span class="chip api active">API-013</span></div>
+  <p>ส่งคำถามยืนยัน solution ที่แนะนำเข้า MS Teams และรับผลยืนยัน/ปฏิเสธจากทีม เพื่อปรับความมั่นใจของ solution นั้น</p>
+</article>
+
+<article id="API-014" class="api-card">
+  <h3><span class="id-badge api">API-014</span> GET /analytics/summary</h3>
+  <div class="chain"><a class="chip uc" href="#UC-013">UC-013</a> <a class="chip scr" href="#SCR-004">SCR-004</a><span class="arrow">→</span><span class="chip api active">API-014</span></div>
+  <p>สรุปสถิติเคส: ความถี่ ประเภท หมวดหมู่ การกระจายความมั่นใจ สำหรับหน้า Analytics Dashboard</p>
+</article>
+
+<article id="API-015" class="api-card">
+  <h3><span class="id-badge api">API-015</span> PATCH /automation/settings <span class="status-pill planned">Planned</span></h3>
+  <div class="chain"><a class="chip uc" href="#UC-014">UC-014</a> <a class="chip scr" href="#SCR-005">SCR-005</a><span class="arrow">→</span><span class="chip api active">API-015</span></div>
+  <p>ตั้งค่าเกณฑ์ auto-answer / เปิด-ปิดระบบอัตโนมัติ — <b>รอมติทีมก่อนใช้งานจริง</b></p>
+</article>
+</section>
+
+<!-- ============================================================ -->
+<section id="testcases">
+<h2>⑥ Test Cases</h2>
+<p class="section-sub">อ้างอิงกลับไปที่ Use Case และ Screen ที่เกี่ยวข้องเสมอ</p>
+
+<article id="TC-001" class="tc-card">
+  <h3><span class="id-badge tc">TC-001</span> รับข้อความ LINE แล้วบันทึกเคสถูกต้อง</h3>
+  <div class="chain"><a class="chip uc" href="#UC-001">UC-001</a> <a class="chip uc" href="#UC-003">UC-003</a> <a class="chip scr" href="#SCR-001">SCR-001</a><span class="arrow">→</span><span class="chip tc active">TC-001</span></div>
+  <p><b>ตรวจสอบ:</b> เมื่อลูกค้าส่งข้อความทาง LINE ระบบสร้างเคสใหม่พร้อม customer_id + original_text ครบถ้วนใน database</p>
+</article>
+
+<article id="TC-002" class="tc-card">
+  <h3><span class="id-badge tc">TC-002</span> ผลวิเคราะห์ของ AI ถูกบันทึกคู่กับข้อความต้นฉบับ</h3>
+  <div class="chain"><a class="chip uc" href="#UC-002">UC-002</a><span class="arrow">→</span><span class="chip tc active">TC-002</span></div>
+  <p><b>ตรวจสอบ:</b> analyzed_text, detected_category, confidence ถูกบันทึกและผูกกับ message_id ที่ถูกต้อง</p>
+</article>
+
+<article id="TC-003" class="tc-card">
+  <h3><span class="id-badge tc">TC-003</span> ข้อความแจ้ง MS Teams ครบทั้ง 3 ส่วน</h3>
+  <div class="chain"><a class="chip uc" href="#UC-004">UC-004</a> <a class="chip uc" href="#UC-005">UC-005</a><span class="arrow">→</span><span class="chip tc active">TC-003</span></div>
+  <p><b>ตรวจสอบ:</b> ข้อความที่ส่งเข้า MS Teams มีครบ "ลูกค้าคนไหน" + "ข้อความต้นฉบับ" + "ข้อความที่วิเคราะห์แล้ว"</p>
+</article>
+
+<article id="TC-004" class="tc-card">
+  <h3><span class="id-badge tc">TC-004</span> วิเคราะห์คำตอบทีมและสกัดวิธีแก้ได้ถูกต้อง</h3>
+  <div class="chain"><a class="chip uc" href="#UC-006">UC-006</a> <a class="chip uc" href="#UC-007">UC-007</a> <a class="chip scr" href="#SCR-002">SCR-002</a><span class="arrow">→</span><span class="chip tc active">TC-004</span></div>
+  <p><b>ตรวจสอบ:</b> ข้อความตอบกลับของทีมถูกวิเคราะห์ก่อนบันทึก และ solution ที่ได้ตรงกับสิ่งที่ทีมแก้ไขจริง</p>
+</article>
+
+<article id="TC-005" class="tc-card">
+  <h3><span class="id-badge tc">TC-005</span> ข้อความที่ปรับแล้วถูกส่งถึงลูกค้าคนที่ถูกต้อง</h3>
+  <div class="chain"><a class="chip uc" href="#UC-008">UC-008</a> <a class="chip uc" href="#UC-009">UC-009</a><span class="arrow">→</span><span class="chip tc active">TC-005</span></div>
+  <p><b>ตรวจสอบ:</b> ข้อความที่ปรับให้เข้าใจง่ายถูกส่งกลับไปยัง line_user_id เดิมที่แจ้งเคสเข้ามา ไม่ใช่ข้อความดิบของทีม</p>
+</article>
+
+<article id="TC-006" class="tc-card">
+  <h3><span class="id-badge tc">TC-006</span> ถามยืนยันทีมเฉพาะเมื่อความมั่นใจ 90-100% <span class="status-pill planned">Planned</span></h3>
+  <div class="chain"><a class="chip uc" href="#UC-010">UC-010</a> <a class="chip uc" href="#UC-011">UC-011</a> <a class="chip scr" href="#SCR-003">SCR-003</a><span class="arrow">→</span><span class="chip tc active">TC-006</span></div>
+  <p><b>ตรวจสอบ:</b> คำถามยืนยัน solution ที่แนะนำจะถูกส่งเฉพาะเมื่อ confidence_pct อยู่ในช่วง 90-100% เท่านั้น</p>
+</article>
+
+<article id="TC-007" class="tc-card">
+  <h3><span class="id-badge tc">TC-007</span> ยืนยันแล้วความมั่นใจของ solution เพิ่มขึ้นจริง <span class="status-pill planned">Planned</span></h3>
+  <div class="chain"><a class="chip uc" href="#UC-012">UC-012</a><span class="arrow">→</span><span class="chip tc active">TC-007</span></div>
+  <p><b>ตรวจสอบ:</b> เมื่อทีมตอบ "ใช่" confidence_score ของ solution ที่เกี่ยวข้องเพิ่มขึ้นสำหรับการจับคู่ครั้งต่อไป</p>
+</article>
+
+<article id="TC-008" class="tc-card">
+  <h3><span class="id-badge tc">TC-008</span> Analytics รวมยอดตามหมวดหมู่/ความมั่นใจถูกต้อง <span class="status-pill planned">Planned</span></h3>
+  <div class="chain"><a class="chip uc" href="#UC-013">UC-013</a> <a class="chip scr" href="#SCR-004">SCR-004</a><span class="arrow">→</span><span class="chip tc active">TC-008</span></div>
+  <p><b>ตรวจสอบ:</b> ตัวเลขสรุปในหน้า Analytics Dashboard ตรงกับข้อมูลจริงใน database เมื่อกรองตามหมวดหมู่/ช่วงความมั่นใจ</p>
+</article>
+</section>
+
+<!-- ============================================================ -->
+<section id="matrix">
+<h2>⑦ Traceability Matrix</h2>
+<p class="section-sub">ภาพรวม WF → UC → SCR → API → TC ในตารางเดียว</p>
+<table class="matrix-table">
+<tr><th>WF</th><th>UC</th><th>SCR</th><th>API</th><th>TC</th></tr>
+<tr><td rowspan="3"><a class="chip wf" href="#WF-001">WF-001</a></td><td><a class="chip uc" href="#UC-001">UC-001</a></td><td><span class="chip none">—</span></td><td><a class="chip api" href="#API-001">API-001</a></td><td><a class="chip tc" href="#TC-001">TC-001</a></td></tr>
+<tr><td><a class="chip uc" href="#UC-002">UC-002</a></td><td><a class="chip scr" href="#SCR-001">SCR-001</a></td><td><a class="chip api" href="#API-002">API-002</a></td><td><a class="chip tc" href="#TC-002">TC-002</a></td></tr>
+<tr><td><a class="chip uc" href="#UC-003">UC-003</a></td><td><a class="chip scr" href="#SCR-001">SCR-001</a></td><td><a class="chip api" href="#API-003">API-003</a></td><td><a class="chip tc" href="#TC-001">TC-001</a></td></tr>
+
+<tr><td rowspan="4"><a class="chip wf" href="#WF-002">WF-002</a></td><td><a class="chip uc" href="#UC-004">UC-004</a></td><td><a class="chip scr" href="#SCR-002">SCR-002</a></td><td><a class="chip api" href="#API-004">API-004</a></td><td><a class="chip tc" href="#TC-003">TC-003</a></td></tr>
+<tr><td><a class="chip uc" href="#UC-005">UC-005</a></td><td><a class="chip scr" href="#SCR-002">SCR-002</a></td><td><a class="chip api" href="#API-005">API-005</a></td><td><a class="chip tc" href="#TC-003">TC-003</a></td></tr>
+<tr><td><a class="chip uc" href="#UC-006">UC-006</a></td><td><a class="chip scr" href="#SCR-002">SCR-002</a></td><td><a class="chip api" href="#API-006">API-006</a></td><td><a class="chip tc" href="#TC-004">TC-004</a></td></tr>
+<tr><td><a class="chip uc" href="#UC-007">UC-007</a></td><td><a class="chip scr" href="#SCR-002">SCR-002</a></td><td><a class="chip api" href="#API-007">API-007</a></td><td><a class="chip tc" href="#TC-004">TC-004</a></td></tr>
+
+<tr><td rowspan="2"><a class="chip wf" href="#WF-003">WF-003</a></td><td><a class="chip uc" href="#UC-008">UC-008</a></td><td><a class="chip scr" href="#SCR-002">SCR-002</a></td><td><a class="chip api" href="#API-008">API-008</a></td><td><a class="chip tc" href="#TC-005">TC-005</a></td></tr>
+<tr><td><a class="chip uc" href="#UC-009">UC-009</a></td><td><a class="chip scr" href="#SCR-002">SCR-002</a></td><td><a class="chip api" href="#API-009">API-009</a></td><td><a class="chip tc" href="#TC-005">TC-005</a></td></tr>
+
+<tr><td rowspan="5"><a class="chip wf" href="#WF-004">WF-004</a></td><td><a class="chip uc" href="#UC-010">UC-010</a></td><td><a class="chip scr" href="#SCR-003">SCR-003</a></td><td><a class="chip api" href="#API-012">API-012</a></td><td><a class="chip tc" href="#TC-006">TC-006</a></td></tr>
+<tr><td><a class="chip uc" href="#UC-011">UC-011</a></td><td><a class="chip scr" href="#SCR-003">SCR-003</a></td><td><a class="chip api" href="#API-013">API-013</a></td><td><a class="chip tc" href="#TC-006">TC-006</a></td></tr>
+<tr><td><a class="chip uc" href="#UC-012">UC-012</a></td><td><a class="chip scr" href="#SCR-003">SCR-003</a></td><td><a class="chip api" href="#API-013">API-013</a></td><td><a class="chip tc" href="#TC-007">TC-007</a></td></tr>
+<tr><td><a class="chip uc" href="#UC-013">UC-013</a></td><td><a class="chip scr" href="#SCR-004">SCR-004</a></td><td><a class="chip api" href="#API-014">API-014</a></td><td><a class="chip tc" href="#TC-008">TC-008</a></td></tr>
+<tr><td><a class="chip uc" href="#UC-014">UC-014</a></td><td><a class="chip scr" href="#SCR-005">SCR-005</a></td><td><a class="chip api" href="#API-015">API-015</a></td><td><span class="chip none">—</span></td></tr>
+</table>
+<p class="matrix-note">รวม: <b>4</b> WF · <b>14</b> UC · <b>5</b> SCR · <b>15</b> API · <b>8</b> TC · <b>7</b> DIA · <b>2</b> DOC</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="diagrams">
+<h2>⑧ Diagrams (PlantUML)</h2>
+<p class="section-sub">Render สดจาก plantuml.com server (ไม่ต้อง build) — ต้องมีอินเทอร์เน็ตตอนเปิดหน้านี้ ไฟล์ต้นฉบับอยู่ใน <code>diagrams/*.puml</code></p>
+
+<article id="DIA-001" class="dia-card" data-puml-file="diagrams/01-system-context.puml">
+  <h3><span class="id-badge dia">DIA-001</span> System Context</h3>
+  <div class="chain"><a class="chip wf" href="#WF-001">WF-001</a> <a class="chip wf" href="#WF-002">WF-002</a> <a class="chip wf" href="#WF-003">WF-003</a> <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">→</span><span class="chip dia active">DIA-001</span></div>
+  <div class="dia-tools">
+    <button class="ui-btn dia-src-btn" data-target="src-DIA-001">📄 View source</button>
+    <a class="ui-btn dia-edit-link" href="#" target="_blank">✏ Open in PlantUML editor</a>
+    <a class="ui-btn" href="diagrams/01-system-context.puml" download>↓ .puml</a>
+  </div>
+  <div class="dia-view" id="view-DIA-001"><span class="dia-loading">รอเรนเดอร์…</span></div>
+  <script type="text/plantuml" id="src-text-DIA-001">
+@startuml 01-system-context
+title DIA-001 · System Context — Off Mai Tech Support Assistant (WF-001..WF-004)
+skinparam shadowing false
+skinparam componentStyle rectangle
+
+actor "Customer\n(ลูกค้า)" as Customer
+actor "Tech Support\nAgent" as Tech
+actor "Admin" as Admin
+
+cloud "LINE Official Account" as LINE
+cloud "MS Teams\n(Tech Support Channel)" as Teams
+
+package "the-off-ml-project-back\n(Bun + TypeScript + Hono)" {
+  [Webhook Handlers\nAPI-001 / API-005] as Webhooks
+  [Case Service\nAPI-003 / API-007 / API-010 / API-011] as CaseSvc
+  [Analytics Service\nAPI-014] as Analytics
+  [Automation Settings\nAPI-015 (Planned)] as Automation
+  database "Database\n(Cases / Messages / Analyses / Solutions)" as DB
+}
+
+package "the-off-ml-project-front\n(Next.js + TypeScript + Mantine)" {
+  [Case Inbox\nSCR-001] as ScrInbox
+  [Case Detail\nSCR-002] as ScrDetail
+  [Confidence Review\nSCR-003] as ScrConfidence
+  [Analytics Dashboard\nSCR-004] as ScrAnalytics
+  [Automation Settings\nSCR-005 (Planned)] as ScrSettings
+}
+
+package "develyst-ai (bruno)\nAPI AI CENTER" {
+  [POST /chat\nmulti-provider fallback] as AiChat
+  [POST /chat/multi] as AiMulti
+  note right of AiChat
+    provider fallback:
+    deepseek -> xai -> gemini -> openai
+  end note
+}
+
+Customer --> LINE : ส่งข้อความ/แจ้งปัญหา
+LINE --> Webhooks : webhook (API-001)
+Webhooks --> AiChat : วิเคราะห์ข้อความลูกค้า (API-002)
+Webhooks --> CaseSvc : สร้างเคส (API-003)
+CaseSvc --> DB
+CaseSvc --> Teams : แจ้งเคสให้ทีม (API-004)
+Teams --> Tech : เห็นข้อความลูกค้า+ผลวิเคราะห์
+Tech --> Teams : ตอบกลับวิธีแก้
+Teams --> Webhooks : webhook ข้อความตอบกลับ (API-005)
+Webhooks --> AiChat : วิเคราะห์วิธีแก้ + ปรับข้อความลูกค้า (API-006/API-008)
+Webhooks --> CaseSvc : บันทึกวิธีแก้ (API-007)
+CaseSvc --> LINE : ส่งคำตอบกลับลูกค้า (API-009)
+LINE --> Customer : ได้รับคำตอบ
+
+CaseSvc --> AiChat : จับคู่ความมั่นใจกับเคสเดิม (API-012, Planned)
+CaseSvc --> Teams : ถามยืนยัน solution ที่แนะนำ (API-013, Planned)
+
+Admin --> ScrAnalytics
+Admin --> ScrSettings
+Tech --> ScrInbox
+Tech --> ScrDetail
+Tech --> ScrConfidence
+
+ScrInbox --> CaseSvc
+ScrDetail --> CaseSvc
+ScrConfidence --> CaseSvc
+ScrAnalytics --> Analytics
+ScrSettings --> Automation
+Analytics --> DB
+Automation --> DB
+
+@enduml
+  </script>
+  <pre class="dia-src" id="src-DIA-001"></pre>
+</article>
+
+<article id="DIA-002" class="dia-card">
+  <h3><span class="id-badge dia">DIA-002</span> Use Case Diagram</h3>
+  <div class="chain"><a class="chip wf" href="#WF-001">WF-001</a> <a class="chip wf" href="#WF-002">WF-002</a> <a class="chip wf" href="#WF-003">WF-003</a> <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">→</span><span class="chip dia active">DIA-002</span></div>
+  <div class="dia-tools">
+    <button class="ui-btn dia-src-btn" data-target="src-DIA-002">📄 View source</button>
+    <a class="ui-btn dia-edit-link" href="#" target="_blank">✏ Open in PlantUML editor</a>
+    <a class="ui-btn" href="diagrams/02-usecases.puml" download>↓ .puml</a>
+  </div>
+  <div class="dia-view" id="view-DIA-002"><span class="dia-loading">รอเรนเดอร์…</span></div>
+  <script type="text/plantuml" id="src-text-DIA-002">
+@startuml 02-usecases
+title DIA-002 · Use Case Diagram — UC-001..UC-014
+skinparam shadowing false
+left to right direction
+
+actor "Customer\n(ลูกค้า)" as Customer
+actor "Tech Support\nAgent" as Tech
+actor "Admin" as Admin
+actor "AI CENTER\n(system)" as AI
+
+rectangle "Off Mai Tech Support Assistant" {
+  usecase "UC-001\nส่งปัญหาทาง LINE" as UC1
+  usecase "UC-002\nวิเคราะห์ข้อความลูกค้า" as UC2
+  usecase "UC-003\nบันทึกเคสลง DB" as UC3
+  usecase "UC-004\nแจ้งเคสใน MS Teams" as UC4
+  usecase "UC-005\nตอบกลับใน MS Teams" as UC5
+  usecase "UC-006\nวิเคราะห์วิธีแก้จากคำตอบทีม" as UC6
+  usecase "UC-007\nบันทึกวิธีแก้/สถานะเคส" as UC7
+  usecase "UC-008\nปรับข้อความให้เข้าใจง่าย" as UC8
+  usecase "UC-009\nส่งคำตอบกลับลูกค้า LINE" as UC9
+  usecase "UC-010\nจับคู่ความมั่นใจกับเคสเดิม\n(Planned)" as UC10
+  usecase "UC-011\nถามยืนยัน solution ที่แนะนำ\n(Planned)" as UC11
+  usecase "UC-012\nยืนยัน/ปฏิเสธ + ปรับความมั่นใจ\n(Planned)" as UC12
+  usecase "UC-013\nดูภาพรวมสถิติเคส" as UC13
+  usecase "UC-014\nตัดสินใจเปิด auto-answer\n(Planned)" as UC14
+}
+
+Customer --> UC1
+UC1 ..> UC2 : <<include>>
+UC2 ..> UC3 : <<include>>
+UC3 ..> UC4 : <<include>>
+Tech --> UC5
+UC4 --> Tech
+UC5 ..> UC6 : <<include>>
+UC6 ..> UC7 : <<include>>
+UC7 ..> UC8 : <<include>>
+UC8 ..> UC9 : <<include>>
+UC9 --> Customer
+
+AI --> UC2
+AI --> UC6
+AI --> UC8
+AI --> UC10
+
+UC3 ..> UC10 : <<extend>>\n(เมื่อมีข้อมูลสะสมพอ)
+UC10 ..> UC11 : <<include>>
+Tech --> UC12
+UC11 --> Tech
+UC12 ..> UC10 : <<extend>>\nเพิ่ม/ลดความมั่นใจ
+
+Admin --> UC13
+Admin --> UC14
+UC13 ..> UC10 : <<extend>>
+
+@enduml
+  </script>
+  <pre class="dia-src" id="src-DIA-002"></pre>
+</article>
+
+<article id="DIA-003" class="dia-card">
+  <h3><span class="id-badge dia">DIA-003</span> ERD — Core Schema</h3>
+  <div class="chain"><a class="chip uc" href="#UC-003">UC-003</a> <a class="chip uc" href="#UC-007">UC-007</a> <a class="chip uc" href="#UC-010">UC-010</a><span class="arrow">→</span><span class="chip dia active">DIA-003</span></div>
+  <div class="dia-tools">
+    <button class="ui-btn dia-src-btn" data-target="src-DIA-003">📄 View source</button>
+    <a class="ui-btn dia-edit-link" href="#" target="_blank">✏ Open in PlantUML editor</a>
+    <a class="ui-btn" href="diagrams/03-erd.puml" download>↓ .puml</a>
+  </div>
+  <div class="dia-view" id="view-DIA-003"><span class="dia-loading">รอเรนเดอร์…</span></div>
+  <script type="text/plantuml" id="src-text-DIA-003">
+@startuml 03-erd
+title DIA-003 · ERD — Core Case/Analysis/Solution Schema
+skinparam shadowing false
+hide circle
+
+entity "customer" as customer {
+  * id : uuid <<PK>>
+  --
+  line_user_id : string
+  display_name : string
+  created_at : datetime
+}
+
+entity "case" as case_ {
+  * id : uuid <<PK>>
+  --
+  customer_id : uuid <<FK>>
+  status : enum(new, analyzing, awaiting_tech, tech_replied, analyzing_solution, awaiting_confirmation, resolved, sent, closed)
+  category : string
+  confidence_score : decimal (0-100)
+  created_at : datetime
+  updated_at : datetime
+}
+
+entity "message" as message {
+  * id : uuid <<PK>>
+  --
+  case_id : uuid <<FK>>
+  direction : enum(inbound_customer, outbound_customer, inbound_tech, outbound_tech)
+  channel : enum(line, ms_teams)
+  original_text : text
+  created_at : datetime
+}
+
+entity "analysis" as analysis {
+  * id : uuid <<PK>>
+  --
+  message_id : uuid <<FK>>
+  ai_provider : string
+  ai_model : string
+  analyzed_text : text
+  detected_category : string
+  confidence : decimal
+  created_at : datetime
+}
+
+entity "solution" as solution {
+  * id : uuid <<PK>>
+  --
+  case_id : uuid <<FK>>
+  tech_agent_id : uuid <<FK>>
+  raw_reply_text : text
+  rewritten_customer_text : text
+  created_at : datetime
+}
+
+entity "tech_agent" as tech_agent {
+  * id : uuid <<PK>>
+  --
+  ms_teams_user_id : string
+  display_name : string
+}
+
+entity "confidence_match" as confidence_match {
+  * id : uuid <<PK>>
+  --
+  case_id : uuid <<FK>>
+  matched_solution_id : uuid <<FK>>
+  confidence_pct : decimal
+  tech_confirmed : boolean
+  created_at : datetime
+}
+note right of confidence_match
+  Planned (WF-004) — populated once
+  historical case volume is sufficient
+end note
+
+customer ||--o{ case_ : "reports"
+case_ ||--o{ message : "has"
+message ||--o| analysis : "analyzed as"
+case_ ||--o{ solution : "resolved by"
+tech_agent ||--o{ solution : "authors"
+case_ ||--o{ confidence_match : "scored against"
+solution ||--o{ confidence_match : "referenced by"
+
+@enduml
+  </script>
+  <pre class="dia-src" id="src-DIA-003"></pre>
+</article>
+
+<article id="DIA-004" class="dia-card">
+  <h3><span class="id-badge dia">DIA-004</span> Case Status State Machine</h3>
+  <div class="chain"><a class="chip uc" href="#UC-003">UC-003</a> <a class="chip uc" href="#UC-007">UC-007</a> <a class="chip uc" href="#UC-009">UC-009</a> <a class="chip uc" href="#UC-011">UC-011</a><span class="arrow">→</span><span class="chip dia active">DIA-004</span></div>
+  <div class="dia-tools">
+    <button class="ui-btn dia-src-btn" data-target="src-DIA-004">📄 View source</button>
+    <a class="ui-btn dia-edit-link" href="#" target="_blank">✏ Open in PlantUML editor</a>
+    <a class="ui-btn" href="diagrams/04-case-status-state.puml" download>↓ .puml</a>
+  </div>
+  <div class="dia-view" id="view-DIA-004"><span class="dia-loading">รอเรนเดอร์…</span></div>
+  <script type="text/plantuml" id="src-text-DIA-004">
+@startuml 04-case-status-state
+title DIA-004 · Case Status Lifecycle (WF-001..WF-004)
+skinparam shadowing false
+
+[*] --> New : UC-001 ลูกค้าส่งข้อความทาง LINE
+
+New --> Analyzing : UC-002 AI CENTER วิเคราะห์ข้อความ
+Analyzing --> AwaitingTechSupport : UC-003/UC-004 บันทึกเคส + แจ้ง MS Teams
+
+AwaitingTechSupport --> TechReplied : UC-005 ทีม Tech Support ตอบกลับใน Teams
+TechReplied --> AnalyzingSolution : UC-006 AI วิเคราะห์วิธีแก้จากคำตอบ
+AnalyzingSolution --> Resolved : UC-007/UC-008 บันทึกวิธีแก้ + ปรับข้อความ
+Resolved --> Sent : UC-009 ส่งคำตอบกลับลูกค้าทาง LINE
+Sent --> Closed : ลูกค้ายืนยันจบเคส
+
+state "AwaitingConfirmation\n(Planned)" as AwaitingConfirmation
+AwaitingTechSupport --> AwaitingConfirmation : UC-010/UC-011 ความมั่นใจ 90-100%\nถามยืนยัน solution ที่แนะนำ
+AwaitingConfirmation --> TechReplied : UC-012 Tech Support ยืนยัน "ใช่"\n(เพิ่มความมั่นใจให้ solution)
+AwaitingConfirmation --> AwaitingTechSupport : UC-012 Tech Support ตอบ "ไม่ใช่"\n(กลับไปวิเคราะห์ตามปกติ)
+
+Closed --> [*]
+
+note right of AwaitingConfirmation
+  เมื่อความมั่นใจถึง 100% อย่างต่อเนื่อง
+  ทีมจะพิจารณาเปิดใช้ auto-answer/automation
+  (UC-014, Planned — ต้องคุยกับทีมก่อน)
+end note
+
+@enduml
+  </script>
+  <pre class="dia-src" id="src-DIA-004"></pre>
+</article>
+
+<article id="DIA-005" class="dia-card">
+  <h3><span class="id-badge dia">DIA-005</span> Sequence — LINE Intake &amp; AI Analysis</h3>
+  <div class="chain"><a class="chip wf" href="#WF-001">WF-001</a><span class="arrow">→</span><span class="chip dia active">DIA-005</span></div>
+  <div class="dia-tools">
+    <button class="ui-btn dia-src-btn" data-target="src-DIA-005">📄 View source</button>
+    <a class="ui-btn dia-edit-link" href="#" target="_blank">✏ Open in PlantUML editor</a>
+    <a class="ui-btn" href="diagrams/05-intake-analysis-seq.puml" download>↓ .puml</a>
+  </div>
+  <div class="dia-view" id="view-DIA-005"><span class="dia-loading">รอเรนเดอร์…</span></div>
+  <script type="text/plantuml" id="src-text-DIA-005">
+@startuml 05-intake-analysis-seq
+title DIA-005 · Sequence — WF-001 LINE Intake &amp; AI Analysis
+skinparam shadowing false
+
+actor Customer
+boundary "LINE OA" as LINE
+control "Backend\n(Hono)" as Backend
+control "API AI CENTER\n(bruno /chat)" as AI
+database "Database" as DB
+control "MS Teams\nWebhook" as Teams
+
+Customer -> LINE : ส่งข้อความ/แจ้งปัญหา
+LINE -> Backend : webhook event\n**API-001** POST /webhooks/line
+Backend -> AI : **API-002** POST /ai/analyze-message\n(ข้อความต้นฉบับ)
+AI --> Backend : ผลวิเคราะห์ (หมวดหมู่, สรุป, ความมั่นใจ)
+Backend -> DB : **API-003** POST /cases\n(customer, original_text, analyzed_text)
+DB --> Backend : case_id
+Backend -> Teams : **API-004** POST /integrations/teams/notify\n(ลูกค้าคนไหน + ข้อความเดิม + ผลวิเคราะห์)
+Teams --> Backend : 200 OK (ส่งเข้าห้อง Tech Support แล้ว)
+Backend --> LINE : (ไม่ตอบกลับทันที รอทีม Tech Support)
+
+note over Teams
+  เคสสถานะ = AwaitingTechSupport
+  ดูต่อได้ที่ DIA-006
+end note
+
+@enduml
+  </script>
+  <pre class="dia-src" id="src-DIA-005"></pre>
+</article>
+
+<article id="DIA-006" class="dia-card">
+  <h3><span class="id-badge dia">DIA-006</span> Sequence — Tech Support Reply → Customer Delivery</h3>
+  <div class="chain"><a class="chip wf" href="#WF-002">WF-002</a> <a class="chip wf" href="#WF-003">WF-003</a><span class="arrow">→</span><span class="chip dia active">DIA-006</span></div>
+  <div class="dia-tools">
+    <button class="ui-btn dia-src-btn" data-target="src-DIA-006">📄 View source</button>
+    <a class="ui-btn dia-edit-link" href="#" target="_blank">✏ Open in PlantUML editor</a>
+    <a class="ui-btn" href="diagrams/06-techsupport-reply-seq.puml" download>↓ .puml</a>
+  </div>
+  <div class="dia-view" id="view-DIA-006"><span class="dia-loading">รอเรนเดอร์…</span></div>
+  <script type="text/plantuml" id="src-text-DIA-006">
+@startuml 06-techsupport-reply-seq
+title DIA-006 · Sequence — WF-002/WF-003 Tech Support Reply -&gt; Customer Delivery
+skinparam shadowing false
+
+actor "Tech Support\nAgent" as Tech
+boundary "MS Teams" as Teams
+control "Backend\n(Hono)" as Backend
+control "API AI CENTER\n(bruno /chat)" as AI
+database "Database" as DB
+boundary "LINE OA" as LINE
+actor Customer
+
+Tech -> Teams : พิมพ์วิธีแก้ปัญหาตอบกลับในห้อง
+Teams -> Backend : webhook event\n**API-005** POST /webhooks/teams
+Backend -> AI : **API-006** POST /ai/analyze-solution\n(ข้อความตอบกลับของทีม)
+AI --> Backend : วิธีแก้ที่สกัดได้ + หมวดหมู่เคส
+Backend -> DB : **API-007** PATCH /cases/:id/solution\n(บันทึกวิธีแก้ + สถานะ = Resolved)
+Backend -> AI : **API-008** POST /ai/rewrite-customer-reply\n(ปรับข้อความให้เข้าใจง่าย)
+AI --> Backend : ข้อความฉบับลูกค้า
+Backend -> DB : บันทึก rewritten_customer_text
+Backend -> LINE : **API-009** POST /line/reply\n(ส่งข้อความถึงลูกค้าคนเดิม)
+LINE -> Customer : ได้รับคำตอบ/วิธีแก้ปัญหา
+Backend -> DB : อัปเดตสถานะเคส = Sent
+
+note over Backend, AI
+  ถ้า AI วิเคราะห์ไม่มั่นใจว่าเข้าใจง่ายพอ
+  ระบบอาจช่วยแก้ข้อความทีม Tech Support
+  ก่อนส่งลูกค้า (ตาม requirement DOC-001)
+end note
+
+@enduml
+  </script>
+  <pre class="dia-src" id="src-DIA-006"></pre>
+</article>
+
+<article id="DIA-007" class="dia-card">
+  <h3><span class="id-badge dia">DIA-007</span> Sequence — Confidence-based Suggestion <span class="status-pill planned">Planned</span></h3>
+  <div class="chain"><a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">→</span><span class="chip dia active">DIA-007</span></div>
+  <div class="dia-tools">
+    <button class="ui-btn dia-src-btn" data-target="src-DIA-007">📄 View source</button>
+    <a class="ui-btn dia-edit-link" href="#" target="_blank">✏ Open in PlantUML editor</a>
+    <a class="ui-btn" href="diagrams/07-confidence-suggestion-seq.puml" download>↓ .puml</a>
+  </div>
+  <div class="dia-view" id="view-DIA-007"><span class="dia-loading">รอเรนเดอร์…</span></div>
+  <script type="text/plantuml" id="src-text-DIA-007">
+@startuml 07-confidence-suggestion-seq
+title DIA-007 · Sequence — WF-004 Confidence-based Suggestion (Planned)
+skinparam shadowing false
+
+actor Customer
+boundary "LINE OA" as LINE
+control "Backend\n(Hono)" as Backend
+control "API AI CENTER" as AI
+database "Database\n(historical cases)" as DB
+boundary "MS Teams" as Teams
+actor "Tech Support\nAgent" as Tech
+
+Customer -> LINE : แจ้งปัญหาใหม่
+LINE -> Backend : webhook (API-001)
+Backend -> AI : วิเคราะห์ข้อความ (API-002)
+Backend -> DB : **API-012** POST /ai/match-confidence\n(เทียบกับเคส/วิธีแก้ในอดีต)
+DB --> Backend : confidence_pct + matched_solution_id
+
+alt confidence_pct &gt;= 90%
+  Backend -> Teams : **API-013** POST /integrations/teams/confirm-suggestion\n"ลูกค้า X แจ้งว่า ... ผลวิเคราะห์ ... \nคาดว่าเคสนี้ตรงกับ solution นี้ใช่หรือไม่?"
+  Teams -> Tech : เห็นคำถามยืนยัน
+  Tech -> Teams : ตอบ "ใช่" / "ไม่ใช่"
+  Teams -> Backend : webhook คำตอบยืนยัน
+  alt Tech ตอบ "ใช่"
+    Backend -> DB : เพิ่ม confidence_score ให้ solution นี้
+    note right of DB
+      ถ้าสะสมจน confidence = 100%
+      ทีมจะพิจารณา UC-014:
+      เปิดใช้ API / automate / auto-answer LINE
+      (ต้องคุยกับทีมก่อนเปิดใช้งานจริง)
+    end note
+  else Tech ตอบ "ไม่ใช่"
+    Backend -> Teams : กลับเข้า flow ปกติ (WF-002)\nให้ทีมวิเคราะห์ตอบเองตามปกติ
+  end
+else confidence_pct &lt; 90%
+  Backend -> Teams : แจ้งเคสปกติ (WF-002) ไม่ถามยืนยัน
+end
+
+@enduml
+  </script>
+  <pre class="dia-src" id="src-DIA-007"></pre>
+</article>
+</section>
+
+</main>
+</div>
+
+<script>
+// ===== hover-to-highlight =====
+document.querySelectorAll('.id-badge, .chip').forEach(function (el) {
+  var id = el.hasAttribute('href')
+    ? el.getAttribute('href').replace('#','').trim()
+    : el.textContent.trim();
+  if (id) el.dataset.linkid = id;
+});
+function setHl(id, on) {
+  document.querySelectorAll('[data-linkid="' + CSS.escape(id) + '"]')
+    .forEach(function (m) { m.classList.toggle('hl', on); });
+}
+document.querySelectorAll('[data-linkid]').forEach(function (el) {
+  var id = el.dataset.linkid;
+  el.addEventListener('mouseenter', function () { setHl(id, true); });
+  el.addEventListener('mouseleave', function () { setHl(id, false); });
+});
+
+// ===== embedded UI mockup toggle =====
+document.querySelectorAll('.view-ui-btn').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var wrap = document.getElementById(btn.dataset.target);
+    var hidden = wrap.hasAttribute('hidden');
+    if (hidden) {
+      wrap.removeAttribute('hidden');
+      var f = wrap.querySelector('iframe');
+      if (f && !f.getAttribute('src')) f.setAttribute('src', f.dataset.src);
+      btn.textContent = '🖼 Hide UI Mockup ▴'; btn.classList.add('open');
+    } else {
+      wrap.setAttribute('hidden', ''); btn.textContent = '🖼 View UI Mockup ▾'; btn.classList.remove('open');
+    }
+  });
+});
+
+// ===== diagrams: view source toggle =====
+document.querySelectorAll('.dia-src-btn').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var pre = document.getElementById(btn.dataset.target);
+    pre.classList.toggle('open');
+  });
+});
+
+// ===== diagrams: render via plantuml.com (hex, bounded-concurrency queue) =====
+var PLANTUML_BASE = 'https://www.plantuml.com/plantuml';
+function pumlHex(text){
+  var b = new TextEncoder().encode(text), h = '';
+  for (var i=0;i<b.length;i++) h += b[i].toString(16).padStart(2,'0');
+  return '~h' + h;
+}
+var diaJobs = [];
+document.querySelectorAll('article.dia-card').forEach(function (art) {
+  var idBadge = art.querySelector('.id-badge.dia');
+  if (!idBadge) return;
+  var id = idBadge.textContent.trim();
+  var srcScript = document.getElementById('src-text-' + id);
+  if (!srcScript) return;
+  var code = srcScript.textContent.trim();
+  var pre = document.getElementById('src-' + id);
+  if (pre) pre.textContent = code;
+  var editLink = art.querySelector('.dia-edit-link');
+  if (editLink) editLink.setAttribute('href', PLANTUML_BASE + '/uml/' + pumlHex(code));
+  diaJobs.push({ id: id, code: code });
+});
+
+var CONCURRENCY = 2, active = 0, queueIdx = 0;
+function runNext() {
+  while (active < CONCURRENCY && queueIdx < diaJobs.length) {
+    (function (job) {
+      active++;
+      var view = document.getElementById('view-' + job.id);
+      var img = new Image();
+      img.alt = job.id;
+      img.onload = function () { active--; view.innerHTML=''; view.appendChild(img); runNext(); };
+      img.onerror = function () { active--; view.innerHTML = '<span class="dia-loading">⚠ เรนเดอร์ไม่สำเร็จ (ต้องต่ออินเทอร์เน็ตถึง plantuml.com)</span>'; runNext(); };
+      img.src = PLANTUML_BASE + '/svg/' + pumlHex(job.code);
+    })(diaJobs[queueIdx]);
+    queueIdx++;
+  }
+}
+runNext();
+</script>
+</body>
+</html>

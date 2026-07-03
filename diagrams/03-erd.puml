@@ -1,0 +1,86 @@
+@startuml 03-erd
+title DIA-003 · ERD — Core Case/Analysis/Solution Schema
+skinparam shadowing false
+hide circle
+
+entity "customer" as customer {
+  * id : uuid <<PK>>
+  --
+  line_user_id : string
+  display_name : string
+  created_at : datetime
+}
+
+entity "case" as case_ {
+  * id : uuid <<PK>>
+  --
+  customer_id : uuid <<FK>>
+  status : enum(new, analyzing, awaiting_tech, tech_replied, analyzing_solution, awaiting_confirmation, resolved, sent, closed)
+  category : string
+  confidence_score : decimal (0-100)
+  created_at : datetime
+  updated_at : datetime
+}
+
+entity "message" as message {
+  * id : uuid <<PK>>
+  --
+  case_id : uuid <<FK>>
+  direction : enum(inbound_customer, outbound_customer, inbound_tech, outbound_tech)
+  channel : enum(line, ms_teams)
+  original_text : text
+  created_at : datetime
+}
+
+entity "analysis" as analysis {
+  * id : uuid <<PK>>
+  --
+  message_id : uuid <<FK>>
+  ai_provider : string
+  ai_model : string
+  analyzed_text : text
+  detected_category : string
+  confidence : decimal
+  created_at : datetime
+}
+
+entity "solution" as solution {
+  * id : uuid <<PK>>
+  --
+  case_id : uuid <<FK>>
+  tech_agent_id : uuid <<FK>>
+  raw_reply_text : text
+  rewritten_customer_text : text
+  created_at : datetime
+}
+
+entity "tech_agent" as tech_agent {
+  * id : uuid <<PK>>
+  --
+  ms_teams_user_id : string
+  display_name : string
+}
+
+entity "confidence_match" as confidence_match {
+  * id : uuid <<PK>>
+  --
+  case_id : uuid <<FK>>
+  matched_solution_id : uuid <<FK>>
+  confidence_pct : decimal
+  tech_confirmed : boolean
+  created_at : datetime
+}
+note right of confidence_match
+  Planned (WF-004) — populated once
+  historical case volume is sufficient
+end note
+
+customer ||--o{ case_ : "reports"
+case_ ||--o{ message : "has"
+message ||--o| analysis : "analyzed as"
+case_ ||--o{ solution : "resolved by"
+tech_agent ||--o{ solution : "authors"
+case_ ||--o{ confidence_match : "scored against"
+solution ||--o{ confidence_match : "referenced by"
+
+@enduml
