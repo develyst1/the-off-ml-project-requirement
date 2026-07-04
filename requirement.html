@@ -654,9 +654,10 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 </article>
 
 <article id="TC-005" class="tc-card">
-  <h3><span class="id-badge tc">TC-005</span> ข้อความที่ปรับแล้วถูกส่งถึงลูกค้าคนที่ถูกต้อง</h3>
+  <h3><span class="id-badge tc">TC-005</span> ข้อความที่ Tech Support ยืนยันแล้วถูกส่งถึงลูกค้าคนที่ถูกต้อง</h3>
   <div class="chain"><a class="chip uc" href="#UC-008">UC-008</a> <a class="chip uc" href="#UC-009">UC-009</a><span class="arrow">→</span><span class="chip tc active">TC-005</span></div>
-  <p><b>ตรวจสอบ:</b> ข้อความที่ปรับให้เข้าใจง่ายถูกส่งกลับไปยัง line_user_id เดิมที่แจ้งเคสเข้ามา ไม่ใช่ข้อความดิบของทีม</p>
+  <p><b>ตรวจสอบ:</b> (1) ข้อความที่ส่งกลับไปยัง line_user_id เดิมคือ <code>approved_customer_text</code> ที่ Tech Support ตรวจสอบ/ยืนยันแล้ว
+  ไม่ใช่ข้อความดิบของทีม (2) API-009 ต้องปฏิเสธการส่งถ้าเคสยังอยู่สถานะ <code>awaiting_send_review</code> (ยังไม่มี approved_customer_text/reviewed_by_tech_agent_id)</p>
 </article>
 
 <article id="TC-006" class="tc-card">
@@ -892,7 +893,7 @@ entity "case" as case_ {
   * id : uuid <<PK>>
   --
   customer_id : uuid <<FK>>
-  status : enum(new, analyzing, awaiting_tech, tech_replied, analyzing_solution, awaiting_confirmation, resolved, sent, closed)
+  status : enum(new, analyzing, awaiting_tech, tech_replied, analyzing_solution, awaiting_confirmation, resolved, awaiting_send_review, sent, closed)
   category : string
   confidence_score : decimal (0-100)
   created_at : datetime
@@ -979,7 +980,7 @@ solution ||--o{ confidence_match : "referenced by"
 
 <article id="DIA-004" class="dia-card">
   <h3><span class="id-badge dia">DIA-004</span> Case Status State Machine</h3>
-  <div class="chain"><a class="chip uc" href="#UC-003">UC-003</a> <a class="chip uc" href="#UC-007">UC-007</a> <a class="chip uc" href="#UC-009">UC-009</a> <a class="chip uc" href="#UC-011">UC-011</a><span class="arrow">→</span><span class="chip dia active">DIA-004</span></div>
+  <div class="chain"><a class="chip uc" href="#UC-003">UC-003</a> <a class="chip uc" href="#UC-007">UC-007</a> <a class="chip uc" href="#UC-008">UC-008</a> <a class="chip uc" href="#UC-009">UC-009</a> <a class="chip uc" href="#UC-011">UC-011</a><span class="arrow">→</span><span class="chip dia active">DIA-004</span></div>
   <div class="dia-tools">
     <button class="ui-btn dia-src-btn" data-target="src-DIA-004">📄 View source</button>
     <a class="ui-btn dia-edit-link" href="#" target="_blank">✏ Open in PlantUML editor</a>

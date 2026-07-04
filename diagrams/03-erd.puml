@@ -15,7 +15,7 @@ entity "case" as case_ {
   * id : uuid <<PK>>
   --
   customer_id : uuid <<FK>>
-  status : enum(new, analyzing, awaiting_tech, tech_replied, analyzing_solution, awaiting_confirmation, resolved, sent, closed)
+  status : enum(new, analyzing, awaiting_tech, tech_replied, analyzing_solution, awaiting_confirmation, resolved, awaiting_send_review, sent, closed)
   category : string
   confidence_score : decimal (0-100)
   created_at : datetime
