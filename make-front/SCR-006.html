@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>SCR-006 — Login | UI Mockup</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/app-skin.css">
+</head>
+<body data-page-id="SCR-006">
+<header class="mockup-top">
+  <a class="back" href="../requirement.html#SCR-006">← Back to Requirement Hub</a>
+  <div class="title">🖥 SCR-006 · Login</div>
+  <div class="chain">
+    <span class="chip none">Cross-cutting</span><span class="arrow-sm">→</span>
+    <a class="chip uc" href="../requirement.html#UC-015">UC-015</a><span class="arrow-sm">→</span>
+    <span class="chip scr active">SCR-006</span><span class="arrow-sm">→</span>
+    <a class="chip api" href="../requirement.html#API-016">API-016</a><span class="arrow-sm">→</span>
+    <a class="chip tc" href="../requirement.html#TC-009">TC-009</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1 class="screen-title">เข้าสู่ระบบ (Login)</h1>
+  <p class="screen-sub"><span class="as-built">Planned — greenfield mockup</span> Sign in with Microsoft (SSO ผ่าน MS Teams / Entra ID เดิม) — ไม่มีระบบ username/password แยก</p>
+
+  <div class="device-frame">
+    <div class="device-bar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="url">app.off-ml.internal/login</span>
+    </div>
+    <div class="device-canvas app">
+      <div class="app-shell no-sidebar">
+        <div class="app-main">
+          <div class="app-content" style="display:flex;align-items:center;justify-content:center;min-height:620px;">
+            <div class="m-card" style="width:360px;text-align:center;padding:36px 32px;">
+              <span class="logo" style="width:52px;height:52px;border-radius:18px;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--m-primary),#1e40af);color:#fff;margin-bottom:16px;">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              </span>
+              <div style="font-weight:700;font-size:1.15em;">Off-ML Assistant</div>
+              <div class="m-xs m-muted" style="margin-top:4px;margin-bottom:28px;">AI Tech Support Copilot</div>
+              <button class="m-btn" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;">
+                <svg width="18" height="18" viewBox="0 0 21 21"><rect x="1" y="1" width="9" height="9" fill="#f25022"/><rect x="11" y="1" width="9" height="9" fill="#7fba00"/><rect x="1" y="11" width="9" height="9" fill="#00a4ef"/><rect x="11" y="11" width="9" height="9" fill="#ffb900"/></svg>
+                Sign in with Microsoft
+              </button>
+              <div class="m-xs m-muted" style="margin-top:20px;">ใช้บัญชี MS Teams / Entra ID เดียวกับที่ทีม Tech Support ใช้อยู่แล้ว — ระบบผูก session กับ <code>ms_teams_user_id</code> ที่มีอยู่ในฐานข้อมูล</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-box info">
+    <b>กติกาหน้าจอนี้ (UC-015):</b> ทุกหน้าจอ (SCR-001 ถึง SCR-005) ต้อง redirect มาที่นี่ก่อนถ้ายังไม่ได้ login —
+    หลัง login สำเร็จ ระบบดึง <code>tech_agent.role</code> (tech_support / admin) มากำหนดสิทธิ์เมนูที่เห็น
+    เช่น SCR-004 (Analytics) และ SCR-005 (Automation Settings) เห็นได้เฉพาะ admin
+  </div>
+
+  <section class="comments-panel">
+    <h2>💬 Feedback / Comments <span id="commentCount" class="count-badge"></span></h2>
+    <p class="hint">คอมเมนต์บันทึกในเบราว์เซอร์นี้ (localStorage) เฉพาะไฟล์นี้ — กด "Copy All" เพื่อคัดลอกไปวางในแชทกับ AI หรือ "Export .md" เพื่อดาวน์โหลดไว้ให้ AI อ่านตอนแก้ UI</p>
+    <textarea id="commentInput" placeholder="เช่น: อยากให้ย้ายปุ่มนี้... (Ctrl+Enter เพื่อส่ง)"></textarea>
+    <div class="c-toolbar">
+      <button id="addCommentBtn" class="btn primary">+ Add Comment</button>
+      <button id="copyBtn" class="btn">📋 Copy All</button>
+      <button id="exportBtn" class="btn">⬇ Export .md</button>
+    </div>
+    <div id="commentList"></div>
+  </section>
+</main>
+<script src="assets/comments.js"></script>
+</body>
+</html>

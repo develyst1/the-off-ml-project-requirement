@@ -6,6 +6,8 @@ skinparam shadowing false
 
 New --> Analyzing : UC-002 AI CENTER วิเคราะห์ข้อความ
 Analyzing --> AwaitingTechSupport : UC-003/UC-004 บันทึกเคส + แจ้ง MS Teams
+Analyzing --> NeedsManualReview : UC-017 ทุก provider ล้มเหลว\n(deepseek/xai/gemini/openai)
+NeedsManualReview --> AwaitingTechSupport : Tech Support อ่าน/จัดหมวดหมู่เองแล้ว\nแจ้งเข้า Teams ตามปกติ
 
 AwaitingTechSupport --> TechReplied : UC-005 ทีม Tech Support ตอบกลับใน Teams
 TechReplied --> AnalyzingSolution : UC-006 AI วิเคราะห์วิธีแก้จากคำตอบ
@@ -26,6 +28,11 @@ note right of AwaitingConfirmation
   จากเคสอื่นได้ชัดเจน (ไม่มี "ไม่ใช่" ค้างอยู่)
   ระบบจะขอ Approve จาก Tech Support เป็นรายหมวดหมู่
   ก่อนเปิด auto-answer (UC-014, Planned)
+end note
+
+note right of NeedsManualReview
+  ห้ามปล่อยเคสนี้ค้างเงียบ — ต้องแจ้ง MS Teams
+  ทันทีว่า AI วิเคราะห์ไม่สำเร็จ แม้ยังไม่มีผลวิเคราะห์ (UC-017)
 end note
 
 @enduml

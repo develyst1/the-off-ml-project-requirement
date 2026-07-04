@@ -3,7 +3,7 @@
 | DIA | File | Type | Visualizes |
 |---|---|---|---|
 | DIA-001 | `01-system-context.puml` | component/deployment | WF-001…WF-004 — all repos/services/channels |
-| DIA-002 | `02-usecases.puml` | use case | UC-001…UC-014 grouped by actor |
+| DIA-002 | `02-usecases.puml` | use case | UC-001…UC-017 grouped by actor |
 | DIA-003 | `03-erd.puml` | ERD | Cases / Messages / Analyses / Solutions / ConfidenceMatches schema |
 | DIA-004 | `04-case-status-state.puml` | state machine | Case status lifecycle across WF-001…WF-004 |
 | DIA-005 | `05-intake-analysis-seq.puml` | sequence | WF-001 — LINE intake → AI CENTER analysis → Teams notify |

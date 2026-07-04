@@ -209,6 +209,8 @@
 .m-alert { border-radius: 10px; padding: 12px 14px; font-size: .84em; display: flex; gap: 10px; }
 .m-alert.orange { background: rgba(232,162,61,.12); color: #8a5a00; }
 .m-alert.orange .ai { color: var(--m-warning); flex: none; }
+.m-alert.red { background: rgba(224,49,49,.10); color: #9a1f1f; }
+.m-alert.red .ai { color: var(--m-danger); flex: none; }
 
 /* Definition list in modal */
 .m-dl { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }

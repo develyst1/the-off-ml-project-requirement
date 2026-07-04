@@ -429,6 +429,47 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
   "ไม่ใช่" ค้างอยู่ — แปลว่าระบบแยกเคสนี้ออกจากเคสอื่นได้ถูกต้องแล้ว) ระบบจะขอ <b>Approve</b> จาก Tech Support เป็นรายหมวดหมู่
   ก่อนเปิดใช้ API / automate / auto-answer LINE — นี่คือการขอ approve เฉพาะเคส ไม่ใช่การขอมติ/โหวตจากทั้งทีม</p>
 </article>
+
+<article id="UC-015" class="uc-card">
+  <h3><span class="id-badge uc">UC-015</span> Tech Support / Admin เข้าสู่ระบบ</h3>
+  <div class="chain">
+    <span class="chip none">Cross-cutting (ไม่ผูก WF เฉพาะ)</span><span class="arrow">→</span>
+    <span class="chip uc active">UC-015</span><span class="arrow">→</span>
+    <a class="chip scr" href="#SCR-006">SCR-006</a><span class="arrow">→</span>
+    <a class="chip api" href="#API-016">API-016</a><span class="arrow">→</span>
+    <a class="chip tc" href="#TC-009">TC-009</a>
+  </div>
+  <p><b>Actor:</b> Tech Support Agent / Admin · เข้าสู่ระบบด้วย Sign in with Microsoft (SSO ผ่าน MS Teams / Entra ID เดิม)
+  เพื่อผูก session กับ <code>tech_agent.ms_teams_user_id</code> ที่มีอยู่แล้ว — ไม่ต้องสร้างระบบ username/password แยกต่างหาก
+  ทุกหน้าจอ (SCR-001 ถึง SCR-005) ต้อง redirect มาที่หน้านี้ก่อนถ้ายังไม่ได้ login</p>
+</article>
+
+<article id="UC-016" class="uc-card">
+  <h3><span class="id-badge uc">UC-016</span> Tech Support ดูประวัติเคสก่อนหน้าของลูกค้าคนเดียวกัน</h3>
+  <div class="chain">
+    <a class="chip wf" href="#WF-002">WF-002</a><span class="arrow">→</span>
+    <span class="chip uc active">UC-016</span><span class="arrow">→</span>
+    <a class="chip scr" href="#SCR-002">SCR-002</a><span class="arrow">→</span>
+    <a class="chip api" href="#API-017">API-017</a><span class="arrow">→</span>
+    <a class="chip tc" href="#TC-010">TC-010</a>
+  </div>
+  <p><b>Actor:</b> Tech Support Agent · จากหน้า Case Detail ดูรายการเคสก่อนหน้าทั้งหมดของลูกค้าคนเดียวกัน (ผูกด้วย customer_id)
+  เพื่อไม่ต้องถามซ้ำและเห็นบริบทว่าลูกค้าคนนี้เคยเจอปัญหาอะไรมาก่อน</p>
+</article>
+
+<article id="UC-017" class="uc-card">
+  <h3><span class="id-badge uc">UC-017</span> ระบบจัดการเมื่อ AI CENTER วิเคราะห์ไม่สำเร็จ (ทุก provider ล้มเหลว)</h3>
+  <div class="chain">
+    <a class="chip wf" href="#WF-001">WF-001</a><span class="arrow">→</span>
+    <span class="chip uc active">UC-017</span><span class="arrow">→</span>
+    <a class="chip scr" href="#SCR-001">SCR-001</a><span class="arrow">→</span>
+    <a class="chip api" href="#API-002">API-002</a><span class="arrow">→</span>
+    <a class="chip tc" href="#TC-012">TC-012</a>
+  </div>
+  <p><b>Actor:</b> System · ถ้า fallback chain ของ AI CENTER ล้มเหลวทุก provider (deepseek→xai→gemini→openai) ระบบต้องบันทึกเคส
+  เป็นสถานะ <code>needs_manual_review</code> พร้อมแจ้งทีม Tech Support ใน MS Teams ทันทีว่า "AI วิเคราะห์ไม่สำเร็จ ต้องอ่านข้อความ
+  ต้นฉบับเองและจัดหมวดหมู่ด้วยตนเอง" — ห้ามให้เคสค้างเงียบไม่แจ้งใครเลย</p>
+</article>
 </section>
 
 <!-- ============================================================ -->
@@ -445,7 +486,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
     <a class="chip api" href="#API-010">API-010</a><span class="arrow">→</span>
     <a class="chip tc" href="#TC-001">TC-001</a>
   </div>
-  <p>รายการเคสทั้งหมดจาก LINE พร้อมหมวดหมู่ที่ AI วิเคราะห์ ความมั่นใจ และสถานะ (รอทีมตอบ / รอยืนยัน AI แนะนำ / ปิดแล้ว / เกิน SLA)</p>
+  <p>รายการเคสทั้งหมดจาก LINE พร้อมหมวดหมู่ที่ AI วิเคราะห์ ความมั่นใจ และสถานะ (รอทีมตอบ / รอยืนยัน AI แนะนำ / ปิดแล้ว / เกิน SLA / ต้องตรวจสอบด้วยตนเองเมื่อ AI ล้มเหลว — UC-017)</p>
   <div class="ui-toggle-row">
     <button class="ui-btn view-ui-btn" data-target="frame-SCR-001">🖼 View UI Mockup ▾</button>
     <a class="ui-btn" href="make-front/SCR-001.html" target="_blank">↗ Open Full Page</a>
@@ -462,7 +503,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
     <a class="chip api" href="#API-011">API-011</a><span class="arrow">→</span>
     <a class="chip tc" href="#TC-004">TC-004</a>
   </div>
-  <p>ข้อความต้นฉบับ + ผลวิเคราะห์ + เธรด MS Teams + วิธีแก้ + ข้อความที่ส่งให้ลูกค้า อยู่ในหน้าเดียว</p>
+  <p>ข้อความต้นฉบับ + ผลวิเคราะห์ + เธรด MS Teams + วิธีแก้ + ข้อความที่ส่งให้ลูกค้า + ประวัติเคสก่อนหน้าของลูกค้าคนเดียวกัน (UC-016) อยู่ในหน้าเดียว</p>
   <div class="ui-toggle-row">
     <button class="ui-btn view-ui-btn" data-target="frame-SCR-002">🖼 View UI Mockup ▾</button>
     <a class="ui-btn" href="make-front/SCR-002.html" target="_blank">↗ Open Full Page</a>
@@ -479,7 +520,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
     <a class="chip api" href="#API-013">API-013</a><span class="arrow">→</span>
     <a class="chip tc" href="#TC-006">TC-006</a>
   </div>
-  <p>ให้ทีม Tech Support ยืนยันคำแนะนำของ AI เมื่อความมั่นใจ ≥ 90% ก่อนนำ solution เดิมไปใช้กับเคสใหม่</p>
+  <p>ให้ทีม Tech Support ยืนยันคำแนะนำของ AI เมื่อความมั่นใจ ≥ 90% ก่อนนำ solution เดิมไปใช้กับเคสใหม่ — แสดงเป็นคิว (queue) เมื่อมีหลายเคสรอพร้อมกัน (API-018)</p>
   <div class="ui-toggle-row">
     <button class="ui-btn view-ui-btn" data-target="frame-SCR-003">🖼 View UI Mockup ▾</button>
     <a class="ui-btn" href="make-front/SCR-003.html" target="_blank">↗ Open Full Page</a>
@@ -519,6 +560,23 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
     <a class="ui-btn" href="make-front/SCR-005.html" target="_blank">↗ Open Full Page</a>
   </div>
   <div class="ui-frame-wrap" id="frame-SCR-005" hidden><iframe data-src="make-front/SCR-005.html" loading="lazy"></iframe></div>
+</article>
+
+<article id="SCR-006" class="scr-card">
+  <h3><span class="id-badge scr">SCR-006</span> Login <span class="status-pill planned">Planned</span></h3>
+  <div class="chain">
+    <span class="chip none">Cross-cutting</span><span class="arrow">→</span>
+    <a class="chip uc" href="#UC-015">UC-015</a><span class="arrow">→</span>
+    <span class="chip scr active">SCR-006</span><span class="arrow">→</span>
+    <a class="chip api" href="#API-016">API-016</a><span class="arrow">→</span>
+    <a class="chip tc" href="#TC-009">TC-009</a>
+  </div>
+  <p>หน้าจอเดียว "Sign in with Microsoft" — ใช้ SSO เดิมของ MS Teams / Entra ID แทนการสร้างระบบ password แยก ทุกหน้าจอ (SCR-001..005) ต้อง redirect มาที่นี่ก่อนถ้ายังไม่ได้ login</p>
+  <div class="ui-toggle-row">
+    <button class="ui-btn view-ui-btn" data-target="frame-SCR-006">🖼 View UI Mockup ▾</button>
+    <a class="ui-btn" href="make-front/SCR-006.html" target="_blank">↗ Open Full Page</a>
+  </div>
+  <div class="ui-frame-wrap" id="frame-SCR-006" hidden><iframe data-src="make-front/SCR-006.html" loading="lazy"></iframe></div>
 </article>
 </section>
 
@@ -622,6 +680,24 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
   <div class="chain"><a class="chip uc" href="#UC-014">UC-014</a> <a class="chip scr" href="#SCR-005">SCR-005</a><span class="arrow">→</span><span class="chip api active">API-015</span></div>
   <p>ตั้งค่าเกณฑ์ auto-answer / เปิด-ปิดระบบอัตโนมัติ — <b>ต้องได้รับ Approve จาก Tech Support เป็นรายหมวดหมู่ก่อนใช้งานจริง</b> (ไม่ใช่การขอมติ/โหวตจากทั้งทีม)</p>
 </article>
+
+<article id="API-016" class="api-card">
+  <h3><span class="id-badge api">API-016</span> POST /auth/login <span class="status-pill planned">Planned</span></h3>
+  <div class="chain"><a class="chip uc" href="#UC-015">UC-015</a><span class="arrow">→</span><span class="chip api active">API-016</span></div>
+  <p>Sign in with Microsoft (OAuth ผ่าน MS Teams / Entra ID) — คืน session ที่ผูกกับ <code>tech_agent.ms_teams_user_id</code> ที่มีอยู่แล้วใน DB ไม่สร้างระบบ password แยก</p>
+</article>
+
+<article id="API-017" class="api-card">
+  <h3><span class="id-badge api">API-017</span> GET /customers/:id/cases <span class="status-pill planned">Planned</span></h3>
+  <div class="chain"><a class="chip uc" href="#UC-016">UC-016</a><span class="arrow">→</span><span class="chip api active">API-017</span></div>
+  <p>List เคสทั้งหมดของลูกค้าคนเดียวกัน (ผูกด้วย customer_id) เรียงจากล่าสุด สำหรับ panel ประวัติเคสในหน้า Case Detail</p>
+</article>
+
+<article id="API-018" class="api-card">
+  <h3><span class="id-badge api">API-018</span> GET /confidence-matches/pending <span class="status-pill planned">Planned</span></h3>
+  <div class="chain"><a class="chip uc" href="#UC-011">UC-011</a><span class="arrow">→</span><span class="chip api active">API-018</span></div>
+  <p>List เคสทั้งหมดที่รอ Tech Support ยืนยัน (confidence_pct 90-100%, ยังไม่ tech_confirmed) สำหรับ queue ในหน้า Confidence Suggestion Review (SCR-003)</p>
+</article>
 </section>
 
 <!-- ============================================================ -->
@@ -677,6 +753,30 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
   <div class="chain"><a class="chip uc" href="#UC-013">UC-013</a> <a class="chip scr" href="#SCR-004">SCR-004</a><span class="arrow">→</span><span class="chip tc active">TC-008</span></div>
   <p><b>ตรวจสอบ:</b> ตัวเลขสรุปในหน้า Analytics Dashboard ตรงกับข้อมูลจริงใน database เมื่อกรองตามหมวดหมู่/ช่วงความมั่นใจ</p>
 </article>
+
+<article id="TC-009" class="tc-card">
+  <h3><span class="id-badge tc">TC-009</span> เข้าถึงหน้าจอไม่ได้ถ้ายังไม่ login <span class="status-pill planned">Planned</span></h3>
+  <div class="chain"><a class="chip uc" href="#UC-015">UC-015</a> <a class="chip scr" href="#SCR-006">SCR-006</a><span class="arrow">→</span><span class="chip tc active">TC-009</span></div>
+  <p><b>ตรวจสอบ:</b> ผู้ใช้ที่ยังไม่ login ถูก redirect ไปหน้า SCR-006 เสมอเมื่อเข้า SCR-001..005 โดยตรง และหลัง login สำเร็จ session ผูกกับ ms_teams_user_id ที่ถูกต้อง</p>
+</article>
+
+<article id="TC-010" class="tc-card">
+  <h3><span class="id-badge tc">TC-010</span> ประวัติเคสแสดงเฉพาะของลูกค้าคนนั้น <span class="status-pill planned">Planned</span></h3>
+  <div class="chain"><a class="chip uc" href="#UC-016">UC-016</a> <a class="chip scr" href="#SCR-002">SCR-002</a><span class="arrow">→</span><span class="chip tc active">TC-010</span></div>
+  <p><b>ตรวจสอบ:</b> panel ประวัติเคสใน Case Detail แสดงเฉพาะเคสที่ customer_id ตรงกับลูกค้าของเคสปัจจุบัน เรียงจากล่าสุดไปเก่าสุด ไม่ปนของลูกค้าคนอื่น</p>
+</article>
+
+<article id="TC-011" class="tc-card">
+  <h3><span class="id-badge tc">TC-011</span> คิวยืนยัน AI ครบตามจำนวนจริง <span class="status-pill planned">Planned</span></h3>
+  <div class="chain"><a class="chip uc" href="#UC-011">UC-011</a> <a class="chip scr" href="#SCR-003">SCR-003</a><span class="arrow">→</span><span class="chip tc active">TC-011</span></div>
+  <p><b>ตรวจสอบ:</b> จำนวนเคสในคิวของ SCR-003 ตรงกับตัวเลข KPI "รอยืนยัน AI แนะนำ" ใน SCR-001 เสมอ และสามารถเลื่อนไปดูเคสถัดไปในคิวได้โดยไม่ต้องย้อนกลับไป Case Inbox</p>
+</article>
+
+<article id="TC-012" class="tc-card">
+  <h3><span class="id-badge tc">TC-012</span> AI CENTER ล่มทุก provider แล้วเคสไม่ค้างเงียบ <span class="status-pill planned">Planned</span></h3>
+  <div class="chain"><a class="chip uc" href="#UC-017">UC-017</a> <a class="chip scr" href="#SCR-001">SCR-001</a><span class="arrow">→</span><span class="chip tc active">TC-012</span></div>
+  <p><b>ตรวจสอบ:</b> เมื่อ deepseek→xai→gemini→openai ล้มเหลวทั้งหมด เคสต้องถูกตั้งสถานะ needs_manual_review และมีการแจ้ง MS Teams ทันที ไม่ใช่ค้างอยู่ที่สถานะ analyzing เฉย ๆ</p>
+</article>
 </section>
 
 <!-- ============================================================ -->
@@ -685,25 +785,30 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 <p class="section-sub">ภาพรวม WF → UC → SCR → API → TC ในตารางเดียว</p>
 <table class="matrix-table">
 <tr><th>WF</th><th>UC</th><th>SCR</th><th>API</th><th>TC</th></tr>
-<tr><td rowspan="3"><a class="chip wf" href="#WF-001">WF-001</a></td><td><a class="chip uc" href="#UC-001">UC-001</a></td><td><span class="chip none">—</span></td><td><a class="chip api" href="#API-001">API-001</a></td><td><a class="chip tc" href="#TC-001">TC-001</a></td></tr>
+<tr><td><span class="chip none">Cross-cutting</span></td><td><a class="chip uc" href="#UC-015">UC-015</a></td><td><a class="chip scr" href="#SCR-006">SCR-006</a></td><td><a class="chip api" href="#API-016">API-016</a></td><td><a class="chip tc" href="#TC-009">TC-009</a></td></tr>
+
+<tr><td rowspan="4"><a class="chip wf" href="#WF-001">WF-001</a></td><td><a class="chip uc" href="#UC-001">UC-001</a></td><td><span class="chip none">—</span></td><td><a class="chip api" href="#API-001">API-001</a></td><td><a class="chip tc" href="#TC-001">TC-001</a></td></tr>
 <tr><td><a class="chip uc" href="#UC-002">UC-002</a></td><td><a class="chip scr" href="#SCR-001">SCR-001</a></td><td><a class="chip api" href="#API-002">API-002</a></td><td><a class="chip tc" href="#TC-002">TC-002</a></td></tr>
 <tr><td><a class="chip uc" href="#UC-003">UC-003</a></td><td><a class="chip scr" href="#SCR-001">SCR-001</a></td><td><a class="chip api" href="#API-003">API-003</a></td><td><a class="chip tc" href="#TC-001">TC-001</a></td></tr>
+<tr><td><a class="chip uc" href="#UC-017">UC-017</a></td><td><a class="chip scr" href="#SCR-001">SCR-001</a></td><td><a class="chip api" href="#API-002">API-002</a></td><td><a class="chip tc" href="#TC-012">TC-012</a></td></tr>
 
-<tr><td rowspan="4"><a class="chip wf" href="#WF-002">WF-002</a></td><td><a class="chip uc" href="#UC-004">UC-004</a></td><td><a class="chip scr" href="#SCR-002">SCR-002</a></td><td><a class="chip api" href="#API-004">API-004</a></td><td><a class="chip tc" href="#TC-003">TC-003</a></td></tr>
+<tr><td rowspan="5"><a class="chip wf" href="#WF-002">WF-002</a></td><td><a class="chip uc" href="#UC-004">UC-004</a></td><td><a class="chip scr" href="#SCR-002">SCR-002</a></td><td><a class="chip api" href="#API-004">API-004</a></td><td><a class="chip tc" href="#TC-003">TC-003</a></td></tr>
 <tr><td><a class="chip uc" href="#UC-005">UC-005</a></td><td><a class="chip scr" href="#SCR-002">SCR-002</a></td><td><a class="chip api" href="#API-005">API-005</a></td><td><a class="chip tc" href="#TC-003">TC-003</a></td></tr>
 <tr><td><a class="chip uc" href="#UC-006">UC-006</a></td><td><a class="chip scr" href="#SCR-002">SCR-002</a></td><td><a class="chip api" href="#API-006">API-006</a></td><td><a class="chip tc" href="#TC-004">TC-004</a></td></tr>
 <tr><td><a class="chip uc" href="#UC-007">UC-007</a></td><td><a class="chip scr" href="#SCR-002">SCR-002</a></td><td><a class="chip api" href="#API-007">API-007</a></td><td><a class="chip tc" href="#TC-004">TC-004</a></td></tr>
+<tr><td><a class="chip uc" href="#UC-016">UC-016</a></td><td><a class="chip scr" href="#SCR-002">SCR-002</a></td><td><a class="chip api" href="#API-017">API-017</a></td><td><a class="chip tc" href="#TC-010">TC-010</a></td></tr>
 
 <tr><td rowspan="2"><a class="chip wf" href="#WF-003">WF-003</a></td><td><a class="chip uc" href="#UC-008">UC-008</a></td><td><a class="chip scr" href="#SCR-002">SCR-002</a></td><td><a class="chip api" href="#API-008">API-008</a></td><td><a class="chip tc" href="#TC-005">TC-005</a></td></tr>
 <tr><td><a class="chip uc" href="#UC-009">UC-009</a></td><td><a class="chip scr" href="#SCR-002">SCR-002</a></td><td><a class="chip api" href="#API-009">API-009</a></td><td><a class="chip tc" href="#TC-005">TC-005</a></td></tr>
 
-<tr><td rowspan="5"><a class="chip wf" href="#WF-004">WF-004</a></td><td><a class="chip uc" href="#UC-010">UC-010</a></td><td><a class="chip scr" href="#SCR-003">SCR-003</a></td><td><a class="chip api" href="#API-012">API-012</a></td><td><a class="chip tc" href="#TC-006">TC-006</a></td></tr>
+<tr><td rowspan="6"><a class="chip wf" href="#WF-004">WF-004</a></td><td><a class="chip uc" href="#UC-010">UC-010</a></td><td><a class="chip scr" href="#SCR-003">SCR-003</a></td><td><a class="chip api" href="#API-012">API-012</a></td><td><a class="chip tc" href="#TC-006">TC-006</a></td></tr>
 <tr><td><a class="chip uc" href="#UC-011">UC-011</a></td><td><a class="chip scr" href="#SCR-003">SCR-003</a></td><td><a class="chip api" href="#API-013">API-013</a></td><td><a class="chip tc" href="#TC-006">TC-006</a></td></tr>
+<tr><td><a class="chip uc" href="#UC-011">UC-011</a></td><td><a class="chip scr" href="#SCR-003">SCR-003</a></td><td><a class="chip api" href="#API-018">API-018</a></td><td><a class="chip tc" href="#TC-011">TC-011</a></td></tr>
 <tr><td><a class="chip uc" href="#UC-012">UC-012</a></td><td><a class="chip scr" href="#SCR-003">SCR-003</a></td><td><a class="chip api" href="#API-013">API-013</a></td><td><a class="chip tc" href="#TC-007">TC-007</a></td></tr>
 <tr><td><a class="chip uc" href="#UC-013">UC-013</a></td><td><a class="chip scr" href="#SCR-004">SCR-004</a></td><td><a class="chip api" href="#API-014">API-014</a></td><td><a class="chip tc" href="#TC-008">TC-008</a></td></tr>
 <tr><td><a class="chip uc" href="#UC-014">UC-014</a></td><td><a class="chip scr" href="#SCR-005">SCR-005</a></td><td><a class="chip api" href="#API-015">API-015</a></td><td><span class="chip none">—</span></td></tr>
 </table>
-<p class="matrix-note">รวม: <b>4</b> WF · <b>14</b> UC · <b>5</b> SCR · <b>15</b> API · <b>8</b> TC · <b>7</b> DIA · <b>2</b> DOC</p>
+<p class="matrix-note">รวม: <b>4</b> WF (+ Cross-cutting) · <b>17</b> UC · <b>6</b> SCR · <b>18</b> API · <b>12</b> TC · <b>7</b> DIA · <b>2</b> DOC</p>
 </section>
 
 <!-- ============================================================ -->
@@ -734,14 +839,16 @@ cloud "LINE Official Account" as LINE
 cloud "MS Teams\n(Tech Support Channel)" as Teams
 
 package "the-off-ml-project-back\n(Bun + TypeScript + Hono)" {
+  [Auth Service\nAPI-016 (SSO)] as Auth
   [Webhook Handlers\nAPI-001 / API-005] as Webhooks
-  [Case Service\nAPI-003 / API-007 / API-010 / API-011] as CaseSvc
+  [Case Service\nAPI-003 / API-007 / API-010 / API-011 / API-017] as CaseSvc
   [Analytics Service\nAPI-014] as Analytics
   [Automation Settings\nAPI-015 (Planned)] as Automation
   database "Database\n(Cases / Messages / Analyses / Solutions)" as DB
 }
 
 package "the-off-ml-project-front\n(Next.js + TypeScript + Mantine)" {
+  [Login\nSCR-006] as ScrLogin
   [Case Inbox\nSCR-001] as ScrInbox
   [Case Detail\nSCR-002] as ScrDetail
   [Confidence Review\nSCR-003] as ScrConfidence
@@ -761,7 +868,7 @@ package "develyst-ai (bruno)\nAPI AI CENTER" {
 Customer --> LINE : ส่งข้อความ/แจ้งปัญหา
 LINE --> Webhooks : webhook (API-001)
 Webhooks --> AiChat : วิเคราะห์ข้อความลูกค้า (API-002)
-Webhooks --> CaseSvc : สร้างเคส (API-003)
+Webhooks --> CaseSvc : สร้างเคส (API-003)\nถ้า AI ทุก provider ล้มเหลว\n=> status needs_manual_review (UC-017)
 CaseSvc --> DB
 CaseSvc --> Teams : แจ้งเคสให้ทีม (API-004)
 Teams --> Tech : เห็นข้อความลูกค้า+ผลวิเคราะห์
@@ -776,6 +883,11 @@ LINE --> Customer : ได้รับคำตอบ
 CaseSvc --> AiChat : จับคู่ความมั่นใจกับเคสเดิม (API-012, Planned)
 CaseSvc --> Teams : ถามยืนยัน solution ที่แนะนำ (API-013, Planned)
 
+Tech --> ScrLogin : เข้าสู่ระบบก่อนใช้งาน (UC-015)
+Admin --> ScrLogin
+ScrLogin --> Auth : Sign in with Microsoft (API-016)
+Auth --> DB : ผูก session กับ tech_agent.ms_teams_user_id
+
 Admin --> ScrAnalytics
 Admin --> ScrSettings
 Tech --> ScrInbox
@@ -783,7 +895,7 @@ Tech --> ScrDetail
 Tech --> ScrConfidence
 
 ScrInbox --> CaseSvc
-ScrDetail --> CaseSvc
+ScrDetail --> CaseSvc : รวมประวัติเคสของลูกค้าคนเดียวกัน (API-017, UC-016)
 ScrConfidence --> CaseSvc
 ScrAnalytics --> Analytics
 ScrSettings --> Automation
@@ -806,7 +918,7 @@ Automation --> DB
   <div class="dia-view" id="view-DIA-002"><span class="dia-loading">รอเรนเดอร์…</span></div>
   <script type="text/plantuml" id="src-text-DIA-002">
 @startuml 02-usecases
-title DIA-002 · Use Case Diagram — UC-001..UC-014
+title DIA-002 · Use Case Diagram — UC-001..UC-017
 skinparam shadowing false
 left to right direction
 
@@ -830,6 +942,9 @@ rectangle "Off-ML Tech Support Assistant" {
   usecase "UC-012\nยืนยัน/ปฏิเสธ + ปรับความมั่นใจ\n(ปฏิเสธ → ต้องระบุเหตุผล)\n(Planned)" as UC12
   usecase "UC-013\nดูภาพรวมสถิติเคส" as UC13
   usecase "UC-014\nขอ Approve จาก Tech Support\nเพื่อเปิด auto-answer\n(Planned)" as UC14
+  usecase "UC-015\nเข้าสู่ระบบ (SSO MS Teams)" as UC15
+  usecase "UC-016\nดูประวัติเคสก่อนหน้าของลูกค้า" as UC16
+  usecase "UC-017\nจัดการเมื่อ AI CENTER\nวิเคราะห์ไม่สำเร็จทุก provider" as UC17
 }
 
 Customer --> UC1
@@ -860,6 +975,14 @@ Admin --> UC13
 Admin --> UC14
 Tech --> UC14
 UC13 ..> UC10 : <<extend>>
+
+Tech --> UC15
+Admin --> UC15
+Tech --> UC16
+UC16 ..> UC3 : <<extend>>\n(ดูจาก customer_id เดียวกัน)
+AI --> UC17
+UC2 ..> UC17 : <<extend>>\n(เมื่อ AI CENTER ล่มทุก provider)
+UC17 --> Tech : แจ้งให้ตรวจสอบด้วยตนเอง
 
 @enduml
   </script>
@@ -893,7 +1016,7 @@ entity "case" as case_ {
   * id : uuid <<PK>>
   --
   customer_id : uuid <<FK>>
-  status : enum(new, analyzing, awaiting_tech, tech_replied, analyzing_solution, awaiting_confirmation, resolved, awaiting_send_review, sent, closed)
+  status : enum(new, analyzing, needs_manual_review, awaiting_tech, tech_replied, analyzing_solution, awaiting_confirmation, resolved, awaiting_send_review, sent, closed)
   category : string
   confidence_score : decimal (0-100)
   created_at : datetime
@@ -945,7 +1068,12 @@ entity "tech_agent" as tech_agent {
   --
   ms_teams_user_id : string
   display_name : string
+  role : enum(tech_support, admin)
 }
+note right of tech_agent::role
+  ใช้กำหนดสิทธิ์เข้าถึงหน้าจอหลัง login (UC-015)
+  เช่น SCR-004/SCR-005 เห็นได้เฉพาะ admin
+end note
 
 entity "confidence_match" as confidence_match {
   * id : uuid <<PK>>
@@ -996,6 +1124,8 @@ skinparam shadowing false
 
 New --> Analyzing : UC-002 AI CENTER วิเคราะห์ข้อความ
 Analyzing --> AwaitingTechSupport : UC-003/UC-004 บันทึกเคส + แจ้ง MS Teams
+Analyzing --> NeedsManualReview : UC-017 ทุก provider ล้มเหลว\n(deepseek/xai/gemini/openai)
+NeedsManualReview --> AwaitingTechSupport : Tech Support อ่าน/จัดหมวดหมู่เองแล้ว\nแจ้งเข้า Teams ตามปกติ
 
 AwaitingTechSupport --> TechReplied : UC-005 ทีม Tech Support ตอบกลับใน Teams
 TechReplied --> AnalyzingSolution : UC-006 AI วิเคราะห์วิธีแก้จากคำตอบ
@@ -1016,6 +1146,11 @@ note right of AwaitingConfirmation
   จากเคสอื่นได้ชัดเจน (ไม่มี "ไม่ใช่" ค้างอยู่)
   ระบบจะขอ Approve จาก Tech Support เป็นรายหมวดหมู่
   ก่อนเปิด auto-answer (UC-014, Planned)
+end note
+
+note right of NeedsManualReview
+  ห้ามปล่อยเคสนี้ค้างเงียบ — ต้องแจ้ง MS Teams
+  ทันทีว่า AI วิเคราะห์ไม่สำเร็จ แม้ยังไม่มีผลวิเคราะห์ (UC-017)
 end note
 
 @enduml
@@ -1046,18 +1181,30 @@ control "MS Teams\nWebhook" as Teams
 
 Customer -> LINE : ส่งข้อความ/แจ้งปัญหา
 LINE -> Backend : webhook event\n**API-001** POST /webhooks/line
-Backend -> AI : **API-002** POST /ai/analyze-message\n(ข้อความต้นฉบับ)
-AI --> Backend : ผลวิเคราะห์ (หมวดหมู่, สรุป, ความมั่นใจ)
-Backend -> DB : **API-003** POST /cases\n(customer, original_text, analyzed_text)
-DB --> Backend : case_id
-Backend -> Teams : **API-004** POST /integrations/teams/notify\n(ลูกค้าคนไหน + ข้อความเดิม + ผลวิเคราะห์)
-Teams --> Backend : 200 OK (ส่งเข้าห้อง Tech Support แล้ว)
-Backend --> LINE : (ไม่ตอบกลับทันที รอทีม Tech Support)
+Backend -> AI : **API-002** POST /ai/analyze-message\n(ข้อความต้นฉบับ, fallback deepseek->xai->gemini->openai)
 
-note over Teams
-  เคสสถานะ = AwaitingTechSupport
-  ดูต่อได้ที่ DIA-006
-end note
+alt AI CENTER วิเคราะห์สำเร็จ (provider ใดก็ได้ตอบ)
+  AI --> Backend : ผลวิเคราะห์ (หมวดหมู่, สรุป, ความมั่นใจ)
+  Backend -> DB : **API-003** POST /cases\n(customer, original_text, analyzed_text)
+  DB --> Backend : case_id
+  Backend -> Teams : **API-004** POST /integrations/teams/notify\n(ลูกค้าคนไหน + ข้อความเดิม + ผลวิเคราะห์)
+  Teams --> Backend : 200 OK (ส่งเข้าห้อง Tech Support แล้ว)
+  Backend --> LINE : (ไม่ตอบกลับทันที รอทีม Tech Support)
+
+  note over Teams
+    เคสสถานะ = AwaitingTechSupport
+    ดูต่อได้ที่ DIA-006
+  end note
+else ทุก provider ล้มเหลว (UC-017)
+  AI --> Backend : error (deepseek, xai, gemini, openai ล้มเหลวทั้งหมด)
+  Backend -> DB : **API-003** POST /cases\n(customer, original_text, analyzed_text = null,\nstatus = needs_manual_review)
+  DB --> Backend : case_id
+  Backend -> Teams : **API-004** แจ้งทันทีว่า "AI วิเคราะห์ไม่สำเร็จ\nต้องอ่านข้อความเองและจัดหมวดหมู่ด้วยตนเอง"
+  note over Teams
+    ห้ามปล่อยเคสนี้ค้างเงียบ —
+    ต้องแจ้งทีมทันทีแม้ AI จะวิเคราะห์ไม่ได้ (UC-017)
+  end note
+end
 
 @enduml
   </script>

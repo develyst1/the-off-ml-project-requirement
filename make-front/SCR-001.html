@@ -55,6 +55,7 @@
                 <div class="kpi"><div class="tile orange">⏳</div><div><div class="num">3</div><div class="lbl">รอยืนยัน AI แนะนำ</div></div></div>
                 <div class="kpi"><div class="tile green">✔</div><div><div class="num">128</div><div class="lbl">ปิดเคสแล้ว (เดือนนี้)</div></div></div>
                 <div class="kpi"><div class="tile red">⚠</div><div><div class="num">1</div><div class="lbl">เกิน SLA</div></div></div>
+                <div class="kpi"><div class="tile gray">🛠</div><div><div class="num">1</div><div class="lbl">ต้องตรวจสอบด้วยตนเอง (AI ล้มเหลว)</div></div></div>
               </div>
 
               <div class="m-card">
@@ -98,13 +99,34 @@
                     <td><span class="badge-pill red">เกิน SLA (4 ชม.)</span></td>
                     <td><a href="SCR-002.html" class="m-btn-light red" style="text-decoration:none;padding:6px 12px;border-radius:6px;font-size:.8em;font-weight:700;">ดูด่วน →</a></td>
                   </tr>
+                  <tr>
+                    <td>คุณปิยะดา รุ่งเรือง</td>
+                    <td>"เข้าเว็บไม่ได้เลยค่ะ ช่วยด่วน"</td>
+                    <td><span class="badge-pill gray">— (AI วิเคราะห์ไม่สำเร็จ)</span></td>
+                    <td><span class="m-xs m-muted">—</span></td>
+                    <td><span class="badge-pill red">⚠ ต้องตรวจสอบด้วยตนเอง</span></td>
+                    <td><a href="SCR-002.html" class="m-btn-light red" style="text-decoration:none;padding:6px 12px;border-radius:6px;font-size:.8em;font-weight:700;">อ่านเอง →</a></td>
+                  </tr>
                 </table>
+              </div>
+
+              <div class="m-alert red" style="border:1px dashed var(--m-danger);">
+                <span class="ai">⚠</span> <b>ตัวอย่าง error state (UC-017):</b> AI CENTER ล้มเหลวทุก provider (deepseek→xai→gemini→openai)
+                สำหรับเคสของคุณปิยะดา — ระบบยังคงบันทึกเคสและแจ้งทีมใน MS Teams ทันที (สถานะ <code>needs_manual_review</code>)
+                แทนที่จะปล่อยให้ค้างเงียบไม่มีใครเห็น ทีมต้องอ่านข้อความต้นฉบับและจัดหมวดหมู่เอง
+              </div>
+
+              <div class="m-card" style="border:1px dashed var(--d300);text-align:center;padding:32px;">
+                <div style="font-size:1.6em;margin-bottom:8px;">📭</div>
+                <div class="m-title" style="margin-bottom:4px;">ตัวอย่าง empty state — ไม่มีเคสในคิวนี้</div>
+                <div class="m-xs m-muted">เมื่อกรองแท็บ "รอยืนยัน AI" แล้วไม่มีเคสค้าง ระบบแสดงข้อความนี้แทนตารางว่างเปล่า</div>
               </div>
 
               <div class="note-box info">
                 <b>กติกาหน้าจอนี้ (UC-003/UC-004):</b> ทุกเคสใหม่จาก LINE ต้องถูก AI CENTER วิเคราะห์และบันทึก
                 <b>ข้อความต้นฉบับ + ผลวิเคราะห์ + ตัวตนลูกค้า</b> ลง database ก่อนเสมอ ก่อนถูกส่งแจ้งทีม Tech Support ใน MS Teams —
-                แถวที่มีความมั่นใจ ≥ 90% จะถูกจัดกลุ่มไปที่คิว "รอยืนยัน AI แนะนำ" แทนคิวปกติ (ดู SCR-003)
+                แถวที่มีความมั่นใจ ≥ 90% จะถูกจัดกลุ่มไปที่คิว "รอยืนยัน AI แนะนำ" แทนคิวปกติ (ดู SCR-003) — ถ้า AI วิเคราะห์ไม่สำเร็จเลย (UC-017)
+                เคสจะขึ้นสถานะ "ต้องตรวจสอบด้วยตนเอง" แทนที่จะไม่มีใครเห็นเคสนั้น
               </div>
             </div>
           </div>

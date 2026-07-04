@@ -21,7 +21,7 @@
 
 <main class="wrap">
   <h1 class="screen-title">รายละเอียดเคส (Case Detail)</h1>
-  <p class="screen-sub"><span class="as-built">Planned — greenfield mockup</span> ข้อความต้นฉบับ + ผลวิเคราะห์ + เธรด MS Teams + วิธีแก้ + ข้อความที่ส่งให้ลูกค้า อยู่ในหน้าเดียว</p>
+  <p class="screen-sub"><span class="as-built">Planned — greenfield mockup</span> ข้อความต้นฉบับ + ผลวิเคราะห์ + เธรด MS Teams + วิธีแก้ + ข้อความที่ส่งให้ลูกค้า + ประวัติเคสก่อนหน้าของลูกค้าคนเดียวกัน อยู่ในหน้าเดียว</p>
 
   <div class="device-frame">
     <div class="device-bar">
@@ -100,6 +100,16 @@
                   <button class="m-btn-light gray">✎ แก้ไขข้อความ</button>
                   <button class="m-btn">✓ ยืนยันและส่งให้ลูกค้า (LINE)</button>
                 </div>
+              </div>
+
+              <div class="m-card">
+                <div class="m-title" style="margin-bottom:8px;">5) ประวัติเคสก่อนหน้าของลูกค้าคนนี้ (คุณสมชาย ใจดี)</div>
+                <table class="mk-table">
+                  <tr><th>เคส</th><th>วันที่แจ้ง</th><th>หมวดหมู่</th><th>วิธีแก้</th><th>สถานะ</th></tr>
+                  <tr><td>CASE-1904</td><td>18/05/2026</td><td><span class="badge-pill blue">Login/Access</span></td><td>"รีเซ็ตรหัสผ่านผ่านลิงก์ในอีเมล"</td><td><span class="badge-pill green">ปิดเคสแล้ว</span></td></tr>
+                  <tr><td>CASE-1622</td><td>02/03/2026</td><td><span class="badge-pill green">How-to</span></td><td>"สอนวิธี export รายงานเป็น PDF"</td><td><span class="badge-pill green">ปิดเคสแล้ว</span></td></tr>
+                </table>
+                <div class="m-xs m-muted" style="margin-top:6px;">ดึงจาก API-017 <code>GET /customers/:id/cases</code> — เรียงจากล่าสุดไปเก่าสุด (UC-016)</div>
               </div>
 
               <div class="note-box danger">

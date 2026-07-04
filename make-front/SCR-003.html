@@ -21,7 +21,7 @@
 
 <main class="wrap">
   <h1 class="screen-title">ยืนยันคำแนะนำของ AI (Confidence Suggestion Review)</h1>
-  <p class="screen-sub"><span class="as-built">Planned — future phase (WF-004)</span> ใช้เมื่อข้อมูลเคสสะสมมากพอ ระบบจับคู่เคสใหม่กับวิธีแก้เดิม แล้วให้ทีมยืนยัน</p>
+  <p class="screen-sub"><span class="as-built">Planned — future phase (WF-004)</span> ใช้เมื่อข้อมูลเคสสะสมมากพอ ระบบจับคู่เคสใหม่กับวิธีแก้เดิม แล้วให้ทีมยืนยันทีละเคสจากคิวทางซ้าย</p>
 
   <div class="device-frame">
     <div class="device-bar">
@@ -49,10 +49,28 @@
             <div class="right"><span class="who">tech-support</span><span class="app-avatar">TS</span></div>
           </header>
           <div class="app-content">
-            <div class="stack">
+            <div class="row" style="align-items:flex-start;gap:20px;">
+              <div class="m-card" style="width:250px;flex:none;padding:14px;">
+                <div class="m-title" style="margin-bottom:10px;">คิวรอยืนยัน (3) <span class="m-xs m-muted">API-018</span></div>
+                <div class="m-card" style="border:2px solid var(--m-primary);margin-bottom:8px;padding:10px;">
+                  <div style="font-weight:700;font-size:.9em;">CASE-2051 · วรรณา พลอยงาม</div>
+                  <div class="row" style="justify-content:space-between;margin-top:4px;"><span class="m-xs m-muted">Data Mismatch</span><span class="m-badge green">96%</span></div>
+                </div>
+                <div class="m-card" style="margin-bottom:8px;padding:10px;cursor:pointer;">
+                  <div style="font-weight:700;font-size:.9em;">CASE-2058 · ประวิทย์ ทองแท้</div>
+                  <div class="row" style="justify-content:space-between;margin-top:4px;"><span class="m-xs m-muted">Login/Access</span><span class="m-badge green">93%</span></div>
+                </div>
+                <div class="m-card" style="padding:10px;cursor:pointer;">
+                  <div style="font-weight:700;font-size:.9em;">CASE-2060 · ธิดารัตน์ แก้วมณี</div>
+                  <div class="row" style="justify-content:space-between;margin-top:4px;"><span class="m-xs m-muted">Performance</span><span class="m-badge green">91%</span></div>
+                </div>
+                <div class="m-xs m-muted" style="margin-top:10px;">จำนวนตรงกับ KPI "รอยืนยัน AI แนะนำ" ใน SCR-001 (TC-011)</div>
+              </div>
+
+              <div class="stack" style="flex:1;min-width:0;">
               <div class="m-alert orange"><span class="ai">🤖</span>
                 ระบบพบว่าเคสนี้มีความคล้ายกับเคสเก่าที่เคยแก้แล้ว <b>สูงถึง 96%</b> จึงขอให้ทีมช่วยยืนยันก่อนนำไปใช้จริง
-                (เกณฑ์: ถามยืนยันเมื่อความมั่นใจ ≥ 90%)
+                (เกณฑ์: ถามยืนยันเมื่อความมั่นใจ ≥ 90%) — เคส 1/3 ในคิว
               </div>
 
               <div class="m-card">
@@ -96,6 +114,13 @@
                 สำหรับเคสแนวเดียวกันในอนาคต ถ้าทีมกด "ไม่ใช่" ระบบต้องขอให้ทีมระบุเหตุผล/จุดต่างทุกครั้ง เพื่อแก้ไขความเข้าใจ
                 ไม่ให้จับคู่ผิดซ้ำอีก — เมื่อสะสมจนมั่นใจ <b>100% ต่อเนื่อง</b> และแยกเคสนี้จากเคสอื่นได้ชัดเจนแล้ว (ไม่มี "ไม่ใช่" ค้างอยู่)
                 ระบบจะขอ <b>Approve จาก Tech Support เป็นรายหมวดหมู่</b> ก่อนเปิดใช้ auto-answer (UC-014, ดู SCR-005) — ไม่ใช่การขอมติ/โหวตจากทั้งทีม
+              </div>
+
+              <div class="m-actions" style="justify-content:space-between;">
+                <button class="m-btn-light gray" disabled>← เคสก่อนหน้า</button>
+                <span class="m-xs m-muted">เคส 1 จาก 3 ในคิว</span>
+                <button class="m-btn-light gray">เคสถัดไป →</button>
+              </div>
               </div>
             </div>
           </div>

@@ -15,7 +15,7 @@ entity "case" as case_ {
   * id : uuid <<PK>>
   --
   customer_id : uuid <<FK>>
-  status : enum(new, analyzing, awaiting_tech, tech_replied, analyzing_solution, awaiting_confirmation, resolved, awaiting_send_review, sent, closed)
+  status : enum(new, analyzing, needs_manual_review, awaiting_tech, tech_replied, analyzing_solution, awaiting_confirmation, resolved, awaiting_send_review, sent, closed)
   category : string
   confidence_score : decimal (0-100)
   created_at : datetime
@@ -67,7 +67,12 @@ entity "tech_agent" as tech_agent {
   --
   ms_teams_user_id : string
   display_name : string
+  role : enum(tech_support, admin)
 }
+note right of tech_agent::role
+  ใช้กำหนดสิทธิ์เข้าถึงหน้าจอหลัง login (UC-015)
+  เช่น SCR-004/SCR-005 เห็นได้เฉพาะ admin
+end note
 
 entity "confidence_match" as confidence_match {
   * id : uuid <<PK>>

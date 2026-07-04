@@ -1,5 +1,5 @@
 @startuml 02-usecases
-title DIA-002 · Use Case Diagram — UC-001..UC-014
+title DIA-002 · Use Case Diagram — UC-001..UC-017
 skinparam shadowing false
 left to right direction
 
@@ -23,6 +23,9 @@ rectangle "Off-ML Tech Support Assistant" {
   usecase "UC-012\nยืนยัน/ปฏิเสธ + ปรับความมั่นใจ\n(ปฏิเสธ → ต้องระบุเหตุผล)\n(Planned)" as UC12
   usecase "UC-013\nดูภาพรวมสถิติเคส" as UC13
   usecase "UC-014\nขอ Approve จาก Tech Support\nเพื่อเปิด auto-answer\n(Planned)" as UC14
+  usecase "UC-015\nเข้าสู่ระบบ (SSO MS Teams)" as UC15
+  usecase "UC-016\nดูประวัติเคสก่อนหน้าของลูกค้า" as UC16
+  usecase "UC-017\nจัดการเมื่อ AI CENTER\nวิเคราะห์ไม่สำเร็จทุก provider" as UC17
 }
 
 Customer --> UC1
@@ -53,5 +56,13 @@ Admin --> UC13
 Admin --> UC14
 Tech --> UC14
 UC13 ..> UC10 : <<extend>>
+
+Tech --> UC15
+Admin --> UC15
+Tech --> UC16
+UC16 ..> UC3 : <<extend>>\n(ดูจาก customer_id เดียวกัน)
+AI --> UC17
+UC2 ..> UC17 : <<extend>>\n(เมื่อ AI CENTER ล่มทุก provider)
+UC17 --> Tech : แจ้งให้ตรวจสอบด้วยตนเอง
 
 @enduml
