@@ -18,6 +18,10 @@
 }
 * { box-sizing: border-box; }
 body { margin:0; font-family:"Segoe UI","Tahoma",sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; }
+
+/* Line-icon system (Tabler-style inline SVG, no install needed) replacing emoji glyphs */
+.ic { width: 1em; height: 1em; vertical-align: -0.15em; flex: none; }
+.ic-lg { width: 20px; height: 20px; flex: none; }
 a { color: inherit; }
 
 /* ===== layout ===== */
@@ -107,7 +111,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 <body>
 <div class="hub">
 <aside class="sidebar">
-  <h1>🛠 Off-ML</h1>
+  <h1><svg class="ic-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-4px;margin-right:4px;"><path d="M7 10h3V7L6.5 3.5a5 5 0 0 1 6.6 6.6l5.4 5.4a1.5 1.5 0 0 1-2.1 2.1l-5.4-5.4a5 5 0 0 1-6.6-6.6L7 10z"/></svg>Off-ML</h1>
   <div class="tag">Requirement Hub · AI Tech Support Assistant</div>
 
   <div class="mini-flow">
@@ -488,8 +492,8 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
   </div>
   <p>รายการเคสทั้งหมดจาก LINE พร้อมหมวดหมู่ที่ AI วิเคราะห์ ความมั่นใจ และสถานะ (รอทีมตอบ / รอยืนยัน AI แนะนำ / ปิดแล้ว / เกิน SLA / ต้องตรวจสอบด้วยตนเองเมื่อ AI ล้มเหลว — UC-017)</p>
   <div class="ui-toggle-row">
-    <button class="ui-btn view-ui-btn" data-target="frame-SCR-001">🖼 View UI Mockup ▾</button>
-    <a class="ui-btn" href="make-front/SCR-001.html" target="_blank">↗ Open Full Page</a>
+    <button class="ui-btn view-ui-btn" data-target="frame-SCR-001"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M4 17l5-5 4 4 3-3 5 5"/></svg> <span class="btn-label">View UI Mockup ▾</span></button>
+    <a class="ui-btn" href="make-front/SCR-001.html" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15L20 4"/><path d="M14 4h6v6"/><path d="M20 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6"/></svg> Open Full Page</a>
   </div>
   <div class="ui-frame-wrap" id="frame-SCR-001" hidden><iframe data-src="make-front/SCR-001.html" loading="lazy"></iframe></div>
 </article>
@@ -505,8 +509,8 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
   </div>
   <p>ข้อความต้นฉบับ + ผลวิเคราะห์ + เธรด MS Teams + วิธีแก้ + ข้อความที่ส่งให้ลูกค้า + ประวัติเคสก่อนหน้าของลูกค้าคนเดียวกัน (UC-016) อยู่ในหน้าเดียว</p>
   <div class="ui-toggle-row">
-    <button class="ui-btn view-ui-btn" data-target="frame-SCR-002">🖼 View UI Mockup ▾</button>
-    <a class="ui-btn" href="make-front/SCR-002.html" target="_blank">↗ Open Full Page</a>
+    <button class="ui-btn view-ui-btn" data-target="frame-SCR-002"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M4 17l5-5 4 4 3-3 5 5"/></svg> <span class="btn-label">View UI Mockup ▾</span></button>
+    <a class="ui-btn" href="make-front/SCR-002.html" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15L20 4"/><path d="M14 4h6v6"/><path d="M20 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6"/></svg> Open Full Page</a>
   </div>
   <div class="ui-frame-wrap" id="frame-SCR-002" hidden><iframe data-src="make-front/SCR-002.html" loading="lazy"></iframe></div>
 </article>
@@ -522,8 +526,8 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
   </div>
   <p>ให้ทีม Tech Support ยืนยันคำแนะนำของ AI เมื่อความมั่นใจ ≥ 90% ก่อนนำ solution เดิมไปใช้กับเคสใหม่ — แสดงเป็นคิว (queue) เมื่อมีหลายเคสรอพร้อมกัน (API-018)</p>
   <div class="ui-toggle-row">
-    <button class="ui-btn view-ui-btn" data-target="frame-SCR-003">🖼 View UI Mockup ▾</button>
-    <a class="ui-btn" href="make-front/SCR-003.html" target="_blank">↗ Open Full Page</a>
+    <button class="ui-btn view-ui-btn" data-target="frame-SCR-003"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M4 17l5-5 4 4 3-3 5 5"/></svg> <span class="btn-label">View UI Mockup ▾</span></button>
+    <a class="ui-btn" href="make-front/SCR-003.html" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15L20 4"/><path d="M14 4h6v6"/><path d="M20 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6"/></svg> Open Full Page</a>
   </div>
   <div class="ui-frame-wrap" id="frame-SCR-003" hidden><iframe data-src="make-front/SCR-003.html" loading="lazy"></iframe></div>
 </article>
@@ -539,8 +543,8 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
   </div>
   <p>ความถี่ของเคส ประเภท/หมวดหมู่ การกระจายความมั่นใจ และ KPI ภาพรวมสำหรับ Admin</p>
   <div class="ui-toggle-row">
-    <button class="ui-btn view-ui-btn" data-target="frame-SCR-004">🖼 View UI Mockup ▾</button>
-    <a class="ui-btn" href="make-front/SCR-004.html" target="_blank">↗ Open Full Page</a>
+    <button class="ui-btn view-ui-btn" data-target="frame-SCR-004"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M4 17l5-5 4 4 3-3 5 5"/></svg> <span class="btn-label">View UI Mockup ▾</span></button>
+    <a class="ui-btn" href="make-front/SCR-004.html" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15L20 4"/><path d="M14 4h6v6"/><path d="M20 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6"/></svg> Open Full Page</a>
   </div>
   <div class="ui-frame-wrap" id="frame-SCR-004" hidden><iframe data-src="make-front/SCR-004.html" loading="lazy"></iframe></div>
 </article>
@@ -556,8 +560,8 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
   </div>
   <p>เกณฑ์ความมั่นใจต่าง ๆ และรายการ solution ที่พร้อมเสนอทีมพิจารณาเปิด auto-answer — <b>ไม่ใช่สวิตช์เปิดใช้งานจริงในเฟสนี้</b></p>
   <div class="ui-toggle-row">
-    <button class="ui-btn view-ui-btn" data-target="frame-SCR-005">🖼 View UI Mockup ▾</button>
-    <a class="ui-btn" href="make-front/SCR-005.html" target="_blank">↗ Open Full Page</a>
+    <button class="ui-btn view-ui-btn" data-target="frame-SCR-005"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M4 17l5-5 4 4 3-3 5 5"/></svg> <span class="btn-label">View UI Mockup ▾</span></button>
+    <a class="ui-btn" href="make-front/SCR-005.html" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15L20 4"/><path d="M14 4h6v6"/><path d="M20 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6"/></svg> Open Full Page</a>
   </div>
   <div class="ui-frame-wrap" id="frame-SCR-005" hidden><iframe data-src="make-front/SCR-005.html" loading="lazy"></iframe></div>
 </article>
@@ -573,8 +577,8 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
   </div>
   <p>หน้าจอเดียว "Sign in with Microsoft" — ใช้ SSO เดิมของ MS Teams / Entra ID แทนการสร้างระบบ password แยก ทุกหน้าจอ (SCR-001..005) ต้อง redirect มาที่นี่ก่อนถ้ายังไม่ได้ login</p>
   <div class="ui-toggle-row">
-    <button class="ui-btn view-ui-btn" data-target="frame-SCR-006">🖼 View UI Mockup ▾</button>
-    <a class="ui-btn" href="make-front/SCR-006.html" target="_blank">↗ Open Full Page</a>
+    <button class="ui-btn view-ui-btn" data-target="frame-SCR-006"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M4 17l5-5 4 4 3-3 5 5"/></svg> <span class="btn-label">View UI Mockup ▾</span></button>
+    <a class="ui-btn" href="make-front/SCR-006.html" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15L20 4"/><path d="M14 4h6v6"/><path d="M20 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6"/></svg> Open Full Page</a>
   </div>
   <div class="ui-frame-wrap" id="frame-SCR-006" hidden><iframe data-src="make-front/SCR-006.html" loading="lazy"></iframe></div>
 </article>
@@ -820,9 +824,9 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
   <h3><span class="id-badge dia">DIA-001</span> System Context</h3>
   <div class="chain"><a class="chip wf" href="#WF-001">WF-001</a> <a class="chip wf" href="#WF-002">WF-002</a> <a class="chip wf" href="#WF-003">WF-003</a> <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">→</span><span class="chip dia active">DIA-001</span></div>
   <div class="dia-tools">
-    <button class="ui-btn dia-src-btn" data-target="src-DIA-001">📄 View source</button>
-    <a class="ui-btn dia-edit-link" href="#" target="_blank">✏ Open in PlantUML editor</a>
-    <a class="ui-btn" href="diagrams/01-system-context.puml" download>↓ .puml</a>
+    <button class="ui-btn dia-src-btn" data-target="src-DIA-001"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg> View source</button>
+    <a class="ui-btn dia-edit-link" href="#" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L18.5 9.5a2.121 2.121 0 0 0-3-3L5 17v3z"/><path d="M13.5 6.5l3 3"/></svg> Open in PlantUML editor</a>
+    <a class="ui-btn" href="diagrams/01-system-context.puml" download><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v11M7 10l5 5l5-5"/><path d="M5 19h14"/></svg> .puml</a>
   </div>
   <div class="dia-view" id="view-DIA-001"><span class="dia-loading">รอเรนเดอร์…</span></div>
   <script type="text/plantuml" id="src-text-DIA-001">
@@ -911,9 +915,9 @@ Automation --> DB
   <h3><span class="id-badge dia">DIA-002</span> Use Case Diagram</h3>
   <div class="chain"><a class="chip wf" href="#WF-001">WF-001</a> <a class="chip wf" href="#WF-002">WF-002</a> <a class="chip wf" href="#WF-003">WF-003</a> <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">→</span><span class="chip dia active">DIA-002</span></div>
   <div class="dia-tools">
-    <button class="ui-btn dia-src-btn" data-target="src-DIA-002">📄 View source</button>
-    <a class="ui-btn dia-edit-link" href="#" target="_blank">✏ Open in PlantUML editor</a>
-    <a class="ui-btn" href="diagrams/02-usecases.puml" download>↓ .puml</a>
+    <button class="ui-btn dia-src-btn" data-target="src-DIA-002"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg> View source</button>
+    <a class="ui-btn dia-edit-link" href="#" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L18.5 9.5a2.121 2.121 0 0 0-3-3L5 17v3z"/><path d="M13.5 6.5l3 3"/></svg> Open in PlantUML editor</a>
+    <a class="ui-btn" href="diagrams/02-usecases.puml" download><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v11M7 10l5 5l5-5"/><path d="M5 19h14"/></svg> .puml</a>
   </div>
   <div class="dia-view" id="view-DIA-002"><span class="dia-loading">รอเรนเดอร์…</span></div>
   <script type="text/plantuml" id="src-text-DIA-002">
@@ -993,9 +997,9 @@ UC17 --> Tech : แจ้งให้ตรวจสอบด้วยตนเ�
   <h3><span class="id-badge dia">DIA-003</span> ERD — Core Schema</h3>
   <div class="chain"><a class="chip uc" href="#UC-003">UC-003</a> <a class="chip uc" href="#UC-007">UC-007</a> <a class="chip uc" href="#UC-010">UC-010</a><span class="arrow">→</span><span class="chip dia active">DIA-003</span></div>
   <div class="dia-tools">
-    <button class="ui-btn dia-src-btn" data-target="src-DIA-003">📄 View source</button>
-    <a class="ui-btn dia-edit-link" href="#" target="_blank">✏ Open in PlantUML editor</a>
-    <a class="ui-btn" href="diagrams/03-erd.puml" download>↓ .puml</a>
+    <button class="ui-btn dia-src-btn" data-target="src-DIA-003"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg> View source</button>
+    <a class="ui-btn dia-edit-link" href="#" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L18.5 9.5a2.121 2.121 0 0 0-3-3L5 17v3z"/><path d="M13.5 6.5l3 3"/></svg> Open in PlantUML editor</a>
+    <a class="ui-btn" href="diagrams/03-erd.puml" download><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v11M7 10l5 5l5-5"/><path d="M5 19h14"/></svg> .puml</a>
   </div>
   <div class="dia-view" id="view-DIA-003"><span class="dia-loading">รอเรนเดอร์…</span></div>
   <script type="text/plantuml" id="src-text-DIA-003">
@@ -1110,9 +1114,9 @@ solution ||--o{ confidence_match : "referenced by"
   <h3><span class="id-badge dia">DIA-004</span> Case Status State Machine</h3>
   <div class="chain"><a class="chip uc" href="#UC-003">UC-003</a> <a class="chip uc" href="#UC-007">UC-007</a> <a class="chip uc" href="#UC-008">UC-008</a> <a class="chip uc" href="#UC-009">UC-009</a> <a class="chip uc" href="#UC-011">UC-011</a><span class="arrow">→</span><span class="chip dia active">DIA-004</span></div>
   <div class="dia-tools">
-    <button class="ui-btn dia-src-btn" data-target="src-DIA-004">📄 View source</button>
-    <a class="ui-btn dia-edit-link" href="#" target="_blank">✏ Open in PlantUML editor</a>
-    <a class="ui-btn" href="diagrams/04-case-status-state.puml" download>↓ .puml</a>
+    <button class="ui-btn dia-src-btn" data-target="src-DIA-004"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg> View source</button>
+    <a class="ui-btn dia-edit-link" href="#" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L18.5 9.5a2.121 2.121 0 0 0-3-3L5 17v3z"/><path d="M13.5 6.5l3 3"/></svg> Open in PlantUML editor</a>
+    <a class="ui-btn" href="diagrams/04-case-status-state.puml" download><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v11M7 10l5 5l5-5"/><path d="M5 19h14"/></svg> .puml</a>
   </div>
   <div class="dia-view" id="view-DIA-004"><span class="dia-loading">รอเรนเดอร์…</span></div>
   <script type="text/plantuml" id="src-text-DIA-004">
@@ -1162,9 +1166,9 @@ end note
   <h3><span class="id-badge dia">DIA-005</span> Sequence — LINE Intake &amp; AI Analysis</h3>
   <div class="chain"><a class="chip wf" href="#WF-001">WF-001</a><span class="arrow">→</span><span class="chip dia active">DIA-005</span></div>
   <div class="dia-tools">
-    <button class="ui-btn dia-src-btn" data-target="src-DIA-005">📄 View source</button>
-    <a class="ui-btn dia-edit-link" href="#" target="_blank">✏ Open in PlantUML editor</a>
-    <a class="ui-btn" href="diagrams/05-intake-analysis-seq.puml" download>↓ .puml</a>
+    <button class="ui-btn dia-src-btn" data-target="src-DIA-005"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg> View source</button>
+    <a class="ui-btn dia-edit-link" href="#" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L18.5 9.5a2.121 2.121 0 0 0-3-3L5 17v3z"/><path d="M13.5 6.5l3 3"/></svg> Open in PlantUML editor</a>
+    <a class="ui-btn" href="diagrams/05-intake-analysis-seq.puml" download><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v11M7 10l5 5l5-5"/><path d="M5 19h14"/></svg> .puml</a>
   </div>
   <div class="dia-view" id="view-DIA-005"><span class="dia-loading">รอเรนเดอร์…</span></div>
   <script type="text/plantuml" id="src-text-DIA-005">
@@ -1215,9 +1219,9 @@ end
   <h3><span class="id-badge dia">DIA-006</span> Sequence — Tech Support Reply → Customer Delivery</h3>
   <div class="chain"><a class="chip wf" href="#WF-002">WF-002</a> <a class="chip wf" href="#WF-003">WF-003</a><span class="arrow">→</span><span class="chip dia active">DIA-006</span></div>
   <div class="dia-tools">
-    <button class="ui-btn dia-src-btn" data-target="src-DIA-006">📄 View source</button>
-    <a class="ui-btn dia-edit-link" href="#" target="_blank">✏ Open in PlantUML editor</a>
-    <a class="ui-btn" href="diagrams/06-techsupport-reply-seq.puml" download>↓ .puml</a>
+    <button class="ui-btn dia-src-btn" data-target="src-DIA-006"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg> View source</button>
+    <a class="ui-btn dia-edit-link" href="#" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L18.5 9.5a2.121 2.121 0 0 0-3-3L5 17v3z"/><path d="M13.5 6.5l3 3"/></svg> Open in PlantUML editor</a>
+    <a class="ui-btn" href="diagrams/06-techsupport-reply-seq.puml" download><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v11M7 10l5 5l5-5"/><path d="M5 19h14"/></svg> .puml</a>
   </div>
   <div class="dia-view" id="view-DIA-006"><span class="dia-loading">รอเรนเดอร์…</span></div>
   <script type="text/plantuml" id="src-text-DIA-006">
@@ -1266,9 +1270,9 @@ end note
   <h3><span class="id-badge dia">DIA-007</span> Sequence — Confidence-based Suggestion <span class="status-pill planned">Planned</span></h3>
   <div class="chain"><a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">→</span><span class="chip dia active">DIA-007</span></div>
   <div class="dia-tools">
-    <button class="ui-btn dia-src-btn" data-target="src-DIA-007">📄 View source</button>
-    <a class="ui-btn dia-edit-link" href="#" target="_blank">✏ Open in PlantUML editor</a>
-    <a class="ui-btn" href="diagrams/07-confidence-suggestion-seq.puml" download>↓ .puml</a>
+    <button class="ui-btn dia-src-btn" data-target="src-DIA-007"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg> View source</button>
+    <a class="ui-btn dia-edit-link" href="#" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L18.5 9.5a2.121 2.121 0 0 0-3-3L5 17v3z"/><path d="M13.5 6.5l3 3"/></svg> Open in PlantUML editor</a>
+    <a class="ui-btn" href="diagrams/07-confidence-suggestion-seq.puml" download><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v11M7 10l5 5l5-5"/><path d="M5 19h14"/></svg> .puml</a>
   </div>
   <div class="dia-view" id="view-DIA-007"><span class="dia-loading">รอเรนเดอร์…</span></div>
   <script type="text/plantuml" id="src-text-DIA-007">
@@ -1346,14 +1350,15 @@ document.querySelectorAll('[data-linkid]').forEach(function (el) {
 document.querySelectorAll('.view-ui-btn').forEach(function (btn) {
   btn.addEventListener('click', function () {
     var wrap = document.getElementById(btn.dataset.target);
+    var label = btn.querySelector('.btn-label');
     var hidden = wrap.hasAttribute('hidden');
     if (hidden) {
       wrap.removeAttribute('hidden');
       var f = wrap.querySelector('iframe');
       if (f && !f.getAttribute('src')) f.setAttribute('src', f.dataset.src);
-      btn.textContent = '🖼 Hide UI Mockup ▴'; btn.classList.add('open');
+      label.textContent = 'Hide UI Mockup ▴'; btn.classList.add('open');
     } else {
-      wrap.setAttribute('hidden', ''); btn.textContent = '🖼 View UI Mockup ▾'; btn.classList.remove('open');
+      wrap.setAttribute('hidden', ''); label.textContent = 'View UI Mockup ▾'; btn.classList.remove('open');
     }
   });
 });
@@ -1397,7 +1402,7 @@ function runNext() {
       var img = new Image();
       img.alt = job.id;
       img.onload = function () { active--; view.innerHTML=''; view.appendChild(img); runNext(); };
-      img.onerror = function () { active--; view.innerHTML = '<span class="dia-loading">⚠ เรนเดอร์ไม่สำเร็จ (ต้องต่ออินเทอร์เน็ตถึง plantuml.com)</span>'; runNext(); };
+      img.onerror = function () { active--; view.innerHTML = '<span class="dia-loading"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L2.5 17a2 2 0 0 0 1.7 3h15.6a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg> เรนเดอร์ไม่สำเร็จ (ต้องต่ออินเทอร์เน็ตถึง plantuml.com)</span>'; runNext(); };
       img.src = PLANTUML_BASE + '/svg/' + pumlHex(job.code);
     })(diaJobs[queueIdx]);
     queueIdx++;

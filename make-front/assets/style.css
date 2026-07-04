@@ -12,6 +12,11 @@
 * { box-sizing: border-box; }
 body { font-family: "Segoe UI", "Tahoma", sans-serif; margin: 0; background: var(--bg); color: var(--ink); line-height: 1.55; }
 
+/* Line-icon system (Tabler-style inline SVG, no install needed) replacing emoji glyphs */
+.ic { width: 1em; height: 1em; vertical-align: -0.15em; flex: none; }
+.ic-lg { width: 22px; height: 22px; flex: none; }
+.ic-nav { width: 18px; height: 18px; flex: none; }
+
 /* Top chrome */
 header.mockup-top { background: #0f172a; color: #fff; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; position: sticky; top: 0; z-index: 20; }
 header.mockup-top .back { color: #93c5fd; text-decoration: none; font-weight: 700; font-size: .88em; }
