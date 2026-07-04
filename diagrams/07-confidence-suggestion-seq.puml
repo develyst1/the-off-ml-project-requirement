@@ -22,14 +22,19 @@ alt confidence_pct >= 90%
   Tech -> Teams : ตอบ "ใช่" / "ไม่ใช่"
   Teams -> Backend : webhook คำตอบยืนยัน
   alt Tech ตอบ "ใช่"
-    Backend -> DB : เพิ่ม confidence_score ให้ solution นี้
+    Backend -> DB : เพิ่ม confidence_score ให้ solution นี้\n(tech_confirmed = true)
     note right of DB
-      ถ้าสะสมจน confidence = 100%
-      ทีมจะพิจารณา UC-014:
-      เปิดใช้ API / automate / auto-answer LINE
-      (ต้องคุยกับทีมก่อนเปิดใช้งานจริง)
+      ถ้าสะสมจน confidence = 100% ต่อเนื่อง
+      (ไม่มี "ไม่ใช่" ค้างอยู่สำหรับหมวดหมู่นี้)
+      ระบบจะขอ **Approve** จาก Tech Support
+      เป็นรายหมวดหมู่ก่อนเปิด auto-answer (UC-014)
+      — ไม่ใช่การขอมติ/โหวตจากทั้งทีม
     end note
   else Tech ตอบ "ไม่ใช่"
+    Teams -> Tech : ถามต่อ "อะไรที่ทำให้เคสนี้ต่างจาก solution นี้?"
+    Tech -> Teams : ระบุจุดต่าง/เหตุผล
+    Teams -> Backend : webhook เหตุผลที่ปฏิเสธ
+    Backend -> DB : บันทึก mismatch_reason\n(tech_confirmed = false) เพื่อแก้ไขความเข้าใจของระบบ
     Backend -> Teams : กลับเข้า flow ปกติ (WF-002)\nให้ทีมวิเคราะห์ตอบเองตามปกติ
   end
 else confidence_pct < 90%

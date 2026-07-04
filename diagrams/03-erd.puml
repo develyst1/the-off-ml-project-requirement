@@ -51,8 +51,16 @@ entity "solution" as solution {
   tech_agent_id : uuid <<FK>>
   raw_reply_text : text
   rewritten_customer_text : text
+  approved_customer_text : text (nullable)
+  reviewed_by_tech_agent_id : uuid <<FK>> (nullable)
   created_at : datetime
 }
+note right of solution::approved_customer_text
+  ข้อความสุดท้ายหลัง Tech Support ตรวจสอบ/แก้ไข
+  rewritten_customer_text (AI ปรับ) แล้วกดยืนยัน —
+  ห้ามส่ง rewritten_customer_text ให้ลูกค้าตรง ๆ
+  โดยไม่ผ่านการยืนยันนี้ก่อน (UC-008)
+end note
 
 entity "tech_agent" as tech_agent {
   * id : uuid <<PK>>
@@ -68,11 +76,15 @@ entity "confidence_match" as confidence_match {
   matched_solution_id : uuid <<FK>>
   confidence_pct : decimal
   tech_confirmed : boolean
+  mismatch_reason : text (nullable)
   created_at : datetime
 }
 note right of confidence_match
   Planned (WF-004) — populated once
-  historical case volume is sufficient
+  historical case volume is sufficient.
+  mismatch_reason: บันทึกทุกครั้งที่ tech_confirmed = false —
+  Tech Support ต้องระบุว่าอะไรทำให้เคสนี้ไม่ใช่เคสเดียวกับ
+  matched_solution_id เพื่อแก้ไขความเข้าใจของระบบ
 end note
 
 customer ||--o{ case_ : "reports"

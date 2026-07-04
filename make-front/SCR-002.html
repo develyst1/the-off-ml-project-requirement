@@ -26,14 +26,14 @@
   <div class="device-frame">
     <div class="device-bar">
       <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-      <span class="url">app.offmai.internal/cases/CASE-2049</span>
+      <span class="url">app.off-ml.internal/cases/CASE-2049</span>
     </div>
     <div class="device-canvas app">
       <div class="app-shell">
         <aside class="app-sidebar">
           <div class="app-brand">
             <span class="logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
-            <div><div class="name">Off Mai Assistant</div><div class="sub">AI Tech Support Copilot</div></div>
+            <div><div class="name">Off-ML Assistant</div><div class="sub">AI Tech Support Copilot</div></div>
           </div>
           <nav class="app-nav">
             <a class="active" href="#"><span class="ico">📥</span>กล่องข้อความเคส</a>
@@ -41,7 +41,7 @@
             <a href="#"><span class="ico">📊</span>ภาพรวม/สถิติ</a>
             <a href="#"><span class="ico">⚙️</span>ตั้งค่าอัตโนมัติ</a>
           </nav>
-          <div class="app-side-foot">v1.0 · Off Mai Tech Support</div>
+          <div class="app-side-foot">v1.0 · Off-ML Tech Support</div>
         </aside>
         <div class="app-main">
           <header class="app-header">
@@ -77,15 +77,36 @@
                   <span class="flow-arrow">→</span>
                   <div class="flow-box">AI วิเคราะห์คำตอบทีม</div>
                   <span class="flow-arrow">→</span>
-                  <div class="flow-box">ปรับข้อความ + ส่งลูกค้า</div>
+                  <div class="flow-box">AI ปรับข้อความ</div>
+                  <span class="flow-arrow">→</span>
+                  <div class="flow-box">ทีมตรวจสอบ/แก้ไข → ส่งลูกค้า</div>
                 </div>
                 <div class="m-input" style="height:auto;color:#94a3b8;">ยังไม่มีการตอบกลับจากทีม Tech Support ในเธรดนี้…</div>
               </div>
 
+              <div class="m-card" style="border:1px dashed var(--b400,#93c5fd);">
+                <div class="m-title" style="margin-bottom:8px;">4) ตัวอย่างขั้นตอนตรวจสอบก่อนส่งลูกค้า (เมื่อทีมตอบกลับแล้ว)</div>
+                <div class="m-grid2">
+                  <div>
+                    <span class="m-label">คำตอบดิบจากทีม Tech Support (Teams)</span>
+                    <div class="m-input filled" style="height:auto;">"บอกลูกค้าไปว่าเดี๋ยวเราไป restart auth service ให้ ลองใหม่อีกทีนะ"</div>
+                  </div>
+                  <div>
+                    <span class="m-label">ข้อความที่ AI ปรับให้เข้าใจง่าย (แก้ไขได้ก่อนส่ง)</span>
+                    <textarea class="m-input" style="height:auto;min-height:70px;width:100%;">สวัสดีค่ะคุณสมชาย ทีมงานตรวจสอบพบว่าปัญหาเกิดจากระบบยืนยันตัวตนขัดข้องชั่วคราว ทางทีมได้ทำการแก้ไขเรียบร้อยแล้ว รบกวนลองเข้าสู่ระบบอีกครั้งได้เลยค่ะ หากยังพบปัญหา แจ้งกลับมาได้ทันทีนะคะ</textarea>
+                  </div>
+                </div>
+                <div class="m-actions" style="margin-top:12px;">
+                  <button class="m-btn-light gray">✎ แก้ไขข้อความ</button>
+                  <button class="m-btn">✓ ยืนยันและส่งให้ลูกค้า (LINE)</button>
+                </div>
+              </div>
+
               <div class="note-box danger">
-                <b>กติกาหน้าจอนี้ (UC-006/UC-007):</b> เมื่อทีม Tech Support ตอบกลับใน MS Teams ระบบต้อง
-                <b>วิเคราะห์ข้อความตอบกลับก่อนเก็บลง database</b> เพื่อสกัด "วิธีการแก้ปัญหา" ของเคสนี้ แล้วจึงค่อยปรับ
-                ข้อความให้เข้าใจง่าย (UC-008) ก่อนส่งกลับลูกค้าทาง LINE (UC-009) — ห้ามส่งข้อความดิบของทีมตรง ๆ
+                <b>กติกาหน้าจอนี้ (UC-006/UC-007/UC-008):</b> เมื่อทีม Tech Support ตอบกลับใน MS Teams ระบบต้อง
+                <b>วิเคราะห์ข้อความตอบกลับก่อนเก็บลง database</b> เพื่อสกัด "วิธีการแก้ปัญหา" ของเคสนี้ แล้วจึงค่อยให้ AI ปรับ
+                ข้อความให้เข้าใจง่าย (UC-008) — <b>ห้ามส่งข้อความดิบของทีมตรง ๆ และห้ามส่งข้อความที่ AI ปรับแล้วออกไปโดยอัตโนมัติ</b>
+                ต้องให้ Tech Support ตรวจสอบ/แก้ไขข้อความที่ AI ปรับ (ดูตัวอย่างขั้นตอนที่ 4) แล้วกดยืนยันก่อนระบบส่งกลับลูกค้าทาง LINE (UC-009) ทุกครั้ง
               </div>
             </div>
           </div>

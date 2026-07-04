@@ -16,16 +16,22 @@ Backend -> AI : **API-006** POST /ai/analyze-solution\n(ข้อความต
 AI --> Backend : วิธีแก้ที่สกัดได้ + หมวดหมู่เคส
 Backend -> DB : **API-007** PATCH /cases/:id/solution\n(บันทึกวิธีแก้ + สถานะ = Resolved)
 Backend -> AI : **API-008** POST /ai/rewrite-customer-reply\n(ปรับข้อความให้เข้าใจง่าย)
-AI --> Backend : ข้อความฉบับลูกค้า
-Backend -> DB : บันทึก rewritten_customer_text
-Backend -> LINE : **API-009** POST /line/reply\n(ส่งข้อความถึงลูกค้าคนเดิม)
+AI --> Backend : ข้อความฉบับลูกค้า (draft)
+Backend -> DB : บันทึก rewritten_customer_text\n(สถานะเคส = AwaitingSendReview)
+Backend -> Teams : แสดงข้อความ draft ให้ Tech ตรวจสอบ/แก้ไข (SCR-002)
+Teams -> Tech : เห็นข้อความ draft ที่ AI ปรับแล้ว
+Tech -> Teams : แก้ไข (ถ้าจำเป็น) แล้วกดยืนยัน "ส่งให้ลูกค้า"
+Teams -> Backend : ยืนยันข้อความสุดท้าย
+Backend -> DB : บันทึก approved_customer_text +\nreviewed_by_tech_agent_id
+Backend -> LINE : **API-009** POST /line/reply\n(ส่ง approved_customer_text ถึงลูกค้าคนเดิม)
 LINE -> Customer : ได้รับคำตอบ/วิธีแก้ปัญหา
 Backend -> DB : อัปเดตสถานะเคส = Sent
 
-note over Backend, AI
-  ถ้า AI วิเคราะห์ไม่มั่นใจว่าเข้าใจง่ายพอ
-  ระบบอาจช่วยแก้ข้อความทีม Tech Support
-  ก่อนส่งลูกค้า (ตาม requirement DOC-001)
+note over Backend, Teams
+  ห้ามส่ง rewritten_customer_text (AI draft) ให้ลูกค้า
+  โดยอัตโนมัติ — ต้องผ่านการตรวจสอบ/ยืนยันของ
+  Tech Support ทุกครั้งก่อนเรียก API-009 (ตาม DOC-001
+  "ห้ามส่งข้อความดิบของทีมตรง ๆ" + UC-008 ฉบับแก้ไข)
 end note
 
 @enduml

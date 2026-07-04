@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Requirement Hub — Off Mai Tech Support Assistant</title>
+<title>Requirement Hub — Off-ML Tech Support Assistant</title>
 <style>
 :root {
   --wf:  #d97706;
@@ -107,7 +107,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 <body>
 <div class="hub">
 <aside class="sidebar">
-  <h1>🛠 Off Mai</h1>
+  <h1>🛠 Off-ML</h1>
   <div class="tag">Requirement Hub · AI Tech Support Assistant</div>
 
   <div class="mini-flow">
@@ -151,11 +151,16 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 <section id="overview">
 <h2>① Overview</h2>
 <p class="section-sub">
-  โปรเจค <b>"Off Mai"</b> (ออฟใหม่) — ระบบผู้ช่วยแทนทีม Tech Support ในบริษัท รับแจ้งปัญหา/คำถามจากลูกค้าทาง LINE
+  โปรเจค <b>"Off-ML"</b> (Off Machine Learning) — ระบบผู้ช่วยแทนทีม Tech Support ในบริษัท รับแจ้งปัญหา/คำถามจากลูกค้าทาง LINE
   วิเคราะห์ด้วย API AI CENTER จัดเก็บลง database ส่งต่อให้ทีม Tech Support ทาง MS Teams และวนกลับมาวิเคราะห์คำตอบของทีม
-  ก่อนส่งกลับลูกค้า — ในระยะยาวจะสะสมข้อมูลเพื่อแนะนำวิธีแก้แบบมีความมั่นใจ (confidence) และพิจารณา auto-answer ในอนาคต
+  ก่อนส่งกลับลูกค้า — ในระยะยาวจะสะสมข้อมูลเพื่อแนะนำวิธีแก้แบบมีความมั่นใจ (confidence) และขอ Approve จาก Tech Support
+  เพื่อพิจารณา auto-answer เป็นรายหมวดหมู่ในอนาคต
   โหมดของ requirement นี้คือ <b>Greenfield</b> (front/back ยังเป็นแค่ README ยังไม่ได้พัฒนาจริง) จึงออกแบบ mockup จากสเปกที่เขียนไว้
   ทุกหน้าจอถูกแท็ก <b>Planned</b>
+</p>
+<p class="section-sub" style="font-size:.85em;">
+  ที่มาของชื่อ: โปรเจคนี้ได้แรงบันดาลใจจาก <b>"ออฟใหม่" (Off Mai)</b> พนักงาน Tech Support ตัวจริงในบริษัทที่ระบบนี้ถูกสร้างมาเพื่อช่วยแบ่งเบางาน —
+  แต่ชื่อทางการของโปรเจคคือ <b>Off-ML</b> ซึ่งย่อมาจาก "Off Machine Learning" ไม่ใช่ "Off Mai"
 </p>
 
 <article id="DOC-001" class="doc-card">
@@ -173,11 +178,16 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 
 <article class="doc-card">
   <h3><span class="id-badge doc">REPOS</span> Repo ที่เกี่ยวข้องในโปรเจคนี้</h3>
+  <p style="font-size:.85em;">
+    <code>the-off-ml-project-requirement</code> (repo นี้) <b>ไม่ใช่แค่ 1 ใน repo ของโปรเจค</b> — แต่เป็น
+    <b>ต้นทาง (spec source of truth)</b> ที่บอกภาพรวม เป้าหมาย และความต้องการทั้งหมดของโปรเจค
+    ส่วน <code>-front</code> และ <code>-back</code> คือ repo ที่ถูกนำไปพัฒนาต่อโดยอิงจากสเปกใน repo นี้เป็นหลัก
+  </p>
   <table class="field-table">
     <tr><th>Repo</th><th>บทบาท</th><th>สถานะตอนนี้</th></tr>
-    <tr><td><code>the-off-ml-project-front</code></td><td>Frontend — Next.js + TypeScript + Mantine</td><td><span class="status-pill planned">Planned</span> (README เท่านั้น)</td></tr>
-    <tr><td><code>the-off-ml-project-back</code></td><td>Backend — Bun + TypeScript + Hono</td><td><span class="status-pill planned">Planned</span> (README เท่านั้น)</td></tr>
-    <tr><td><code>the-off-ml-project-requirement</code></td><td>Requirement Hub (repo นี้)</td><td>กำลังจัดทำ</td></tr>
+    <tr><td><code>the-off-ml-project-requirement</code></td><td><b>Requirement Hub (repo นี้)</b> — ต้นทางของ spec/ภาพรวม/เป้าหมาย ที่ front/back นำไปพัฒนาต่อ</td><td>กำลังจัดทำ</td></tr>
+    <tr><td><code>the-off-ml-project-front</code></td><td>Frontend — Next.js + TypeScript + Mantine (พัฒนาตามสเปกใน repo นี้)</td><td><span class="status-pill planned">Planned</span> (README เท่านั้น)</td></tr>
+    <tr><td><code>the-off-ml-project-back</code></td><td>Backend — Bun + TypeScript + Hono (พัฒนาตามสเปกใน repo นี้)</td><td><span class="status-pill planned">Planned</span> (README เท่านั้น)</td></tr>
     <tr><td><code>develyst-ai/bruno</code></td><td>API AI CENTER — bruno collection (multi-provider: OpenAI, Gemini, xAI Grok, DeepSeek, fallback chain)</td><td>มีอยู่แล้ว (ใช้เป็น backend เรียก AI)</td></tr>
   </table>
 </article>
@@ -234,8 +244,10 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
     <a class="chip uc" href="#UC-014">UC-014</a>
   </div>
   <p>เมื่อข้อมูลเคสเติบโตมากพอ (เคสที่เกิดบ่อย ประเภท หมวดหมู่ ความมั่นใจ วิธีแก้ของแต่ละเคส) ระบบจะวิเคราะห์เคสใหม่เทียบกับ
-  ประวัติก่อนแจ้งเข้ามา หากมั่นใจ 90-100% จะถามทีม Tech Support ให้ยืนยันก่อน หากยืนยันซ้ำจนมั่นใจ 100% จะเก็บไว้เป็นรายการ
-  ที่ต้องคุยกับทีมต่อว่าจะเปิดใช้ API / automate / auto-answer LINE หรือไม่</p>
+  ประวัติก่อนแจ้งเข้ามา หากมั่นใจ 90-100% จะถามทีม Tech Support ให้ยืนยันว่า "ใช่เคสนี้หรือไม่" ถ้าตอบ "ใช่" ต่อเนื่องจนมั่นใจ 100%
+  และระบบแยกเคสนี้ออกจากเคสอื่นได้ชัดเจน (ไม่มีการตอบ "ไม่ใช่" ค้างอยู่) — ทุกครั้งที่ทีมตอบ "ไม่ใช่" ระบบต้องขอให้ทีมระบุว่า
+  อะไรที่ทำให้เคสนี้ไม่ใช่เคสเดียวกัน เพื่อนำไปแก้ไขความเข้าใจของระบบ ไม่ใช่แค่ลดความมั่นใจเฉย ๆ — เมื่อถึงเกณฑ์ 100% ต่อเนื่องแล้ว
+  ระบบจะขอ <b>Approve จาก Tech Support เป็นรายหมวดหมู่</b> (ไม่ใช่การขอมติ/โหวตจากทั้งทีม) ก่อนเปิดใช้ API / automate / auto-answer LINE</p>
 </article>
 </section>
 
@@ -337,7 +349,9 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
     <a class="chip api" href="#API-008">API-008</a><span class="arrow">→</span>
     <a class="chip tc" href="#TC-005">TC-005</a>
   </div>
-  <p><b>Actor:</b> System (AI) · ช่วยแก้ข้อความของทีม Tech Support ให้ลูกค้าเข้าใจง่ายขึ้น ก่อนส่งจริง (ไม่ส่งข้อความดิบของทีมตรง ๆ)</p>
+  <p><b>Actor:</b> System (AI) → Tech Support Agent · AI ช่วยแก้ข้อความของทีม Tech Support ให้ลูกค้าเข้าใจง่ายขึ้นก่อน (draft)
+  จากนั้น <b>Tech Support ต้องตรวจสอบ/แก้ไข draft นี้และกดยืนยันก่อนเสมอ</b> — ห้ามส่งข้อความดิบของทีมตรง ๆ และห้ามส่งข้อความ
+  ที่ AI ปรับแล้วออกไปโดยอัตโนมัติโดยไม่ผ่านการตรวจสอบของทีม</p>
 </article>
 
 <article id="UC-009" class="uc-card">
@@ -349,7 +363,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
     <a class="chip api" href="#API-009">API-009</a><span class="arrow">→</span>
     <a class="chip tc" href="#TC-005">TC-005</a>
   </div>
-  <p><b>Actor:</b> System · ส่งข้อความสุดท้าย (ที่ปรับแล้ว) กลับไปหาลูกค้าคนเดิมที่แจ้งเคสเข้ามาทาง LINE</p>
+  <p><b>Actor:</b> System · ส่งข้อความสุดท้ายที่ Tech Support ตรวจสอบ/ยืนยันแล้ว (approved_customer_text) กลับไปหาลูกค้าคนเดิมที่แจ้งเคสเข้ามาทาง LINE</p>
 </article>
 
 <article id="UC-010" class="uc-card">
@@ -385,7 +399,9 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
     <a class="chip api" href="#API-013">API-013</a><span class="arrow">→</span>
     <a class="chip tc" href="#TC-007">TC-007</a>
   </div>
-  <p><b>Actor:</b> Tech Support Agent · ถ้าตอบ "ใช่" ระบบเพิ่มความมั่นใจให้ solution นั้นสำหรับเคสแนวเดียวกันในอนาคต</p>
+  <p><b>Actor:</b> Tech Support Agent · ถ้าตอบ "ใช่" ระบบเพิ่มความมั่นใจให้ solution นั้นสำหรับเคสแนวเดียวกันในอนาคต
+  ถ้าตอบ <b>"ไม่ใช่"</b> ระบบต้องถามต่อทันทีว่าอะไรที่ทำให้เคสนี้ต่างจาก solution ที่แนะนำ แล้วบันทึกเหตุผลนั้นไว้ (mismatch_reason)
+  เพื่อแก้ไขความเข้าใจ/การแยกแยะเคสของระบบ ไม่ใช่แค่ลดเปอร์เซ็นต์ความมั่นใจเฉย ๆ</p>
 </article>
 
 <article id="UC-013" class="uc-card">
@@ -401,7 +417,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 </article>
 
 <article id="UC-014" class="uc-card">
-  <h3><span class="id-badge uc">UC-014</span> ทีมตัดสินใจเปิดใช้ auto-answer/automation <span class="status-pill planned">Planned</span></h3>
+  <h3><span class="id-badge uc">UC-014</span> ระบบขอ Approve จาก Tech Support เพื่อเปิดใช้ auto-answer/automation <span class="status-pill planned">Planned</span></h3>
   <div class="chain">
     <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">→</span>
     <span class="chip uc active">UC-014</span><span class="arrow">→</span>
@@ -409,7 +425,9 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
     <a class="chip api" href="#API-015">API-015</a><span class="arrow">→</span>
     <span class="chip none">no TC yet</span>
   </div>
-  <p><b>Actor:</b> Admin / Tech Support Team · เมื่อความมั่นใจของ solution ใดถึง 100% ต่อเนื่อง เก็บไว้เป็นรายการที่ต้องคุยกับทีมต่อว่าจะเปิดใช้ API / automate / auto-answer LINE หรือไม่</p>
+  <p><b>Actor:</b> System → Tech Support Team · เมื่อความมั่นใจของ solution ใดถึง 100% ต่อเนื่อง (ยืนยัน "ใช่" ซ้ำ ๆ โดยไม่มี
+  "ไม่ใช่" ค้างอยู่ — แปลว่าระบบแยกเคสนี้ออกจากเคสอื่นได้ถูกต้องแล้ว) ระบบจะขอ <b>Approve</b> จาก Tech Support เป็นรายหมวดหมู่
+  ก่อนเปิดใช้ API / automate / auto-answer LINE — นี่คือการขอ approve เฉพาะเคส ไม่ใช่การขอมติ/โหวตจากทั้งทีม</p>
 </article>
 </section>
 
@@ -558,13 +576,14 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 <article id="API-008" class="api-card">
   <h3><span class="id-badge api">API-008</span> POST /ai/rewrite-customer-reply</h3>
   <div class="chain"><a class="chip uc" href="#UC-008">UC-008</a><span class="arrow">→</span><span class="chip api active">API-008</span></div>
-  <p>ให้ AI ช่วยปรับข้อความของทีม Tech Support ให้เข้าใจง่ายสำหรับลูกค้า ก่อนส่งจริง</p>
+  <p>ให้ AI ช่วยปรับข้อความของทีม Tech Support ให้เข้าใจง่ายสำหรับลูกค้า เก็บเป็น <code>rewritten_customer_text</code> (draft) —
+  ต้องรอ Tech Support ตรวจสอบ/แก้ไขและยืนยันเป็น <code>approved_customer_text</code> ก่อน API-009 จึงจะส่งได้จริง</p>
 </article>
 
 <article id="API-009" class="api-card">
   <h3><span class="id-badge api">API-009</span> POST /line/reply</h3>
   <div class="chain"><a class="chip uc" href="#UC-009">UC-009</a><span class="arrow">→</span><span class="chip api active">API-009</span></div>
-  <p>ส่งข้อความคำตอบสุดท้ายกลับไปหาลูกค้าคนเดิมทาง LINE</p>
+  <p>ส่งข้อความคำตอบสุดท้าย (<code>approved_customer_text</code> ที่ Tech Support ยืนยันแล้ว) กลับไปหาลูกค้าคนเดิมทาง LINE</p>
 </article>
 
 <article id="API-010" class="api-card">
@@ -588,7 +607,8 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 <article id="API-013" class="api-card">
   <h3><span class="id-badge api">API-013</span> POST /integrations/teams/confirm-suggestion <span class="status-pill planned">Planned</span></h3>
   <div class="chain"><a class="chip uc" href="#UC-011">UC-011</a> <a class="chip uc" href="#UC-012">UC-012</a><span class="arrow">→</span><span class="chip api active">API-013</span></div>
-  <p>ส่งคำถามยืนยัน solution ที่แนะนำเข้า MS Teams และรับผลยืนยัน/ปฏิเสธจากทีม เพื่อปรับความมั่นใจของ solution นั้น</p>
+  <p>ส่งคำถามยืนยัน solution ที่แนะนำเข้า MS Teams และรับผลยืนยัน/ปฏิเสธจากทีม เพื่อปรับความมั่นใจของ solution นั้น —
+  ถ้าปฏิเสธ ("ไม่ใช่") ต้องรับ <code>mismatch_reason</code> ต่อทันทีและบันทึกลง <code>confidence_match</code> เพื่อแก้ไขความเข้าใจของระบบ</p>
 </article>
 
 <article id="API-014" class="api-card">
@@ -600,7 +620,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 <article id="API-015" class="api-card">
   <h3><span class="id-badge api">API-015</span> PATCH /automation/settings <span class="status-pill planned">Planned</span></h3>
   <div class="chain"><a class="chip uc" href="#UC-014">UC-014</a> <a class="chip scr" href="#SCR-005">SCR-005</a><span class="arrow">→</span><span class="chip api active">API-015</span></div>
-  <p>ตั้งค่าเกณฑ์ auto-answer / เปิด-ปิดระบบอัตโนมัติ — <b>รอมติทีมก่อนใช้งานจริง</b></p>
+  <p>ตั้งค่าเกณฑ์ auto-answer / เปิด-ปิดระบบอัตโนมัติ — <b>ต้องได้รับ Approve จาก Tech Support เป็นรายหมวดหมู่ก่อนใช้งานจริง</b> (ไม่ใช่การขอมติ/โหวตจากทั้งทีม)</p>
 </article>
 </section>
 
@@ -701,7 +721,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
   <div class="dia-view" id="view-DIA-001"><span class="dia-loading">รอเรนเดอร์…</span></div>
   <script type="text/plantuml" id="src-text-DIA-001">
 @startuml 01-system-context
-title DIA-001 · System Context — Off Mai Tech Support Assistant (WF-001..WF-004)
+title DIA-001 · System Context — Off-ML Tech Support Assistant (WF-001..WF-004)
 skinparam shadowing false
 skinparam componentStyle rectangle
 
@@ -748,6 +768,7 @@ Tech --> Teams : ตอบกลับวิธีแก้
 Teams --> Webhooks : webhook ข้อความตอบกลับ (API-005)
 Webhooks --> AiChat : วิเคราะห์วิธีแก้ + ปรับข้อความลูกค้า (API-006/API-008)
 Webhooks --> CaseSvc : บันทึกวิธีแก้ (API-007)
+Tech --> CaseSvc : ตรวจสอบ/แก้ไขข้อความที่ AI ปรับ ก่อนยืนยันส่ง (UC-008)
 CaseSvc --> LINE : ส่งคำตอบกลับลูกค้า (API-009)
 LINE --> Customer : ได้รับคำตอบ
 
@@ -793,7 +814,7 @@ actor "Tech Support\nAgent" as Tech
 actor "Admin" as Admin
 actor "AI CENTER\n(system)" as AI
 
-rectangle "Off Mai Tech Support Assistant" {
+rectangle "Off-ML Tech Support Assistant" {
   usecase "UC-001\nส่งปัญหาทาง LINE" as UC1
   usecase "UC-002\nวิเคราะห์ข้อความลูกค้า" as UC2
   usecase "UC-003\nบันทึกเคสลง DB" as UC3
@@ -801,13 +822,13 @@ rectangle "Off Mai Tech Support Assistant" {
   usecase "UC-005\nตอบกลับใน MS Teams" as UC5
   usecase "UC-006\nวิเคราะห์วิธีแก้จากคำตอบทีม" as UC6
   usecase "UC-007\nบันทึกวิธีแก้/สถานะเคส" as UC7
-  usecase "UC-008\nปรับข้อความให้เข้าใจง่าย" as UC8
+  usecase "UC-008\nAI ปรับข้อความให้เข้าใจง่าย\n+ Tech ตรวจสอบ/แก้ไขก่อนส่ง" as UC8
   usecase "UC-009\nส่งคำตอบกลับลูกค้า LINE" as UC9
   usecase "UC-010\nจับคู่ความมั่นใจกับเคสเดิม\n(Planned)" as UC10
   usecase "UC-011\nถามยืนยัน solution ที่แนะนำ\n(Planned)" as UC11
-  usecase "UC-012\nยืนยัน/ปฏิเสธ + ปรับความมั่นใจ\n(Planned)" as UC12
+  usecase "UC-012\nยืนยัน/ปฏิเสธ + ปรับความมั่นใจ\n(ปฏิเสธ → ต้องระบุเหตุผล)\n(Planned)" as UC12
   usecase "UC-013\nดูภาพรวมสถิติเคส" as UC13
-  usecase "UC-014\nตัดสินใจเปิด auto-answer\n(Planned)" as UC14
+  usecase "UC-014\nขอ Approve จาก Tech Support\nเพื่อเปิด auto-answer\n(Planned)" as UC14
 }
 
 Customer --> UC1
@@ -821,6 +842,7 @@ UC6 ..> UC7 : <<include>>
 UC7 ..> UC8 : <<include>>
 UC8 ..> UC9 : <<include>>
 UC9 --> Customer
+Tech --> UC8 : ตรวจสอบ/แก้ไขก่อนส่ง
 
 AI --> UC2
 AI --> UC6
@@ -835,6 +857,7 @@ UC12 ..> UC10 : <<extend>>\nเพิ่ม/ลดความมั่นใจ
 
 Admin --> UC13
 Admin --> UC14
+Tech --> UC14
 UC13 ..> UC10 : <<extend>>
 
 @enduml
@@ -905,8 +928,16 @@ entity "solution" as solution {
   tech_agent_id : uuid <<FK>>
   raw_reply_text : text
   rewritten_customer_text : text
+  approved_customer_text : text (nullable)
+  reviewed_by_tech_agent_id : uuid <<FK>> (nullable)
   created_at : datetime
 }
+note right of solution::approved_customer_text
+  ข้อความสุดท้ายหลัง Tech Support ตรวจสอบ/แก้ไข
+  rewritten_customer_text (AI ปรับ) แล้วกดยืนยัน —
+  ห้ามส่ง rewritten_customer_text ให้ลูกค้าตรง ๆ
+  โดยไม่ผ่านการยืนยันนี้ก่อน (UC-008)
+end note
 
 entity "tech_agent" as tech_agent {
   * id : uuid <<PK>>
@@ -922,11 +953,15 @@ entity "confidence_match" as confidence_match {
   matched_solution_id : uuid <<FK>>
   confidence_pct : decimal
   tech_confirmed : boolean
+  mismatch_reason : text (nullable)
   created_at : datetime
 }
 note right of confidence_match
   Planned (WF-004) — populated once
-  historical case volume is sufficient
+  historical case volume is sufficient.
+  mismatch_reason: บันทึกทุกครั้งที่ tech_confirmed = false —
+  Tech Support ต้องระบุว่าอะไรทำให้เคสนี้ไม่ใช่เคสเดียวกับ
+  matched_solution_id เพื่อแก้ไขความเข้าใจของระบบ
 end note
 
 customer ||--o{ case_ : "reports"
@@ -963,21 +998,23 @@ Analyzing --> AwaitingTechSupport : UC-003/UC-004 บันทึกเคส + 
 
 AwaitingTechSupport --> TechReplied : UC-005 ทีม Tech Support ตอบกลับใน Teams
 TechReplied --> AnalyzingSolution : UC-006 AI วิเคราะห์วิธีแก้จากคำตอบ
-AnalyzingSolution --> Resolved : UC-007/UC-008 บันทึกวิธีแก้ + ปรับข้อความ
-Resolved --> Sent : UC-009 ส่งคำตอบกลับลูกค้าทาง LINE
+AnalyzingSolution --> Resolved : UC-007 บันทึกวิธีแก้ + AI ปรับข้อความ (UC-008)
+Resolved --> AwaitingSendReview : UC-008 รอ Tech Support ตรวจสอบ/แก้ไขข้อความที่ AI ปรับ
+AwaitingSendReview --> Sent : UC-009 Tech Support ยืนยัน → ส่งคำตอบกลับลูกค้าทาง LINE
 Sent --> Closed : ลูกค้ายืนยันจบเคส
 
 state "AwaitingConfirmation\n(Planned)" as AwaitingConfirmation
 AwaitingTechSupport --> AwaitingConfirmation : UC-010/UC-011 ความมั่นใจ 90-100%\nถามยืนยัน solution ที่แนะนำ
 AwaitingConfirmation --> TechReplied : UC-012 Tech Support ยืนยัน "ใช่"\n(เพิ่มความมั่นใจให้ solution)
-AwaitingConfirmation --> AwaitingTechSupport : UC-012 Tech Support ตอบ "ไม่ใช่"\n(กลับไปวิเคราะห์ตามปกติ)
+AwaitingConfirmation --> AwaitingTechSupport : UC-012 Tech Support ตอบ "ไม่ใช่"\n(ต้องระบุเหตุผล/จุดต่าง แล้วกลับไปวิเคราะห์ตามปกติ)
 
 Closed --> [*]
 
 note right of AwaitingConfirmation
-  เมื่อความมั่นใจถึง 100% อย่างต่อเนื่อง
-  ทีมจะพิจารณาเปิดใช้ auto-answer/automation
-  (UC-014, Planned — ต้องคุยกับทีมก่อน)
+  เมื่อความมั่นใจถึง 100% ต่อเนื่อง และระบบแยกเคสนี้
+  จากเคสอื่นได้ชัดเจน (ไม่มี "ไม่ใช่" ค้างอยู่)
+  ระบบจะขอ Approve จาก Tech Support เป็นรายหมวดหมู่
+  ก่อนเปิด auto-answer (UC-014, Planned)
 end note
 
 @enduml
@@ -1054,16 +1091,22 @@ Backend -> AI : **API-006** POST /ai/analyze-solution\n(ข้อความต
 AI --> Backend : วิธีแก้ที่สกัดได้ + หมวดหมู่เคส
 Backend -> DB : **API-007** PATCH /cases/:id/solution\n(บันทึกวิธีแก้ + สถานะ = Resolved)
 Backend -> AI : **API-008** POST /ai/rewrite-customer-reply\n(ปรับข้อความให้เข้าใจง่าย)
-AI --> Backend : ข้อความฉบับลูกค้า
-Backend -> DB : บันทึก rewritten_customer_text
-Backend -> LINE : **API-009** POST /line/reply\n(ส่งข้อความถึงลูกค้าคนเดิม)
+AI --> Backend : ข้อความฉบับลูกค้า (draft)
+Backend -> DB : บันทึก rewritten_customer_text\n(สถานะเคส = AwaitingSendReview)
+Backend -> Teams : แสดงข้อความ draft ให้ Tech ตรวจสอบ/แก้ไข (SCR-002)
+Teams -> Tech : เห็นข้อความ draft ที่ AI ปรับแล้ว
+Tech -> Teams : แก้ไข (ถ้าจำเป็น) แล้วกดยืนยัน "ส่งให้ลูกค้า"
+Teams -> Backend : ยืนยันข้อความสุดท้าย
+Backend -> DB : บันทึก approved_customer_text +\nreviewed_by_tech_agent_id
+Backend -> LINE : **API-009** POST /line/reply\n(ส่ง approved_customer_text ถึงลูกค้าคนเดิม)
 LINE -> Customer : ได้รับคำตอบ/วิธีแก้ปัญหา
 Backend -> DB : อัปเดตสถานะเคส = Sent
 
-note over Backend, AI
-  ถ้า AI วิเคราะห์ไม่มั่นใจว่าเข้าใจง่ายพอ
-  ระบบอาจช่วยแก้ข้อความทีม Tech Support
-  ก่อนส่งลูกค้า (ตาม requirement DOC-001)
+note over Backend, Teams
+  ห้ามส่ง rewritten_customer_text (AI draft) ให้ลูกค้า
+  โดยอัตโนมัติ — ต้องผ่านการตรวจสอบ/ยืนยันของ
+  Tech Support ทุกครั้งก่อนเรียก API-009 (ตาม DOC-001
+  "ห้ามส่งข้อความดิบของทีมตรง ๆ" + UC-008 ฉบับแก้ไข)
 end note
 
 @enduml
@@ -1105,14 +1148,19 @@ alt confidence_pct &gt;= 90%
   Tech -> Teams : ตอบ "ใช่" / "ไม่ใช่"
   Teams -> Backend : webhook คำตอบยืนยัน
   alt Tech ตอบ "ใช่"
-    Backend -> DB : เพิ่ม confidence_score ให้ solution นี้
+    Backend -> DB : เพิ่ม confidence_score ให้ solution นี้\n(tech_confirmed = true)
     note right of DB
-      ถ้าสะสมจน confidence = 100%
-      ทีมจะพิจารณา UC-014:
-      เปิดใช้ API / automate / auto-answer LINE
-      (ต้องคุยกับทีมก่อนเปิดใช้งานจริง)
+      ถ้าสะสมจน confidence = 100% ต่อเนื่อง
+      (ไม่มี "ไม่ใช่" ค้างอยู่สำหรับหมวดหมู่นี้)
+      ระบบจะขอ **Approve** จาก Tech Support
+      เป็นรายหมวดหมู่ก่อนเปิด auto-answer (UC-014)
+      — ไม่ใช่การขอมติ/โหวตจากทั้งทีม
     end note
   else Tech ตอบ "ไม่ใช่"
+    Teams -> Tech : ถามต่อ "อะไรที่ทำให้เคสนี้ต่างจาก solution นี้?"
+    Tech -> Teams : ระบุจุดต่าง/เหตุผล
+    Teams -> Backend : webhook เหตุผลที่ปฏิเสธ
+    Backend -> DB : บันทึก mismatch_reason\n(tech_confirmed = false) เพื่อแก้ไขความเข้าใจของระบบ
     Backend -> Teams : กลับเข้า flow ปกติ (WF-002)\nให้ทีมวิเคราะห์ตอบเองตามปกติ
   end
 else confidence_pct &lt; 90%

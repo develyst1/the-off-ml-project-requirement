@@ -9,21 +9,23 @@ Analyzing --> AwaitingTechSupport : UC-003/UC-004 บันทึกเคส + 
 
 AwaitingTechSupport --> TechReplied : UC-005 ทีม Tech Support ตอบกลับใน Teams
 TechReplied --> AnalyzingSolution : UC-006 AI วิเคราะห์วิธีแก้จากคำตอบ
-AnalyzingSolution --> Resolved : UC-007/UC-008 บันทึกวิธีแก้ + ปรับข้อความ
-Resolved --> Sent : UC-009 ส่งคำตอบกลับลูกค้าทาง LINE
+AnalyzingSolution --> Resolved : UC-007 บันทึกวิธีแก้ + AI ปรับข้อความ (UC-008)
+Resolved --> AwaitingSendReview : UC-008 รอ Tech Support ตรวจสอบ/แก้ไขข้อความที่ AI ปรับ
+AwaitingSendReview --> Sent : UC-009 Tech Support ยืนยัน → ส่งคำตอบกลับลูกค้าทาง LINE
 Sent --> Closed : ลูกค้ายืนยันจบเคส
 
 state "AwaitingConfirmation\n(Planned)" as AwaitingConfirmation
 AwaitingTechSupport --> AwaitingConfirmation : UC-010/UC-011 ความมั่นใจ 90-100%\nถามยืนยัน solution ที่แนะนำ
 AwaitingConfirmation --> TechReplied : UC-012 Tech Support ยืนยัน "ใช่"\n(เพิ่มความมั่นใจให้ solution)
-AwaitingConfirmation --> AwaitingTechSupport : UC-012 Tech Support ตอบ "ไม่ใช่"\n(กลับไปวิเคราะห์ตามปกติ)
+AwaitingConfirmation --> AwaitingTechSupport : UC-012 Tech Support ตอบ "ไม่ใช่"\n(ต้องระบุเหตุผล/จุดต่าง แล้วกลับไปวิเคราะห์ตามปกติ)
 
 Closed --> [*]
 
 note right of AwaitingConfirmation
-  เมื่อความมั่นใจถึง 100% อย่างต่อเนื่อง
-  ทีมจะพิจารณาเปิดใช้ auto-answer/automation
-  (UC-014, Planned — ต้องคุยกับทีมก่อน)
+  เมื่อความมั่นใจถึง 100% ต่อเนื่อง และระบบแยกเคสนี้
+  จากเคสอื่นได้ชัดเจน (ไม่มี "ไม่ใช่" ค้างอยู่)
+  ระบบจะขอ Approve จาก Tech Support เป็นรายหมวดหมู่
+  ก่อนเปิด auto-answer (UC-014, Planned)
 end note
 
 @enduml

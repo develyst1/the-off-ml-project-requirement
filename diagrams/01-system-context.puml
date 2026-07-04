@@ -1,5 +1,5 @@
 @startuml 01-system-context
-title DIA-001 · System Context — Off Mai Tech Support Assistant (WF-001..WF-004)
+title DIA-001 · System Context — Off-ML Tech Support Assistant (WF-001..WF-004)
 skinparam shadowing false
 skinparam componentStyle rectangle
 
@@ -46,6 +46,7 @@ Tech --> Teams : ตอบกลับวิธีแก้
 Teams --> Webhooks : webhook ข้อความตอบกลับ (API-005)
 Webhooks --> AiChat : วิเคราะห์วิธีแก้ + ปรับข้อความลูกค้า (API-006/API-008)
 Webhooks --> CaseSvc : บันทึกวิธีแก้ (API-007)
+Tech --> CaseSvc : ตรวจสอบ/แก้ไขข้อความที่ AI ปรับ ก่อนยืนยันส่ง (UC-008)
 CaseSvc --> LINE : ส่งคำตอบกลับลูกค้า (API-009)
 LINE --> Customer : ได้รับคำตอบ
 
