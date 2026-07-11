@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Requirement Hub — Off-ML AI Tech Support Assistant. Traceability WF→UC→SCR→API→TC + as-built mockups + PlantUML diagrams.">
 <title>Requirement Hub — Off-ML Tech Support Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
   --wf:  #d97706;
@@ -106,6 +110,134 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 
 /* ===== matrix ===== */
 #matrix .matrix-note { font-size:.82em; color:var(--doc); margin-top:10px; }
+
+/* ================================================================
+   v2 VISUAL POLISH (cascade-last overrides — markup untouched)
+   ================================================================ */
+:root{
+  --wf-l:#fef3e2; --uc-l:#e6effd; --scr-l:#e3f6ee; --api-l:#efe8fd; --tc-l:#fde7ec; --dia-l:#e2f4fd; --doc-l:#eef1f5;
+  --ink:#0f172a; --muted:#64748b; --line:#e6e9f0;
+  --bg:#f4f6fb;
+  --shadow-sm:0 1px 2px rgba(15,23,42,.06),0 1px 3px rgba(15,23,42,.05);
+  --shadow-md:0 4px 14px -4px rgba(15,23,42,.14),0 2px 6px -2px rgba(15,23,42,.08);
+  --shadow-lg:0 18px 40px -12px rgba(15,23,42,.28);
+}
+body{
+  font-family:"Noto Sans Thai","Inter","Segoe UI",Tahoma,sans-serif;
+  background:
+    radial-gradient(1200px 500px at 88% -8%, #e7ecff 0%, transparent 60%),
+    radial-gradient(900px 500px at -5% 8%, #e6faf3 0%, transparent 55%),
+    var(--bg);
+  background-repeat:no-repeat;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---- sidebar ---- */
+aside.sidebar{
+  background:linear-gradient(185deg,#0b1220 0%,#111a2e 55%,#0d1526 100%);
+  border-right:1px solid rgba(148,163,184,.10);
+  padding:24px 18px 28px;
+}
+aside.sidebar h1{ font-size:1.18em; letter-spacing:.2px; font-weight:800; }
+aside.sidebar .tag{ font-size:.72em; letter-spacing:.3px; text-transform:uppercase; color:#8ea3c4; }
+.mini-flow .step{ box-shadow:0 2px 6px rgba(0,0,0,.28); letter-spacing:.4px; }
+.legend,.howto{ background:rgba(148,163,184,.08); border:1px solid rgba(148,163,184,.12); backdrop-filter:blur(4px); }
+.legend .dot{ box-shadow:0 0 0 3px rgba(255,255,255,.05); }
+nav.side-nav a{ display:flex; align-items:center; justify-content:space-between; transition:.16s; position:relative; }
+nav.side-nav a:hover{ background:rgba(96,165,250,.14); color:#fff; transform:translateX(2px); }
+nav.side-nav a .n-count{
+  font-size:.72em; font-weight:800; color:#cbd5e1; background:rgba(148,163,184,.18);
+  border-radius:20px; padding:1px 8px; min-width:22px; text-align:center;
+}
+
+/* ---- hero ---- */
+.hero{
+  position:relative; overflow:hidden; border-radius:20px; margin-bottom:30px;
+  padding:30px 34px; color:#eef2ff;
+  background:linear-gradient(120deg,#111a2e 0%,#1e2a52 48%,#243e73 100%);
+  box-shadow:var(--shadow-lg);
+}
+.hero::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(520px 200px at 92% -20%, rgba(96,165,250,.42), transparent 62%),
+    radial-gradient(420px 220px at 8% 130%, rgba(16,185,129,.34), transparent 60%);
+}
+.hero > *{ position:relative; z-index:1; }
+.hero .eyebrow{ font-size:.74em; letter-spacing:2.4px; text-transform:uppercase; color:#9db4e6; font-weight:700; }
+.hero h1{ margin:8px 0 8px; font-size:2.05em; line-height:1.12; font-weight:900; letter-spacing:-.5px; color:#fff; }
+.hero p.lead{ margin:0; max-width:760px; color:#c7d4f2; font-size:.98em; line-height:1.65; }
+.hero .hero-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+.hero .htag{ font-size:.74em; font-weight:700; padding:5px 12px; border-radius:20px; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.16); color:#e2e8f0; display:inline-flex; align-items:center; gap:6px; }
+.hero .htag.ok{ background:rgba(16,185,129,.16); border-color:rgba(16,185,129,.4); color:#bbf7d6; }
+.hero .htag.warn{ background:rgba(234,179,8,.14); border-color:rgba(234,179,8,.4); color:#fde9a8; }
+
+/* ---- stat strip ---- */
+.stat-strip{ display:grid; grid-template-columns:repeat(7,1fr); gap:12px; margin:-14px 0 34px; }
+.stat{ display:block; text-decoration:none; background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 12px; box-shadow:var(--shadow-sm); position:relative; overflow:hidden; transition:.18s; }
+.stat:hover{ transform:translateY(-2px); box-shadow:var(--shadow-md); }
+.stat::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--c,#94a3b8); }
+.stat .num{ font-family:"Inter",sans-serif; font-size:1.7em; font-weight:900; line-height:1; color:var(--ink); }
+.stat .lbl{ font-size:.72em; font-weight:700; color:var(--muted); margin-top:5px; letter-spacing:.2px; }
+.stat.s-wf{ --c:var(--wf); } .stat.s-uc{ --c:var(--uc); } .stat.s-scr{ --c:var(--scr); }
+.stat.s-api{ --c:var(--api); } .stat.s-tc{ --c:var(--tc); } .stat.s-dia{ --c:var(--dia); } .stat.s-doc{ --c:var(--doc); }
+@media (max-width:1100px){ .stat-strip{ grid-template-columns:repeat(4,1fr); } }
+
+/* ---- section headers ---- */
+section > h2{
+  border:0; padding:0 0 12px; font-size:1.42em; font-weight:800; letter-spacing:-.3px;
+  border-bottom:1px solid var(--line); position:relative;
+}
+section > h2::before{ content:""; position:absolute; left:0; bottom:-1px; width:64px; height:3px; border-radius:3px; background:linear-gradient(90deg,#2563eb,#0ea5e9); }
+
+/* ---- cards ---- */
+article{
+  border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow-sm);
+  transition:box-shadow .18s, transform .18s, border-color .18s;
+}
+article:hover{ box-shadow:var(--shadow-md); transform:translateY(-1px); border-color:#d5dbe8; }
+article.wf-card{ border-left:5px solid var(--wf); background:linear-gradient(100deg,var(--wf-l),#fff 26%); }
+article.uc-card{ border-left:5px solid var(--uc); background:linear-gradient(100deg,var(--uc-l),#fff 26%); }
+article.scr-card{ border-left:5px solid var(--scr); background:linear-gradient(100deg,var(--scr-l),#fff 26%); }
+article.api-card{ border-left:5px solid var(--api); background:linear-gradient(100deg,var(--api-l),#fff 26%); }
+article.tc-card{ border-left:5px solid var(--tc); background:linear-gradient(100deg,var(--tc-l),#fff 26%); }
+article.dia-card{ border-left:5px solid var(--dia); background:linear-gradient(100deg,var(--dia-l),#fff 26%); }
+article.doc-card{ border-left:5px solid var(--doc); background:linear-gradient(100deg,var(--doc-l),#fff 26%); }
+article h3{ font-size:1.08em; font-weight:800; letter-spacing:-.2px; }
+@keyframes flash{ 0%{ box-shadow:0 0 0 5px rgba(37,99,235,.55);} 100%{ box-shadow:var(--shadow-md);} }
+
+/* ---- badges / chips ---- */
+.id-badge{ border-radius:7px; box-shadow:0 1px 2px rgba(15,23,42,.18); letter-spacing:.3px; }
+.chip{ box-shadow:0 1px 2px rgba(15,23,42,.12); transition:transform .12s, box-shadow .12s; }
+a.chip:hover{ transform:translateY(-1px) scale(1.05); box-shadow:0 3px 8px rgba(15,23,42,.22); }
+.chip.hl,.id-badge.hl{ transform:scale(1.14); box-shadow:0 0 0 3px rgba(15,23,42,.30); z-index:2; }
+
+/* ---- status pills ---- */
+.status-pill{ border-radius:20px; padding:3px 10px; font-weight:800; letter-spacing:.2px; box-shadow:inset 0 0 0 1px rgba(15,23,42,.05); }
+.status-pill.implemented{ background:#d9f7e6; color:#0a7a45; }
+.status-pill.partial{ background:#fef2cf; color:#8a6100; }
+.status-pill.planned{ background:#eaeefb; color:#4c5aa0; }
+.pill-asbuilt{ display:inline-flex; align-items:center; gap:5px; font-size:.68em; font-weight:800; letter-spacing:.2px; padding:3px 9px; border-radius:20px; background:#e3f6ee; color:#0a7a45; box-shadow:inset 0 0 0 1px rgba(5,150,105,.28); font-family:"Inter",sans-serif; }
+.pill-asbuilt::before{ content:""; width:6px; height:6px; border-radius:50%; background:#10b981; box-shadow:0 0 0 3px rgba(16,185,129,.22); }
+
+/* ---- tables ---- */
+table.field-table,table.matrix-table{ border-radius:12px; overflow:hidden; box-shadow:var(--shadow-sm); background:#fff; }
+table.field-table th,table.matrix-table th{ background:#f0f3fa; font-weight:800; font-size:.9em; letter-spacing:.2px; }
+table.matrix-table tr:hover td{ background:#f7f9fe; }
+
+/* ---- buttons / frames ---- */
+.ui-btn{ border-radius:9px; transition:.15s; box-shadow:var(--shadow-sm); }
+.ui-btn:hover{ transform:translateY(-1px); box-shadow:var(--shadow-md); border-color:#c3cbd9; }
+.ui-btn.open{ box-shadow:0 4px 12px -2px rgba(5,150,105,.5); }
+.ui-frame-wrap{ border-radius:14px; box-shadow:var(--shadow-md); }
+.dia-view{ border-radius:14px; border:1px solid var(--line); background:linear-gradient(180deg,#fff,#fbfcfe); box-shadow:var(--shadow-sm); min-height:140px; }
+pre.sample{ border-radius:10px; box-shadow:inset 0 0 0 1px rgba(148,163,184,.15); }
+
+@media (max-width:820px){
+  .hub{ grid-template-columns:1fr; }
+  aside.sidebar{ position:relative; height:auto; }
+  .hero h1{ font-size:1.6em; }
+}
 </style>
 </head>
 <body>
@@ -138,18 +270,45 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
   </div>
 
   <nav class="side-nav">
-    <a href="#overview">① Overview / DOC</a>
-    <a href="#workflows">② Workflows</a>
-    <a href="#usecases">③ Use Cases</a>
-    <a href="#screens">④ Screens</a>
-    <a href="#apis">⑤ APIs</a>
-    <a href="#testcases">⑥ Test Cases</a>
-    <a href="#matrix">⑦ Traceability Matrix</a>
-    <a href="#diagrams">⑧ Diagrams (PlantUML)</a>
+    <a href="#overview"><span>① Overview / DOC</span><span class="n-count">2</span></a>
+    <a href="#workflows"><span>② Workflows</span><span class="n-count">4</span></a>
+    <a href="#usecases"><span>③ Use Cases</span><span class="n-count">17</span></a>
+    <a href="#screens"><span>④ Screens</span><span class="n-count">6</span></a>
+    <a href="#apis"><span>⑤ APIs</span><span class="n-count">18</span></a>
+    <a href="#testcases"><span>⑥ Test Cases</span><span class="n-count">12</span></a>
+    <a href="#matrix"><span>⑦ Traceability Matrix</span></a>
+    <a href="#diagrams"><span>⑧ Diagrams</span><span class="n-count">7</span></a>
   </nav>
 </aside>
 
 <main>
+
+<!-- ============================================================ -->
+<div class="hero">
+  <div class="eyebrow">Requirement Traceability Hub</div>
+  <h1>Off-ML — AI Tech Support Assistant</h1>
+  <p class="lead">
+    ระบบผู้ช่วย (และในอนาคตจะทำหน้าที่แทน) ทีม Tech Support — รับปัญหาจากลูกค้าทาง LINE, วิเคราะห์ด้วย API AI CENTER,
+    ส่งต่อทีมใน MS Teams, แล้ววนกลับมาปรับคำตอบก่อนส่งถึงลูกค้า พร้อมสะสมความรู้เพื่อแนะนำวิธีแก้ตามระดับความมั่นใจ
+    เอกสารนี้แทนไฟล์ requirement ต้นฉบับได้ทั้งหมด: ไล่สายได้ตั้งแต่ <b>Workflow → Use Case → Screen → API → Test Case</b>
+    พร้อม mockup หน้าจอจริงและไดอะแกรม PlantUML
+  </p>
+  <div class="hero-tags">
+    <span class="htag ok"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Frontend เป็น as-built · Next.js + Mantine</span>
+    <span class="htag warn"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Backend + WF-004 · Planned</span>
+    <span class="htag">API AI CENTER · multi-provider fallback</span>
+  </div>
+</div>
+
+<div class="stat-strip">
+  <a class="stat s-wf" href="#workflows"><div class="num">4</div><div class="lbl">Workflows</div></a>
+  <a class="stat s-uc" href="#usecases"><div class="num">17</div><div class="lbl">Use Cases</div></a>
+  <a class="stat s-scr" href="#screens"><div class="num">6</div><div class="lbl">Screens</div></a>
+  <a class="stat s-api" href="#apis"><div class="num">18</div><div class="lbl">APIs</div></a>
+  <a class="stat s-tc" href="#testcases"><div class="num">12</div><div class="lbl">Test Cases</div></a>
+  <a class="stat s-dia" href="#diagrams"><div class="num">7</div><div class="lbl">Diagrams</div></a>
+  <a class="stat s-doc" href="#overview"><div class="num">2</div><div class="lbl">Source Docs</div></a>
+</div>
 
 <!-- ============================================================ -->
 <section id="overview">
@@ -159,8 +318,10 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
   วิเคราะห์ด้วย API AI CENTER จัดเก็บลง database ส่งต่อให้ทีม Tech Support ทาง MS Teams และวนกลับมาวิเคราะห์คำตอบของทีม
   ก่อนส่งกลับลูกค้า — ในระยะยาวจะสะสมข้อมูลเพื่อแนะนำวิธีแก้แบบมีความมั่นใจ (confidence) และขอ Approve จาก Tech Support
   เพื่อพิจารณา auto-answer เป็นรายหมวดหมู่ในอนาคต
-  โหมดของ requirement นี้คือ <b>Greenfield</b> (front/back ยังเป็นแค่ README ยังไม่ได้พัฒนาจริง) จึงออกแบบ mockup จากสเปกที่เขียนไว้
-  ทุกหน้าจอถูกแท็ก <b>Planned</b>
+  โหมดของ requirement นี้คือ <b>As-built (ฝั่ง Frontend)</b> — <code>the-off-ml-project-front</code> ถูกพัฒนาเป็นแอป Next.js + Mantine
+  จริงแล้ว มีครบทั้ง 6 หน้าจอ (login, cases, case detail, confidence-review, analytics, automation settings) ต่ออยู่กับ mock data
+  ระหว่างรอ backend ดังนั้น mockup ใน <code>make-front/</code> จึงวาดให้ตรงกับแอปจริง (<b>as-built</b>) ส่วน <code>the-off-ml-project-back</code>
+  ยังเป็นแค่ README (<b>Planned</b>) และฟีเจอร์กลุ่ม WF-004 (confidence matching / automation) ยังเป็น <b>Planned</b> ในระดับ API/logic
 </p>
 <p class="section-sub" style="font-size:.85em;">
   ที่มาของชื่อ: โปรเจคนี้ได้แรงบันดาลใจจาก <b>"ออฟใหม่" (Off Mai)</b> พนักงาน Tech Support ตัวจริงในบริษัทที่ระบบนี้ถูกสร้างมาเพื่อช่วยแบ่งเบางาน —
@@ -190,7 +351,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
   <table class="field-table">
     <tr><th>Repo</th><th>บทบาท</th><th>สถานะตอนนี้</th></tr>
     <tr><td><code>the-off-ml-project-requirement</code></td><td><b>Requirement Hub (repo นี้)</b> — ต้นทางของ spec/ภาพรวม/เป้าหมาย ที่ front/back นำไปพัฒนาต่อ</td><td>กำลังจัดทำ</td></tr>
-    <tr><td><code>the-off-ml-project-front</code></td><td>Frontend — Next.js + TypeScript + Mantine (พัฒนาตามสเปกใน repo นี้)</td><td><span class="status-pill planned">Planned</span> (README เท่านั้น)</td></tr>
+    <tr><td><code>the-off-ml-project-front</code></td><td>Frontend — Next.js + TypeScript + Mantine (พัฒนาตามสเปกใน repo นี้)</td><td><span class="status-pill implemented">Implemented</span> 6 หน้าจอจริง · ต่อ mock data <span class="pill-asbuilt">as-built</span></td></tr>
     <tr><td><code>the-off-ml-project-back</code></td><td>Backend — Bun + TypeScript + Hono (พัฒนาตามสเปกใน repo นี้)</td><td><span class="status-pill planned">Planned</span> (README เท่านั้น)</td></tr>
     <tr><td><code>develyst-ai/bruno</code></td><td>API AI CENTER — bruno collection (multi-provider: OpenAI, Gemini, xAI Grok, DeepSeek, fallback chain)</td><td>มีอยู่แล้ว (ใช้เป็น backend เรียก AI)</td></tr>
   </table>
@@ -479,10 +640,10 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 <!-- ============================================================ -->
 <section id="screens">
 <h2>④ Screens</h2>
-<p class="section-sub">Frontend: Next.js + TypeScript + Mantine (the-off-ml-project-front) — ทุกหน้าจอ <span class="status-pill planned">Planned</span> (greenfield mockup) เพราะยังไม่ได้พัฒนาจริง</p>
+<p class="section-sub">Frontend: Next.js + TypeScript + Mantine (the-off-ml-project-front) — ทั้ง 6 หน้าจอ <span class="status-pill implemented">Implemented</span> เป็นแอปจริงแล้ว mockup ด้านล่างวาดให้ตรงกับแอป (<span class="pill-asbuilt">as-built</span>) · หน้าจอกลุ่ม WF-004 มี UI จริงแต่ยังต่อ mock data เพราะ API/logic ยัง Planned</p>
 
 <article id="SCR-001" class="scr-card">
-  <h3><span class="id-badge scr">SCR-001</span> Case Inbox <span class="status-pill planned">Planned</span></h3>
+  <h3><span class="id-badge scr">SCR-001</span> Case Inbox <span class="status-pill implemented">Implemented</span> <span class="pill-asbuilt">as-built · /cases</span></h3>
   <div class="chain">
     <a class="chip wf" href="#WF-001">WF-001</a><span class="arrow">→</span>
     <a class="chip uc" href="#UC-003">UC-003</a><span class="arrow">→</span>
@@ -499,7 +660,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 </article>
 
 <article id="SCR-002" class="scr-card">
-  <h3><span class="id-badge scr">SCR-002</span> Case Detail <span class="status-pill planned">Planned</span></h3>
+  <h3><span class="id-badge scr">SCR-002</span> Case Detail <span class="status-pill implemented">Implemented</span> <span class="pill-asbuilt">as-built · /cases/[id]</span></h3>
   <div class="chain">
     <a class="chip wf" href="#WF-002">WF-002</a><span class="arrow">→</span>
     <a class="chip uc" href="#UC-006">UC-006</a><span class="arrow">→</span>
@@ -516,7 +677,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 </article>
 
 <article id="SCR-003" class="scr-card">
-  <h3><span class="id-badge scr">SCR-003</span> Confidence Suggestion Review <span class="status-pill planned">Planned — WF-004</span></h3>
+  <h3><span class="id-badge scr">SCR-003</span> Confidence Suggestion Review <span class="status-pill implemented">Implemented (UI)</span> <span class="pill-asbuilt">as-built · /confidence-review</span> <span class="status-pill planned">API-012/013 Planned</span></h3>
   <div class="chain">
     <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">→</span>
     <a class="chip uc" href="#UC-011">UC-011</a><span class="arrow">→</span>
@@ -533,7 +694,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 </article>
 
 <article id="SCR-004" class="scr-card">
-  <h3><span class="id-badge scr">SCR-004</span> Analytics Dashboard <span class="status-pill planned">Planned — WF-004</span></h3>
+  <h3><span class="id-badge scr">SCR-004</span> Analytics Dashboard <span class="status-pill implemented">Implemented (UI)</span> <span class="pill-asbuilt">as-built · /analytics</span> <span class="status-pill planned">API-014 mock data</span></h3>
   <div class="chain">
     <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">→</span>
     <a class="chip uc" href="#UC-013">UC-013</a><span class="arrow">→</span>
@@ -550,7 +711,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 </article>
 
 <article id="SCR-005" class="scr-card">
-  <h3><span class="id-badge scr">SCR-005</span> Automation Settings <span class="status-pill planned">Planned — WF-004, ต้องคุยกับทีมก่อน</span></h3>
+  <h3><span class="id-badge scr">SCR-005</span> Automation Settings <span class="status-pill implemented">Implemented (UI)</span> <span class="pill-asbuilt">as-built · /settings/automation</span> <span class="status-pill planned">proposal only · API-015 Planned</span></h3>
   <div class="chain">
     <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">→</span>
     <a class="chip uc" href="#UC-014">UC-014</a><span class="arrow">→</span>
@@ -567,7 +728,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 </article>
 
 <article id="SCR-006" class="scr-card">
-  <h3><span class="id-badge scr">SCR-006</span> Login <span class="status-pill planned">Planned</span></h3>
+  <h3><span class="id-badge scr">SCR-006</span> Login <span class="status-pill implemented">Implemented</span> <span class="pill-asbuilt">as-built · /login</span></h3>
   <div class="chain">
     <span class="chip none">Cross-cutting</span><span class="arrow">→</span>
     <a class="chip uc" href="#UC-015">UC-015</a><span class="arrow">→</span>
