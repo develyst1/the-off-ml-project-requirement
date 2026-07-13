@@ -1,5 +1,5 @@
 @startuml 01-system-context
-title DIA-001 · System Context — Off Mai Tech Support Assistant (WF-001..WF-004)
+title DIA-001 · System Context — Off ML Project Tech Support Assistant (WF-001..WF-004)
 skinparam shadowing false
 skinparam componentStyle rectangle
 

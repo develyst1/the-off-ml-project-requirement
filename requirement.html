@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Requirement Hub — Off Mai Tech Support Assistant</title>
+<title>Requirement Hub — Off ML Project Tech Support Assistant</title>
 <style>
 :root {
   --wf:  #d97706;
@@ -110,7 +110,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 <body>
 <div class="hub">
 <aside class="sidebar">
-  <h1><svg class="svg-icon" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-3 3-3-3 3-3z"/></svg> Off Mai</h1>
+  <h1><svg class="svg-icon" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-3 3-3-3 3-3z"/></svg> Off ML Project</h1>
   <div class="tag">Requirement Hub · AI Tech Support Assistant</div>
 
   <div class="mini-flow">
@@ -154,7 +154,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 <section id="overview">
 <h2>① Overview</h2>
 <p class="section-sub">
-  โปรเจค <b>"Off Mai"</b> (ออฟใหม่) — ระบบผู้ช่วยแทนทีม Tech Support ในบริษัท รับแจ้งปัญหา/คำถามจากลูกค้าทาง LINE
+  โปรเจค <b>"Off ML Project"</b> — ระบบผู้ช่วยแทนทีม Tech Support ในบริษัท รับแจ้งปัญหา/คำถามจากลูกค้าทาง LINE
   วิเคราะห์ด้วย API AI CENTER จัดเก็บลง database ส่งต่อให้ทีม Tech Support ทาง MS Teams และวนกลับมาวิเคราะห์คำตอบของทีม
   ก่อนส่งกลับลูกค้า — ระบบจะสะสมข้อมูลเพื่อแนะนำวิธีแก้แบบมีความมั่นใจ (confidence) และเปิด auto-answer ได้เมื่อผ่านเงื่อนไขความมั่นใจ 2 ชั้น
   โหมดของ requirement นี้คือ <b>Greenfield</b> (front/back ยังเป็นแค่ README ยังไม่ได้พัฒนาจริง) จึงออกแบบ mockup จากสเปกที่เขียนไว้
@@ -178,10 +178,22 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
   <h3><span class="id-badge doc">REPOS</span> Repo ที่เกี่ยวข้องในโปรเจคนี้</h3>
   <table class="field-table">
     <tr><th>Repo</th><th>บทบาท</th><th>สถานะตอนนี้</th></tr>
-    <tr><td><code>the-off-ml-project-front</code></td><td>Frontend — Next.js + TypeScript + Mantine</td><td><span class="status-pill planned">Planned</span> (README เท่านั้น)</td></tr>
-    <tr><td><code>the-off-ml-project-back</code></td><td>Backend — Bun + TypeScript + Hono</td><td><span class="status-pill planned">Planned</span> (README เท่านั้น)</td></tr>
+    <tr><td><code>the-off-ml-project-front</code></td><td>Frontend — Next.js + TypeScript + Mantine</td><td><span class="status-pill partial">Partial</span> (ต่อ backend จริงทุกหน้าแล้ว; production auto-answer/Teams flow ยังไม่ครบ)</td></tr>
+    <tr><td><code>the-off-ml-project-back</code></td><td>Backend — Bun + TypeScript + Hono</td><td><span class="status-pill partial">Partial</span> (ต่อ PostgreSQL และ dashboard APIs แล้ว; production LINE/Teams ยังไม่ครบ)</td></tr>
     <tr><td><code>the-off-ml-project-requirement</code></td><td>Requirement Hub (repo นี้)</td><td>กำลังจัดทำ</td></tr>
     <tr><td><code>develyst-ai/bruno</code></td><td>API AI CENTER — bruno collection (multi-provider: OpenAI, Gemini, xAI Grok, DeepSeek, fallback chain)</td><td>มีอยู่แล้ว (ใช้เป็น backend เรียก AI)</td></tr>
+  </table>
+</article>
+<article class="doc-card" id="implementation-status">
+  <h3><span class="id-badge doc">STATUS</span> สถานะการพัฒนาล่าสุด</h3>
+  <table class="field-table">
+    <tr><th>ส่วนงาน</th><th>สถานะ</th><th>รายละเอียด</th></tr>
+    <tr><td>Frontend: Case Inbox / Case Detail</td><td><span class="status-pill implemented">Implemented</span></td><td>ต่อ backend จริงผ่าน GET /cases, GET /cases/:id และ PATCH /cases/:id/status แล้ว</td></tr>
+    <tr><td>Frontend: Confidence Review</td><td><span class="status-pill partial">Partial</span></td><td>อ่านรายการจาก backend และกดยืนยัน/ปฏิเสธได้แล้ว แต่ยังไม่ใช่ MS Teams confirm-suggestion flow เต็ม</td></tr>
+    <tr><td>Frontend: Analytics</td><td><span class="status-pill implemented">Implemented</span></td><td>อ่าน summary, category และ confidence distribution จาก GET /analytics/summary แล้ว</td></tr>
+    <tr><td>Frontend: Automation</td><td><span class="status-pill partial">Partial</span></td><td>อ่าน/แก้ settings, solutions และ logs จาก backend แล้ว แต่ auto-answer จริงและ Teams audit notify ยังไม่ครบ production flow</td></tr>
+    <tr><td>Backend Database</td><td><span class="status-pill implemented">Implemented</span></td><td>ต่อ PostgreSQL database the_off_ml_project และสร้าง schema หลักแล้ว</td></tr>
+    <tr><td>LINE / MS Teams production integration</td><td><span class="status-pill partial">Partial</span></td><td>มี endpoint/mock client แล้ว แต่ยังไม่ได้ verify signature และยังไม่ได้ผูก payload production ของ LINE OA/MS Teams จริง</td></tr>
   </table>
 </article>
 </section>
@@ -421,10 +433,10 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 <!-- ============================================================ -->
 <section id="screens">
 <h2>④ Screens</h2>
-<p class="section-sub">Frontend: Next.js + TypeScript + Mantine (the-off-ml-project-front) — ทุกหน้าจอ <span class="status-pill planned">Planned</span> (greenfield mockup) เพราะยังไม่ได้พัฒนาจริง</p>
+<p class="section-sub">Frontend: Next.js + TypeScript + Mantine (the-off-ml-project-front) — สถานะปัจจุบัน <span class="status-pill partial">Partial</span>: ทุกหน้าต่อ backend แล้ว แต่บาง production flow เช่น auto-answer audit และ Teams confirm ยังไม่ครบ</p>
 
 <article id="SCR-001" class="scr-card">
-  <h3><span class="id-badge scr">SCR-001</span> Case Inbox <span class="status-pill planned">Planned</span></h3>
+  <h3><span class="id-badge scr">SCR-001</span> Case Inbox <span class="status-pill implemented">Implemented</span></h3>
   <div class="chain">
     <a class="chip wf" href="#WF-001">WF-001</a><span class="arrow">→</span>
     <a class="chip uc" href="#UC-003">UC-003</a><span class="arrow">→</span>
@@ -441,7 +453,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 </article>
 
 <article id="SCR-002" class="scr-card">
-  <h3><span class="id-badge scr">SCR-002</span> Case Detail <span class="status-pill planned">Planned</span></h3>
+  <h3><span class="id-badge scr">SCR-002</span> Case Detail <span class="status-pill implemented">Implemented</span></h3>
   <div class="chain">
     <a class="chip wf" href="#WF-002">WF-002</a><span class="arrow">→</span>
     <a class="chip uc" href="#UC-006">UC-006</a><span class="arrow">→</span>
@@ -458,7 +470,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 </article>
 
 <article id="SCR-003" class="scr-card">
-  <h3><span class="id-badge scr">SCR-003</span> Confidence Suggestion Review <span class="status-pill planned">Planned</span></h3>
+  <h3><span class="id-badge scr">SCR-003</span> Confidence Suggestion Review <span class="status-pill partial">Partial</span></h3>
   <div class="chain">
     <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">→</span>
     <a class="chip uc" href="#UC-011">UC-011</a><span class="arrow">→</span>
@@ -475,7 +487,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 </article>
 
 <article id="SCR-004" class="scr-card">
-  <h3><span class="id-badge scr">SCR-004</span> Analytics Dashboard <span class="status-pill planned">Planned — WF-004</span></h3>
+  <h3><span class="id-badge scr">SCR-004</span> Analytics Dashboard <span class="status-pill implemented">Implemented</span></h3>
   <div class="chain">
     <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">→</span>
     <a class="chip uc" href="#UC-013">UC-013</a><span class="arrow">→</span>
@@ -492,7 +504,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 </article>
 
 <article id="SCR-005" class="scr-card">
-  <h3><span class="id-badge scr">SCR-005</span> Automation Settings <span class="status-pill planned">Planned</span></h3>
+  <h3><span class="id-badge scr">SCR-005</span> Automation Settings <span class="status-pill partial">Partial</span></h3>
   <div class="chain">
     <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">→</span>
     <a class="chip uc" href="#UC-014">UC-014</a><span class="arrow">→</span>
@@ -573,45 +585,49 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 </article>
 
 <article id="API-010" class="api-card">
-  <h3><span class="id-badge api">API-010</span> GET /cases</h3>
+  <h3><span class="id-badge api">API-010</span> GET /cases <span class="status-pill implemented">Implemented</span></h3>
   <div class="chain"><a class="chip scr" href="#SCR-001">SCR-001</a><span class="arrow">→</span><span class="chip api active">API-010</span></div>
   <p>List/query เคสทั้งหมด พร้อม filter ตามสถานะ สำหรับหน้า Case Inbox</p>
 </article>
 
 <article id="API-011" class="api-card">
-  <h3><span class="id-badge api">API-011</span> GET /cases/:id</h3>
+  <h3><span class="id-badge api">API-011</span> GET /cases/:id <span class="status-pill implemented">Implemented</span></h3>
   <div class="chain"><a class="chip scr" href="#SCR-002">SCR-002</a><span class="arrow">→</span><span class="chip api active">API-011</span></div>
   <p>ดึงรายละเอียดเคสเดียว (ข้อความ + ผลวิเคราะห์ + เธรด Teams + solution) สำหรับหน้า Case Detail</p>
 </article>
 
 <article id="API-012" class="api-card">
-  <h3><span class="id-badge api">API-012</span> POST /ai/match-confidence</h3>
+  <h3><span class="id-badge api">API-012</span> POST /ai/match-confidence <span class="status-pill planned">Planned</span></h3>
   <div class="chain"><a class="chip uc" href="#UC-010">UC-010</a><span class="arrow">→</span><span class="chip api active">API-012</span></div>
   <p>จับคู่เคสใหม่กับวิธีแก้ในอดีต คืนค่า case_understanding_confidence, case_discrimination_confidence และ solution ที่คาดว่าตรงกัน เพื่อใช้ตัดสินใจถามทีม/auto-answer</p>
 </article>
 
 <article id="API-013" class="api-card">
-  <h3><span class="id-badge api">API-013</span> POST /integrations/teams/confirm-suggestion</h3>
+  <h3><span class="id-badge api">API-013</span> POST /integrations/teams/confirm-suggestion <span class="status-pill partial">Partial</span></h3>
   <div class="chain"><a class="chip uc" href="#UC-011">UC-011</a> <a class="chip uc" href="#UC-012">UC-012</a><span class="arrow">→</span><span class="chip api active">API-013</span></div>
   <p>ส่งคำถามยืนยัน solution ที่แนะนำเข้า MS Teams และรับผลยืนยัน/ปฏิเสธจากทีม เพื่อปรับความมั่นใจของ solution นั้น หากปฏิเสธต้องเก็บเหตุผล/คำตอบจริงไว้ใช้วิเคราะห์ว่า AI เข้าใจหรือแยกเคสผิดตรงไหน</p>
 </article>
 
 <article id="API-014" class="api-card">
-  <h3><span class="id-badge api">API-014</span> GET /analytics/summary</h3>
+  <h3><span class="id-badge api">API-014</span> GET /analytics/summary <span class="status-pill implemented">Implemented</span></h3>
   <div class="chain"><a class="chip uc" href="#UC-013">UC-013</a> <a class="chip scr" href="#SCR-004">SCR-004</a><span class="arrow">→</span><span class="chip api active">API-014</span></div>
   <p>สรุปสถิติเคส: ความถี่ ประเภท หมวดหมู่ การกระจายความมั่นใจ สำหรับหน้า Analytics Dashboard</p>
 </article>
 
 <article id="API-015" class="api-card">
-  <h3><span class="id-badge api">API-015</span> PATCH /automation/settings</h3>
+  <h3><span class="id-badge api">API-015</span> PATCH /automation/settings <span class="status-pill implemented">Implemented</span></h3>
   <div class="chain"><a class="chip uc" href="#UC-014">UC-014</a> <a class="chip scr" href="#SCR-005">SCR-005</a><span class="arrow">→</span><span class="chip api active">API-015</span></div>
   <p>ตั้งค่า threshold auto-answer, เปิด-ปิดระบบอัตโนมัติ และ emergency disable ที่ทีม Tech Support ใช้ปิดได้ง่ายเมื่อเห็นปัญหา</p>
 </article>
 
 <article id="API-016" class="api-card">
-  <h3><span class="id-badge api">API-016</span> POST /integrations/teams/auto-answer-log</h3>
+  <h3><span class="id-badge api">API-016</span> POST /integrations/teams/auto-answer-log <span class="status-pill planned">Planned</span></h3>
   <div class="chain"><a class="chip uc" href="#UC-014">UC-014</a><span class="arrow">→</span><span class="chip api active">API-016</span></div>
   <p>ทุกครั้งที่ระบบตอบลูกค้าอัตโนมัติ ต้องแจ้ง MS Teams เสมอว่าตอบลูกค้าคนไหน ตอบข้อความอะไร ใช้ solution/เคสอ้างอิงใด และมีปุ่ม/คำสั่งให้ทีมปิด auto-answer ได้ทันที</p>
+</article>
+<article class="api-card">
+  <h3><span class="id-badge api">API-017</span> Dashboard support endpoints <span class="status-pill implemented">Implemented</span></h3>
+  <p>เพิ่ม endpoint ที่ frontend ใช้งานจริงแล้ว: <code>GET /confidence/suggestions</code>, <code>POST /confidence/suggestions/:id/review</code>, <code>GET /automation/settings</code>, <code>GET /automation/solutions</code>, <code>GET /automation/logs</code>. Endpoint เหล่านี้เป็น implementation ปัจจุบันสำหรับหน้าจอ แต่ยังไม่แทน production MS Teams confirm/auto-answer audit flow เต็มของ API-013/API-016</p>
 </article>
 </section>
 
@@ -663,7 +679,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
 </article>
 
 <article id="TC-008" class="tc-card">
-  <h3><span class="id-badge tc">TC-008</span> Analytics รวมยอดตามหมวดหมู่/ความมั่นใจถูกต้อง <span class="status-pill planned">Planned</span></h3>
+  <h3><span class="id-badge tc">TC-008</span> Analytics รวมยอดตามหมวดหมู่/ความมั่นใจถูกต้อง <span class="status-pill implemented">Implemented</span></h3>
   <div class="chain"><a class="chip uc" href="#UC-013">UC-013</a> <a class="chip scr" href="#SCR-004">SCR-004</a><span class="arrow">→</span><span class="chip tc active">TC-008</span></div>
   <p><b>ตรวจสอบ:</b> ตัวเลขสรุปในหน้า Analytics Dashboard ตรงกับข้อมูลจริงใน database เมื่อกรองตามหมวดหมู่/ช่วงความมั่นใจ</p>
 </article>
@@ -718,7 +734,7 @@ pre.sample { background:#0f172a; color:#d1fae5; padding:12px 14px; border-radius
   <div class="dia-view" id="view-DIA-001"><span class="dia-loading">รอเรนเดอร์…</span></div>
   <script type="text/plantuml" id="src-text-DIA-001">
 @startuml 01-system-context
-title DIA-001 · System Context — Off Mai Tech Support Assistant (WF-001..WF-004)
+title DIA-001 · System Context — Off ML Project Tech Support Assistant (WF-001..WF-004)
 skinparam shadowing false
 skinparam componentStyle rectangle
 
@@ -814,7 +830,7 @@ actor "Tech Support\nAgent" as Tech
 actor "Admin" as Admin
 actor "AI CENTER\n(system)" as AI
 
-rectangle "Off Mai Tech Support Assistant" {
+rectangle "Off ML Project Tech Support Assistant" {
   usecase "UC-001\nส่งปัญหาทาง LINE" as UC1
   usecase "UC-002\nวิเคราะห์ข้อความลูกค้า" as UC2
   usecase "UC-003\nบันทึกเคสลง DB" as UC3

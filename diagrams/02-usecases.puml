@@ -8,7 +8,7 @@ actor "Tech Support\nAgent" as Tech
 actor "Admin" as Admin
 actor "AI CENTER\n(system)" as AI
 
-rectangle "Off Mai Tech Support Assistant" {
+rectangle "Off ML Project Tech Support Assistant" {
   usecase "UC-001\nส่งปัญหาทาง LINE" as UC1
   usecase "UC-002\nวิเคราะห์ข้อความลูกค้า" as UC2
   usecase "UC-003\nบันทึกเคสลง DB" as UC3
