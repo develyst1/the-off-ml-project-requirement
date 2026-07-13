@@ -13,17 +13,24 @@ AnalyzingSolution --> Resolved : UC-007/UC-008 บันทึกวิธีแ
 Resolved --> Sent : UC-009 ส่งคำตอบกลับลูกค้าทาง LINE
 Sent --> Closed : ลูกค้ายืนยันจบเคส
 
-state "AwaitingConfirmation\n(Planned)" as AwaitingConfirmation
+state "AwaitingConfirmation" as AwaitingConfirmation
+state "AutoAnswered" as AutoAnswered
 AwaitingTechSupport --> AwaitingConfirmation : UC-010/UC-011 ความมั่นใจ 90-100%\nถามยืนยัน solution ที่แนะนำ
 AwaitingConfirmation --> TechReplied : UC-012 Tech Support ยืนยัน "ใช่"\n(เพิ่มความมั่นใจให้ solution)
-AwaitingConfirmation --> AwaitingTechSupport : UC-012 Tech Support ตอบ "ไม่ใช่"\n(กลับไปวิเคราะห์ตามปกติ)
+AwaitingConfirmation --> AwaitingTechSupport : UC-012 Tech Support ตอบ "ไม่ใช่"\n(ลด confidence + วิเคราะห์ว่า AI เข้าใจ/แยกเคสผิดเพราะอะไร)
+AwaitingTechSupport --> AutoAnswered : UC-014 ผ่าน case_understanding_confidence\nและ case_discrimination_confidence
+AutoAnswered --> Sent : API-016 แจ้งทีมเสมอว่าตอบใคร/ตอบอะไร\nพร้อมปุ่มปิด auto-answer
 
 Closed --> [*]
 
 note right of AwaitingConfirmation
-  เมื่อความมั่นใจถึง 100% อย่างต่อเนื่อง
-  ทีมจะพิจารณาเปิดใช้ auto-answer/automation
-  (UC-014, Planned — ต้องคุยกับทีมก่อน)
+  คำตอบยืนยัน/ปฏิเสธของทีมใช้ฝึก
+  ความมั่นใจ 2 ชั้น ก่อนอนุญาต auto-answer
+end note
+
+note right of AutoAnswered
+  Auto-answer ไม่ต้องรอคุยทีมเมื่อผ่าน 2 gates
+  แต่ต้องแจ้งทีมทุกครั้ง และทีมต้องปิดได้ทันที
 end note
 
 @enduml

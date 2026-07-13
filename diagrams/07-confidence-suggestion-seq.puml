@@ -1,5 +1,5 @@
 @startuml 07-confidence-suggestion-seq
-title DIA-007 · Sequence — WF-004 Confidence-based Suggestion (Planned)
+title DIA-007 · Sequence — WF-004 Confidence-based Suggestion & Guarded Auto-answer
 skinparam shadowing false
 
 actor Customer
@@ -14,26 +14,28 @@ Customer -> LINE : แจ้งปัญหาใหม่
 LINE -> Backend : webhook (API-001)
 Backend -> AI : วิเคราะห์ข้อความ (API-002)
 Backend -> DB : **API-012** POST /ai/match-confidence\n(เทียบกับเคส/วิธีแก้ในอดีต)
-DB --> Backend : confidence_pct + matched_solution_id
+DB --> Backend : case_understanding_confidence\n+ case_discrimination_confidence\n+ matched_solution_id
 
-alt confidence_pct >= 90%
+alt ผ่าน threshold ทั้ง 2 เงื่อนไข
+  Backend -> LINE : auto-answer ลูกค้าด้วย solution ที่ผ่านเงื่อนไข
+  LINE -> Customer : ได้รับคำตอบอัตโนมัติ
+  Backend -> Teams : **API-016** POST /integrations/teams/auto-answer-log\nแจ้งว่าตอบใคร/ตอบอะไร/ใช้ solution ไหน\nพร้อมปุ่มปิด auto-answer
+  Teams -> Tech : เห็น audit log และปิด auto-answer ได้ทันที
+else ยังต้องยืนยันจากทีม
   Backend -> Teams : **API-013** POST /integrations/teams/confirm-suggestion\n"ลูกค้า X แจ้งว่า ... ผลวิเคราะห์ ... \nคาดว่าเคสนี้ตรงกับ solution นี้ใช่หรือไม่?"
   Teams -> Tech : เห็นคำถามยืนยัน
   Tech -> Teams : ตอบ "ใช่" / "ไม่ใช่"
   Teams -> Backend : webhook คำตอบยืนยัน
   alt Tech ตอบ "ใช่"
-    Backend -> DB : เพิ่ม confidence_score ให้ solution นี้
+    Backend -> DB : เพิ่ม case_understanding_confidence\nและ/หรือ case_discrimination_confidence
     note right of DB
-      ถ้าสะสมจน confidence = 100%
-      ทีมจะพิจารณา UC-014:
-      เปิดใช้ API / automate / auto-answer LINE
-      (ต้องคุยกับทีมก่อนเปิดใช้งานจริง)
+      เมื่อ confidence ทั้ง 2 ชั้นผ่าน threshold
+      ระบบ approve auto-answer ได้เลย
     end note
   else Tech ตอบ "ไม่ใช่"
+    Backend -> DB : ลด confidence + บันทึก learning note\nว่า AI เข้าใจ/แยกเคสผิดเพราะอะไร\nโดยอิงจากวิธีแก้จริงของ support
     Backend -> Teams : กลับเข้า flow ปกติ (WF-002)\nให้ทีมวิเคราะห์ตอบเองตามปกติ
   end
-else confidence_pct < 90%
-  Backend -> Teams : แจ้งเคสปกติ (WF-002) ไม่ถามยืนยัน
 end
 
 @enduml

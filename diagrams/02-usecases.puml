@@ -18,11 +18,11 @@ rectangle "Off Mai Tech Support Assistant" {
   usecase "UC-007\nบันทึกวิธีแก้/สถานะเคส" as UC7
   usecase "UC-008\nปรับข้อความให้เข้าใจง่าย" as UC8
   usecase "UC-009\nส่งคำตอบกลับลูกค้า LINE" as UC9
-  usecase "UC-010\nจับคู่ความมั่นใจกับเคสเดิม\n(Planned)" as UC10
-  usecase "UC-011\nถามยืนยัน solution ที่แนะนำ\n(Planned)" as UC11
-  usecase "UC-012\nยืนยัน/ปฏิเสธ + ปรับความมั่นใจ\n(Planned)" as UC12
+  usecase "UC-010\nจับคู่ความมั่นใจ 2 ชั้นกับเคสเดิม" as UC10
+  usecase "UC-011\nถามยืนยัน solution ที่แนะนำ" as UC11
+  usecase "UC-012\nยืนยัน/ปฏิเสธ + ปรับความมั่นใจ\nและเรียนรู้จากความผิดพลาด" as UC12
   usecase "UC-013\nดูภาพรวมสถิติเคส" as UC13
-  usecase "UC-014\nตัดสินใจเปิด auto-answer\n(Planned)" as UC14
+  usecase "UC-014\nauto-answer เมื่อผ่าน 2 เงื่อนไข\n+ แจ้งทีม/ปิดได้ทันที" as UC14
 }
 
 Customer --> UC1
@@ -47,6 +47,8 @@ UC10 ..> UC11 : <<include>>
 Tech --> UC12
 UC11 --> Tech
 UC12 ..> UC10 : <<extend>>\nเพิ่ม/ลดความมั่นใจ
+UC14 ..> UC10 : <<include>>\nผ่านความมั่นใจ 2 ชั้น
+UC14 ..> UC4 : <<include>>\nแจ้งทีมหลังตอบเสมอ
 
 Admin --> UC13
 Admin --> UC14

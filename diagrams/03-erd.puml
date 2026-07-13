@@ -66,14 +66,31 @@ entity "confidence_match" as confidence_match {
   --
   case_id : uuid <<FK>>
   matched_solution_id : uuid <<FK>>
+  case_understanding_confidence : decimal
+  case_discrimination_confidence : decimal
   confidence_pct : decimal
   tech_confirmed : boolean
+  rejection_reason : text
+  learning_note : text
   created_at : datetime
 }
 note right of confidence_match
-  Planned (WF-004) — populated once
-  historical case volume is sufficient
+  WF-004 — used for guarded auto-answer.
+  If Tech rejects a suggestion, store why
+  AI misunderstood or misclassified the case.
 end note
+
+entity "auto_answer_log" as auto_answer_log {
+  * id : uuid <<PK>>
+  --
+  case_id : uuid <<FK>>
+  solution_id : uuid <<FK>>
+  customer_id : uuid <<FK>>
+  outbound_message_id : uuid <<FK>>
+  teams_notification_id : string
+  disabled_after_send : boolean
+  created_at : datetime
+}
 
 customer ||--o{ case_ : "reports"
 case_ ||--o{ message : "has"
@@ -82,5 +99,8 @@ case_ ||--o{ solution : "resolved by"
 tech_agent ||--o{ solution : "authors"
 case_ ||--o{ confidence_match : "scored against"
 solution ||--o{ confidence_match : "referenced by"
+case_ ||--o{ auto_answer_log : "auto answered as"
+solution ||--o{ auto_answer_log : "used by"
+customer ||--o{ auto_answer_log : "notified for"
 
 @enduml

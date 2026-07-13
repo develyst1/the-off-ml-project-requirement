@@ -14,14 +14,15 @@
     <a class="chip wf" href="../requirement.html#WF-004">WF-004</a><span class="arrow-sm">→</span>
     <a class="chip uc" href="../requirement.html#UC-014">UC-014</a><span class="arrow-sm">→</span>
     <span class="chip scr active">SCR-005</span><span class="arrow-sm">→</span>
-    <a class="chip api" href="../requirement.html#API-015">API-015</a><span class="arrow-sm">→</span>
-    <span class="chip none">no TC yet</span>
+    <a class="chip api" href="../requirement.html#API-015">API-015</a>
+    <a class="chip api" href="../requirement.html#API-016">API-016</a><span class="arrow-sm">→</span>
+    <a class="chip tc" href="../requirement.html#TC-009">TC-009</a>
   </div>
 </header>
 
 <main class="wrap">
   <h1 class="screen-title">ตั้งค่าอัตโนมัติ (Automation Settings)</h1>
-  <p class="screen-sub"><span class="as-built">Planned — ต้องคุยกับทีมก่อนเปิดใช้จริง</span> เตรียมหน้าจอไว้สำหรับตัดสินใจเปิดใช้ API / automate / auto-answer LINE ในอนาคต</p>
+  <p class="screen-sub"><span class="as-built">Guarded auto-answer</span> เปิด auto-answer ได้เมื่อผ่านความมั่นใจ 2 ชั้น และทีมต้องเห็น log/ปิดระบบได้ทันที</p>
 
   <div class="device-frame">
     <div class="device-bar">
@@ -50,38 +51,47 @@
           </header>
           <div class="app-content">
             <div class="stack">
-              <div class="m-alert orange"><span class="ai">🚧</span>
-                หน้านี้ยังเป็น <b>Planned</b> — ทีมยังไม่ได้ตัดสินใจเปิดใช้งานจริง ตาม requirement ต้นฉบับ (DOC-001):
-                "เป็นสิ่งที่ต้องคุยกับทีมต่อว่าจะให้ต่อ API / automate / auto answer line ในอนาคต"
+              <div class="m-alert orange"><span class="ai">⚙️</span>
+                Auto-answer ใช้งานได้เมื่อผ่าน guardrail 2 ชั้น: ระบบต้องมั่นใจว่าเข้าใจเคสถูกต้อง และมั่นใจว่าแยกเคส/เลือก solution ถูกต้อง
+                หลังตอบอัตโนมัติทุกครั้งต้องแจ้งทีม Tech Support เสมอ พร้อมปุ่มปิดระบบทันทีเมื่อพบปัญหา
               </div>
 
               <div class="m-card">
                 <div class="m-title" style="margin-bottom:12px;">เกณฑ์ความมั่นใจสำหรับแต่ละระดับ</div>
                 <div class="m-grid2">
-                  <div class="m-field"><span class="m-label">เกณฑ์ถามยืนยันทีม (UC-011)</span><div class="m-input filled">90% – 100%</div></div>
-                  <div class="m-field"><span class="m-label">เกณฑ์พิจารณา auto-answer (UC-014)</span><div class="m-input filled">= 100% ต่อเนื่อง</div></div>
+                  <div class="m-field"><span class="m-label">เข้าใจเคสถูกต้อง (case_understanding_confidence)</span><div class="m-input filled">≥ 98%</div></div>
+                  <div class="m-field"><span class="m-label">แยกเคส/เลือก solution ถูกต้อง (case_discrimination_confidence)</span><div class="m-input filled">≥ 98%</div></div>
                 </div>
                 <div class="row" style="margin-top:16px;">
-                  <div class="m-switch off"></div>
-                  <div><b>เปิดใช้ auto-answer อัตโนมัติ</b><div class="m-xs m-muted">ปิดอยู่ — รอมติทีม Tech Support ก่อน</div></div>
+                  <div class="m-switch on"></div>
+                  <div><b>เปิดใช้ guarded auto-answer</b><div class="m-xs m-muted">ทำงานเฉพาะเคสที่ผ่าน threshold ทั้ง 2 เงื่อนไข</div></div>
                 </div>
               </div>
 
               <div class="m-card">
-                <div class="m-title" style="margin-bottom:10px;">เคสที่ความมั่นใจถึง 100% แล้ว รอมติทีม</div>
+                <div class="m-title" style="margin-bottom:10px;">Solution ที่ผ่าน guardrail และพร้อม auto-answer</div>
                 <table class="mk-table">
-                  <tr><th>หมวดหมู่เคส</th><th>จำนวนที่ยืนยันซ้ำแล้ว</th><th>วิธีแก้</th><th>สถานะ</th></tr>
-                  <tr><td>How-to · Export รายงาน Excel</td><td>12/12 ครั้ง</td><td>"ไปที่เมนู Report &gt; Export &gt; Excel"</td><td><span class="badge-pill green">พร้อมเสนอทีม</span></td></tr>
-                  <tr><td>Data Mismatch · Cache รายงาน</td><td>9/9 ครั้ง</td><td>"กด Sync Data แล้วรอ 1-2 นาที"</td><td><span class="badge-pill green">พร้อมเสนอทีม</span></td></tr>
+                  <tr><th>หมวดหมู่เคส</th><th>เข้าใจเคส</th><th>แยกเคส</th><th>วิธีแก้</th><th>สถานะ</th></tr>
+                  <tr><td>How-to · Export รายงาน Excel</td><td>99%</td><td>99%</td><td>"ไปที่เมนู Report &gt; Export &gt; Excel"</td><td><span class="badge-pill green">auto-answer ได้</span></td></tr>
+                  <tr><td>Data Mismatch · Cache รายงาน</td><td>98%</td><td>98%</td><td>"กด Sync Data แล้วรอ 1-2 นาที"</td><td><span class="badge-pill green">auto-answer ได้</span></td></tr>
                 </table>
                 <div class="m-actions">
-                  <button class="m-btn-light gray" disabled>รอมติทีม — ยังไม่เปิดใช้งาน</button>
+                  <button class="m-btn-light red">ปิด auto-answer ทันที</button>
                 </div>
               </div>
 
+              <div class="m-card">
+                <div class="m-title" style="margin-bottom:10px;">Auto-answer notification log</div>
+                <table class="mk-table">
+                  <tr><th>เวลา</th><th>ลูกค้า</th><th>ข้อความที่ตอบ</th><th>solution</th><th>Teams</th></tr>
+                  <tr><td>10:42</td><td>LINE: U928...</td><td>แนะนำเมนู Report &gt; Export &gt; Excel</td><td>SOL-104</td><td><span class="badge-pill green">แจ้งแล้ว</span></td></tr>
+                  <tr><td>10:51</td><td>LINE: U771...</td><td>ให้กด Sync Data แล้วรอ 1-2 นาที</td><td>SOL-221</td><td><span class="badge-pill green">แจ้งแล้ว</span></td></tr>
+                </table>
+              </div>
+
               <div class="note-box danger">
-                <b>กติกาหน้าจอนี้ (UC-014):</b> ห้ามเปิด auto-answer ให้ระบบตอบลูกค้าเองโดยอัตโนมัติจนกว่าทีมจะยืนยัน —
-                หน้านี้ใช้เก็บรายการที่ "พร้อม" เพื่อนำไปคุยกับทีมเท่านั้น ไม่ใช่สวิตช์เปิดใช้งานจริงในเฟสนี้
+                <b>กติกาหน้าจอนี้ (UC-014):</b> ระบบ auto-answer ได้เมื่อผ่านความมั่นใจ 2 ชั้นเท่านั้น และทุกการตอบต้องส่ง log เข้า MS Teams เสมอ
+                หากทีมเห็นว่ามีปัญหา ต้องปิด auto-answer ได้ทันทีจากปุ่มหรือคำสั่งใน Teams
               </div>
             </div>
           </div>

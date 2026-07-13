@@ -14,7 +14,8 @@ package "the-off-ml-project-back\n(Bun + TypeScript + Hono)" {
   [Webhook Handlers\nAPI-001 / API-005] as Webhooks
   [Case Service\nAPI-003 / API-007 / API-010 / API-011] as CaseSvc
   [Analytics Service\nAPI-014] as Analytics
-  [Automation Settings\nAPI-015 (Planned)] as Automation
+  [Automation Settings\nAPI-015] as Automation
+  [Auto-answer Audit Notify\nAPI-016] as AutoNotify
   database "Database\n(Cases / Messages / Analyses / Solutions)" as DB
 }
 
@@ -23,7 +24,7 @@ package "the-off-ml-project-front\n(Next.js + TypeScript + Mantine)" {
   [Case Detail\nSCR-002] as ScrDetail
   [Confidence Review\nSCR-003] as ScrConfidence
   [Analytics Dashboard\nSCR-004] as ScrAnalytics
-  [Automation Settings\nSCR-005 (Planned)] as ScrSettings
+  [Automation Settings\nSCR-005] as ScrSettings
 }
 
 package "develyst-ai (bruno)\nAPI AI CENTER" {
@@ -49,8 +50,11 @@ Webhooks --> CaseSvc : บันทึกวิธีแก้ (API-007)
 CaseSvc --> LINE : ส่งคำตอบกลับลูกค้า (API-009)
 LINE --> Customer : ได้รับคำตอบ
 
-CaseSvc --> AiChat : จับคู่ความมั่นใจกับเคสเดิม (API-012, Planned)
-CaseSvc --> Teams : ถามยืนยัน solution ที่แนะนำ (API-013, Planned)
+CaseSvc --> AiChat : จับคู่ความมั่นใจ 2 ชั้นกับเคสเดิม (API-012)
+CaseSvc --> Teams : ถามยืนยัน solution ที่แนะนำ (API-013)
+CaseSvc --> LINE : auto-answer เมื่อผ่าน 2 confidence gates
+CaseSvc --> AutoNotify : แจ้งทีมทุกครั้งหลัง auto-answer
+AutoNotify --> Teams : ตอบใคร/ตอบอะไร/solution ไหน + ปุ่มปิด auto-answer
 
 Admin --> ScrAnalytics
 Admin --> ScrSettings
