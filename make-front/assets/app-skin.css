@@ -67,6 +67,10 @@
   width: 32px; height: 32px; border-radius: 10px; flex: none;
   display: flex; align-items: center; justify-content: center; color: var(--d500);
 }
+.svg-icon { width: 18px; height: 18px; display: inline-block; vertical-align: middle; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.title-icon { color: var(--d500); display: inline-flex; align-items: center; margin-right: 6px; }
+.icon-btn .svg-icon, .ico .svg-icon, .tile .svg-icon { width: 18px; height: 18px; }
+.comments-panel h2 .svg-icon, .btn .svg-icon, .back .svg-icon { margin-right: 6px; }
 .app-nav a:hover { background: var(--d100); }
 .app-nav a.active { background: rgba(34,139,230,.10); color: var(--m-primary); font-weight: 600; }
 .app-nav a.active .ico { background: rgba(34,139,230,.15); color: var(--m-primary); }
@@ -122,6 +126,13 @@
 .m-btn-light.orange { background: rgba(232,162,61,.16); color: #b26a00; }
 .m-btn-light.red { background: rgba(224,49,49,.12); color: #c92a2a; }
 .m-btn-light.gray { background: var(--d100); color: var(--d600); }
+.m-btn-danger {
+  background: var(--m-danger);
+  color: #fff;
+  border: 1px solid var(--m-danger);
+  box-shadow: 0 8px 18px rgba(224,49,49,.22);
+}
+.m-btn-danger:hover { background: #c92a2a; }
 .m-btn-subtle { background: transparent; color: var(--d600); }
 .m-btn-subtle:hover { background: var(--d100); }
 .m-btn.sm { padding: 6px 12px; font-size: .8em; }
@@ -204,6 +215,13 @@
 .m-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .m-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
 .m-actions.split { justify-content: space-between; }
+.automation-control {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 14px; border: 1px solid rgba(224,49,49,.22);
+  border-radius: 12px; background: #fff5f5; margin-top: 16px;
+}
+.automation-control .copy { min-width: 0; }
+.automation-control .copy b { display: block; color: #991b1b; }
 
 /* Alert */
 .m-alert { border-radius: 10px; padding: 12px 14px; font-size: .84em; display: flex; gap: 10px; }
