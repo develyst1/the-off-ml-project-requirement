@@ -20,8 +20,8 @@
 </header>
 
 <main class="wrap">
-  <h1 class="screen-title">ยืนยันคำแนะนำของ AI (Confidence Suggestion Review)</h1>
-  <p class="screen-sub"><span class="as-built">Planned — future phase (WF-004)</span> ใช้เมื่อข้อมูลเคสสะสมมากพอ ระบบจับคู่เคสใหม่กับวิธีแก้เดิม แล้วให้ทีมยืนยัน</p>
+  <h1 class="screen-title">Confidence Review</h1>
+  <p class="screen-sub"><span class="as-built">อ้างอิง UI frontend จริง</span> หน้า Confidence Review แสดงรายการคำแนะนำของ AI ที่ต้องให้ทีมยืนยัน พร้อม confidence 2 ค่าและปุ่มตัดสินใจ</p>
 
   <div class="device-frame">
     <div class="device-bar">
@@ -51,49 +51,70 @@
           </header>
           <div class="app-content">
             <div class="stack">
-              <div class="m-alert orange"><span class="ai"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 3a4 4 0 0 0-4 4 4 4 0 0 0 0 8 4 4 0 0 0 4 4"/><path d="M15 3a4 4 0 0 1 4 4 4 4 0 0 1 0 8 4 4 0 0 1-4 4"/><path d="M9 3v16M15 3v16M9 8h6M9 13h6"/></svg></span>
-                ระบบพบว่าเคสนี้มีความคล้ายกับเคสเก่าที่เคยแก้แล้ว <b>สูงถึง 96%</b> จึงขอให้ทีมช่วยยืนยันก่อนนำไปใช้จริง
-                (เกณฑ์: ถามยืนยันเมื่อความมั่นใจ ≥ 90%)
+              <div class="m-alert blue"><span class="ai"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 3a4 4 0 0 0-4 4 4 4 0 0 0 0 8 4 4 0 0 0 4 4"/><path d="M15 3a4 4 0 0 1 4 4 4 4 0 0 1 0 8 4 4 0 0 1-4 4"/><path d="M9 3v16M15 3v16M9 8h6M9 13h6"/></svg></span>
+                ทีม Tech Support ใช้หน้านี้ตอบว่าเคสที่ AI แนะนำตรงกับ solution เดิมหรือไม่ เพื่อเพิ่ม/ลดความมั่นใจในการเข้าใจเคสและการแยกแยะเคส
               </div>
 
               <div class="m-card">
-                <div class="between">
-                  <span class="m-title">CASE-2051 · คุณวรรณา พลอยงาม</span>
-                  <div class="ring" style="width:64px;height:64px;">
-                    <svg width="64" height="64" viewBox="0 0 64 64">
-                      <circle cx="32" cy="32" r="27" fill="none" stroke="#e2e8f0" stroke-width="7"/>
-                      <circle cx="32" cy="32" r="27" fill="none" stroke="#2f9e44" stroke-width="7" stroke-dasharray="169.6" stroke-dashoffset="6.8" stroke-linecap="round" transform="rotate(-90 32 32)"/>
-                    </svg>
-                    <div class="rc"><div class="big">96%</div><div class="sm">มั่นใจ</div></div>
-                  </div>
-                </div>
-                <div class="m-grid2" style="margin-top:12px;">
+                <div class="between" style="align-items:flex-start;">
                   <div>
-                    <span class="m-label">ข้อความลูกค้าแจ้งมา</span>
-                    <div class="m-input filled" style="height:auto;">"ยอดเงินในรายงานไม่ตรงกับหน้าแดชบอร์ดค่ะ"</div>
+                    <div class="m-title">CASE-2050 · คุณวรรณา พลอยงาม</div>
+                    <div class="m-muted" style="margin-top:4px;">ยอดเงินในรายงานไม่ตรงกับหน้าแดชบอร์ดค่ะ</div>
                   </div>
-                  <div>
-                    <span class="m-label">solution เดิมที่คาดว่าตรงกัน (CASE-1832)</span>
-                    <div class="m-input filled" style="height:auto;">"เกิดจาก cache รายงานยังไม่ refresh ให้กด Sync Data มุมขวาบนแล้วรอ 1-2 นาที"</div>
+                  <span class="badge-pill blue">Data Mismatch</span>
+                </div>
+                <div class="m-grid2" style="margin-top:14px;">
+                  <div class="m-input filled" style="height:auto;display:block;">
+                    <span class="m-label">Solution ที่ AI แนะนำ</span>
+                    กด Sync Data แล้วรอ 1-2 นาที จากนั้นรีเฟรชแดชบอร์ด
+                    <div class="m-xs m-muted" style="margin-top:6px;">อ้างอิง SOL-221</div>
+                  </div>
+                  <div class="stack" style="gap:10px;">
+                    <div>
+                      <div class="between"><span class="m-sm">เข้าใจเคสถูกต้อง</span><b class="m-sm">96%</b></div>
+                      <div class="m-bar"><span class="blue" style="width:96%;"></span></div>
+                    </div>
+                    <div>
+                      <div class="between"><span class="m-sm">แยกเคส/เลือก solution ถูกต้อง</span><b class="m-sm">92%</b></div>
+                      <div class="m-bar"><span class="blue" style="width:92%;"></span></div>
+                    </div>
                   </div>
                 </div>
-                <div class="m-card" style="background:var(--d100);border:none;margin-top:14px;">
-                  <b>คำถามยืนยันที่ระบบจะส่งในห้อง MS Teams:</b>
-                  <div class="m-xs" style="margin-top:6px;">
-                    "ลูกค้า วรรณา พลอยงาม แจ้งว่า: ยอดเงินในรายงานไม่ตรงกับหน้าแดชบอร์ด ระบบวิเคราะห์แล้วคาดว่า
-                    <b>เคสนี้ใช่เคสที่ต้องแก้โดย solution นี้ หรือไม่?</b> (อ้างอิงจาก CASE-1832)"
-                  </div>
-                </div>
-                <div class="m-actions" style="margin-top:16px;">
-                  <button class="m-btn-light red">✕ ไม่ใช่ ให้วิเคราะห์ใหม่</button>
-                  <button class="m-btn">✓ ใช่ ยืนยัน solution นี้</button>
+                <div class="m-actions">
+                  <button class="m-btn-light red">ไม่ใช่</button>
+                  <button class="m-btn">ใช่ ใช้วิธีนี้</button>
                 </div>
               </div>
 
-              <div class="note-box info">
-                <b>กติกาหน้าจอนี้ (UC-010/UC-011/UC-012):</b> ถ้าทีมกด "ใช่" ระบบจะ<b>เพิ่มความมั่นใจ</b>ให้ solution นี้
-                สำหรับเคสแนวเดียวกันในอนาคต หากสะสมจนความมั่นใจถึง <b>100%</b> จะถูกบันทึกเป็นรายการที่ต้องคุยกับทีมต่อว่า
-                จะเปิดใช้ API / automate / auto-answer LINE หรือไม่ (UC-014, ดู SCR-005)
+              <div class="m-card">
+                <div class="between" style="align-items:flex-start;">
+                  <div>
+                    <div class="m-title">CASE-2051 · คุณธนกร ศรีสุข</div>
+                    <div class="m-muted" style="margin-top:4px;">ขอวิธี export รายงานเป็น Excel หน่อยครับ</div>
+                  </div>
+                  <span class="badge-pill blue">How-to</span>
+                </div>
+                <div class="m-grid2" style="margin-top:14px;">
+                  <div class="m-input filled" style="height:auto;display:block;">
+                    <span class="m-label">Solution ที่ AI แนะนำ</span>
+                    ไปที่เมนู Report &gt; Export &gt; Excel
+                    <div class="m-xs m-muted" style="margin-top:6px;">อ้างอิง SOL-104</div>
+                  </div>
+                  <div class="stack" style="gap:10px;">
+                    <div>
+                      <div class="between"><span class="m-sm">เข้าใจเคสถูกต้อง</span><b class="m-sm">100%</b></div>
+                      <div class="m-bar"><span class="blue" style="width:100%;"></span></div>
+                    </div>
+                    <div>
+                      <div class="between"><span class="m-sm">แยกเคส/เลือก solution ถูกต้อง</span><b class="m-sm">100%</b></div>
+                      <div class="m-bar"><span class="blue" style="width:100%;"></span></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="m-actions">
+                  <button class="m-btn-light red">ไม่ใช่</button>
+                  <button class="m-btn">ใช่ ใช้วิธีนี้</button>
+                </div>
               </div>
             </div>
           </div>
